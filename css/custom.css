@@ -114,7 +114,7 @@ li a
     font-size: 49px;
     font-family: 'Roboto', sans-serif;
     padding-top: 58px;
-    /* text-transform: uppercase; */
+    text-transform: uppercase;
 }
 
 #heading-text p {
