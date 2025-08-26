@@ -607,7 +607,7 @@ a
 }
 #blog .post h2.title a {
     color: rgb(32, 178, 170);
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-weight: bold;
     text-shadow: 0 1px 1px #f7f7f6;
     font-family: 'Dosis', sans-serif;
@@ -986,7 +986,7 @@ form
     
     #price_table li strong {
         font-size:19px;
-        text-transform:uppercase;
+        /* text-transform:uppercase; */
         font-family: Raleway;
         color: #2F3740;
         letter-spacing:2.4px;
@@ -1017,7 +1017,7 @@ form
 }
     #price_table .price_table-button {
         font-size:19px;
-        text-transform:uppercase;
+        /* text-transform:uppercase; */
         font-family: 'Roboto', sans-serif;
         color:#2F3740;
         text-decoration:none;
