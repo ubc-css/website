@@ -80,7 +80,7 @@ jQuery(window).smartresize(function() {
 
 $(document).ready(function(){
     new WOW().init();
-		$("#client-speech").owlCarousel
+		$(".carousel").owlCarousel
 		({
 			autoPlay: 3000,
 			navigation : false, // Show next and prev buttons
