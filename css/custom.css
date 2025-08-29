@@ -188,24 +188,8 @@ iframe
     background-size: cover;
 
     
-    height: 500px;       /* set exact height */
-    display: flex;       /* optional: center contents */
-    align-items: center; /* optional: vertically center contents */
-    justify-content: center;
-}
-
-/* Tablet screens */
-@media (max-width: 992px) {
-    #wrapper {
-        height: 220px;   /* shrink for tablets */
-    }
-}
-
-/* Mobile screens */
-@media (max-width: 576px) {
-    #wrapper {
-        height: 150px;   /* smaller banner on phones */
-    }
+    min-height: 200px;   /* minimum height */
+    padding: 40px 0;     /* spacing inside */
 }
 
 #overlay-1
