@@ -188,7 +188,7 @@ iframe
     background-size: cover;
 
     
-    height: 300px;       /* set exact height */
+    height: 500px;       /* set exact height */
     display: flex;       /* optional: center contents */
     align-items: center; /* optional: vertically center contents */
     justify-content: center;
