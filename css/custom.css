@@ -189,7 +189,7 @@ iframe
 }
 #overlay-1
 {
-    background-color: rgba(40, 40, 40, 0.6);
+    /* background-color: rgba(40, 40, 40, 0.6); */
     position: relative;
 }
 
@@ -201,7 +201,7 @@ iframe
     letter-spacing: 2px;
 }
 .rene {
-    font-size: 120px;
+    font-size: 100px;
     color: white;
     font-family: "omnes-pro", "Helvetica", sans-serif;
     font-weight: 300;
