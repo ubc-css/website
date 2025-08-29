@@ -186,6 +186,12 @@ iframe
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+
+    
+    height: 500px;       /* set exact height */
+    display: flex;       /* optional: center contents */
+    align-items: center; /* optional: vertically center contents */
+    justify-content: center;
 }
 #overlay-1
 {
