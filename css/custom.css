@@ -186,10 +186,6 @@ iframe
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
-
-    
-    min-height: 200px;   /* minimum height */
-    padding: 40px 0;     /* spacing inside */
 }
 
 #overlay-1
