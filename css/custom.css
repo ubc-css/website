@@ -188,7 +188,6 @@ iframe
     background-size: cover;
 
     height: 600px;    /* banner won’t shrink smaller than this */
-    display: flex;
     align-items: center;  /* vertically center text/logo */
     justify-content: center;
     text-align: center
