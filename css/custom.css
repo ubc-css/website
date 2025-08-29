@@ -23,12 +23,12 @@ a:hover {
 
 .btn {
     border-radius: 0;
-    transition: background 0.5s cubic-bezier(.17,.67,.83,.67);
+    transition: background-color 0.5s cubic-bezier(.17,.67,.83,.67);
 }
 
 .navbar-white {
     background-color: #fff !important;
-    transition: background 0.5s ease-out;
+    transition: background-color 0.5s ease-out;
 
 }
 
