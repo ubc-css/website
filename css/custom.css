@@ -184,7 +184,7 @@ iframe
 {
     background: url(../img/background.jpg);
     background-attachment: fixed;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
 
     height: 600px;    /* banner won’t shrink smaller than this */
