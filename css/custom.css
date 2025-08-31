@@ -258,6 +258,11 @@ iframe
     text-shadow: 1px 1px 1px #000;
     letter-spacing: 2px;
 }
+@media (max-width: 768px) {
+    .starting-text-2 {
+        padding: 80px 0px;
+    }
+}
 .rene-2 {
     font-size: 75px;
     color: white;
