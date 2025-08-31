@@ -204,7 +204,7 @@ iframe
     background: url(../img/background-thin.jpg) no-repeat center center;
     background-attachment: fixed;
     /* background-position: center center; */
-    background-size: cover;
+    background-size: auto;
 
     height: 350px;   
     align-items: center; 
