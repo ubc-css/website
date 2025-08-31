@@ -92,6 +92,13 @@ p {
     line-height: 31px;
 }
 
+.button {
+    font-size: 20px;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
+    line-height: 31px;
+}
+
 .row
 {
     margin-right: 0px;
@@ -371,7 +378,7 @@ hr
 }
 #team .team-members h4
 {
-    font-size: 25px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 5px;
 }
