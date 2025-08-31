@@ -203,6 +203,13 @@ iframe
     text-align: center
 }
 
+@media (max-width: 768px) {
+    #wrapper {
+        background-size: contain;   /* fit inside container */
+        background-attachment: scroll; /* disable fixed on mobile (better perf) */
+    }
+}
+
 #wrapper-2
 {
     background: url(../img/background-thin.jpg);
@@ -214,6 +221,13 @@ iframe
     align-items: center; 
     justify-content: center;
     text-align: center
+}
+
+@media (max-width: 768px) {
+    #wrapper-2 {
+        background-size: contain;   /* fit inside container */
+        background-attachment: scroll; /* disable fixed on mobile (better perf) */
+    }
 }
 
 #overlay-1
