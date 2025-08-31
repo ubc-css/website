@@ -193,7 +193,7 @@ iframe
     background-position: center center;
     background-size: auto 100%;
 
-    height: 750px;    /* banner won’t shrink smaller than this */
+    height: 750px; 
     align-items: center;  /* vertically center text/logo */
     justify-content: center;
     text-align: center
@@ -203,10 +203,11 @@ iframe
 {
     background: url(../img/background-thin.jpg);
     background-attachment: fixed;
-    background-position: center;
+    background-position: center center;
     background-size: cover;
 
-    height: 350px;    /* banner won’t shrink smaller than this */
+    height: 350px;   
+    display: flex;
     align-items: center;  /* vertically center text/logo */
     justify-content: center;
     text-align: center
