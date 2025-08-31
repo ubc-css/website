@@ -204,7 +204,7 @@ iframe
     background: url(../img/background-thin.jpg);
     background-attachment: fixed;
     background-position: center center;
-    background-size: auto 100%;
+    background-size: auto;
 
     height: 350px;   
     align-items: center;  /* vertically center text/logo */
