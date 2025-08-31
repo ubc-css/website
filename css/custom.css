@@ -232,6 +232,14 @@ iframe
     font-weight: 400;
     margin-top: 75px;
 }
+.rene-2 {
+    font-size: 75px;
+    color: white;
+    font-family: "omnes-pro", "Helvetica", sans-serif;
+    font-weight: 400;
+    margin-top: 75px;
+    text-transform: uppercase;
+}
 
 .starting-text h2 {
     font-family: "omnes-pro", "Helvetica", sans-serif;
