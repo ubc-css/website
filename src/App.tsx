@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import Cursor from './Cursor'
+import logo from './assets/robbie-icon-black.png'
 
 import './App.css'
 
@@ -22,10 +23,11 @@ function App() {
         <main className="site-shell" ref={shellRef} onPointerMove={handlePointerMove}> {/*onPointerMove={handlePointerMove}*/}
             <Cursor />
             <header className="site-header">
-                <div className="brand-lockup">
-                    <span className="brand-mark">CSS</span>
-                    <span className="brand-subtitle">UBC Cognitive Systems Society</span>
-                </div>
+
+                <a href="/" className="brand-logo-link" aria-label="UBC CSS home">
+                    <img src={logo} alt="UBC CSS logo" className="brand-logo" />
+                </a>
+
                 <nav className="site-nav">
                     <a href="home">Home</a>
                     <a href="#events">Events</a>
@@ -88,7 +90,7 @@ function App() {
                                     <ellipse className="mascot-eye" cx="170" cy="205" rx="9" ry="13" transform="rotate(-8 180 205)" />
                                 </svg>
                             </div>
-                            <div className="mascot-badge">ROBBIE, THE UBC CSS MASCOT</div>
+                            <div className="mascot-badge">MEET ROBBIE, THE CSS MASCOT</div>
                         </div>
                     </div>
                 </div>
