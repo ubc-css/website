@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
+import './MobileNav.css'
 
 interface MobileNavProps {
   children: React.ReactNode

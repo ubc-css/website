@@ -22,6 +22,9 @@
   --color-gray: #8f8f92;
   --color-black: #0b0b0c;
   --accent-border: #d9b4d2;
+  --color-dark-plum: #542141;
+  --color-ink-black: #0f060b;
+  --color-pastel-pink: #e2b6d2;
 }
 
 * {
@@ -69,4 +72,10 @@ h3 {
 
 p {
   margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }

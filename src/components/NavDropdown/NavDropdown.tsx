@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
+import './NavDropdown.css'
 
 interface NavDropdownProps {
     label: string
     items: { label: string; href: string }[]
+    isOpen: boolean
+    onToggle: () => void
 }
 
-function NavDropdown({ label, items }: NavDropdownProps) {
-    const [isOpen, setIsOpen] = useState(false)
+function NavDropdown({ label, items, isOpen, onToggle }: NavDropdownProps) {
     const [supportsHover, setSupportsHover] = useState(true)
 
     useEffect(() => {
@@ -15,7 +17,7 @@ function NavDropdown({ label, items }: NavDropdownProps) {
 
     const handleClick = (event: React.MouseEvent) => {
         event.stopPropagation()
-        setIsOpen((prev) => !prev)
+        onToggle()
     }
 
     return (

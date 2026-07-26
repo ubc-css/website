@@ -1,0 +1,364 @@
+.folder-preview {
+    --dir: 1;
+    --tilt: -3deg;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(16px, 2.5vw, 32px) 22px;
+}
+
+.folder-preview.align-right {
+    --dir: -1;
+}
+
+.folder-preview:nth-of-type(1) {
+    --tilt: -4deg;
+}
+
+.folder-preview:nth-of-type(2) {
+    --tilt: 5deg;
+}
+
+.folder-preview:nth-of-type(3) {
+    --tilt: -5deg;
+}
+
+.folder-preview:nth-of-type(4) {
+    --tilt: 4deg;
+}
+
+.folder-preview:nth-of-type(1) .folder {
+    --folder-accent: var(--color-gray-blue);
+}
+
+.folder-preview:nth-of-type(2) .folder {
+    --folder-accent: var(--color-dark-plum);
+}
+
+.folder-preview:nth-of-type(3) .folder {
+    --folder-accent: var(--color-ink-black);
+}
+
+.folder-preview:nth-of-type(4) .folder {
+    --folder-accent: var(--color-pastel-pink);
+}
+
+/* The folder and its photos share one coordinate space so the photos can start
+   tucked exactly behind the folder and travel out from underneath it. */
+.folder-stage {
+    position: relative;
+    min-height: clamp(600px, 48vw, 820px);
+}
+
+/* ---- Folder ---- */
+/* Sized comfortably larger than the packed (scaled-down) photo group behind it,
+   so all 3 photos stay fully hidden until the scroll reveal moves them clear. */
+.folder {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: clamp(340px, 34vw, 500px);
+    min-height: clamp(260px, 20vw, 340px);
+    padding: clamp(28px, 3vw, 40px) clamp(26px, 3vw, 36px) clamp(26px, 3vw, 32px);
+    border-radius: 6px 26px 26px 26px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 244, 0.97));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 24px 54px rgba(11, 11, 12, 0.14);
+    opacity: 0;
+    transform: translateY(calc(-50% + 24px)) rotate(var(--tilt));
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.folder-preview.align-left .folder {
+    left: 0;
+}
+
+.folder-preview.align-right .folder {
+    right: 0;
+}
+
+.folder-preview.is-visible .folder {
+    opacity: 1;
+    transform: translateY(-50%) rotate(var(--tilt));
+}
+
+.folder-tab {
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    width: 104px;
+    height: 22px;
+    border-radius: 10px 10px 0 0;
+    background: var(--folder-accent, var(--color-gray-blue));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    border-bottom: none;
+}
+
+.folder-body h3 {
+    margin: 0 0 12px;
+    color: var(--color-black);
+    font-size: clamp(1.5rem, 2vw, 1.85rem);
+    line-height: 1.15;
+}
+
+.folder-body p {
+    color: rgba(11, 11, 12, 0.75);
+    line-height: 1.65;
+    font-size: clamp(1rem, 1vw, 1.08rem);
+    max-width: 34rem;
+}
+
+.folder-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    color: var(--color-black);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 200ms ease;
+}
+
+.folder-link-arrow {
+    transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 200ms ease;
+}
+
+.folder-link:hover,
+.folder-link:focus-visible {
+    color: var(--color-gray-blue);
+}
+
+.folder-link:hover .folder-link-arrow,
+.folder-link:focus-visible .folder-link-arrow {
+    transform: translateX(10px);
+    text-shadow: 0 0 6px var(--color-gray-blue), 0 0 16px var(--color-gray-blue);
+}
+
+/* ---- Photos ---- */
+
+.photos-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.photo-slot {
+    position: absolute;
+    top: 50%;
+    width: clamp(170px, 20vw, 260px);
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(11, 11, 12, 0.55);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(242, 242, 244, 0.94));
+    border: 1px dashed rgba(11, 11, 12, 0.2);
+    box-shadow: 0 18px 38px rgba(11, 11, 12, 0.14);
+    opacity: 0;
+    transition: opacity 1000ms ease, transform 1800ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.folder-preview.align-left .photo-slot {
+    left: 0;
+    transform: translateY(-50%) scale(0.4);
+}
+
+.folder-preview.align-right .photo-slot {
+    right: 0;
+    transform: translateY(-50%) scale(0.4);
+}
+
+/* fx is deliberately larger than the folder's max width (500px) so every photo
+   fully clears the folder instead of staying hidden behind it once "popped". */
+.photo-slot:nth-child(1) {
+    --fx: clamp(480px, 44vw, 640px);
+    --fy: clamp(-220px, -16vw, -150px);
+    --fr: -16deg;
+    transition-delay: 0ms;
+}
+
+.photo-slot:nth-child(2) {
+    --fx: clamp(680px, 58vw, 880px);
+    --fy: clamp(-10px, 1vw, 30px);
+    --fr: 10deg;
+    transition-delay: 300ms;
+}
+
+.photo-slot:nth-child(3) {
+    --fx: clamp(560px, 50vw, 740px);
+    --fy: clamp(190px, 16vw, 240px);
+    --fr: 20deg;
+    transition-delay: 600ms;
+}
+
+/* Desktop with a real pointer: photos pop out on hover instead of on scroll. */
+@media (min-width: 981px) and (hover: hover) and (pointer: fine) {
+    .folder-stage:hover .photo-slot {
+        opacity: 1;
+        transform:
+            translate(calc(var(--dir) * var(--fx)), calc(-50% + var(--fy)))
+            rotate(calc(var(--dir) * var(--fr)))
+            scale(1);
+    }
+}
+
+/* Desktop-sized layout on a touchscreen (large tablet, touch laptop, etc.) can't
+   hover, so it keeps the scroll reveal instead — same desktop fx/fy/fr values and
+   left/right anchoring, just triggered by scroll visibility rather than :hover. */
+@media (min-width: 981px) and (hover: none) {
+    .folder-preview.is-visible .photo-slot {
+        opacity: 1;
+        transform:
+            translate(calc(var(--dir) * var(--fx)), calc(-50% + var(--fy)))
+            rotate(calc(var(--dir) * var(--fr)))
+            scale(1);
+    }
+}
+
+/* ---- Hover hint ---- */
+/* Only shown where the hover interaction actually exists; hidden everywhere else
+   (mobile, touch-desktop) since those reveal on scroll with no action needed. */
+.hover-hint {
+    display: none;
+}
+
+@media (min-width: 981px) and (hover: hover) and (pointer: fine) {
+    .hover-hint {
+        display: inline-flex;
+        position: absolute;
+        bottom: -16px;
+        right: 28px;
+        z-index: 3;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(208, 208, 208, 0.5);
+        color: #000000;
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 400ms ease, transform 400ms ease;
+        pointer-events: none;
+    }
+
+    .folder-preview.is-visible .hover-hint {
+        opacity: 1;
+        transform: translateY(0);
+        animation: hoverHintPulse 2.2s ease-in-out infinite;
+    }
+
+    .folder-stage:hover .hover-hint {
+        opacity: 0;
+    }
+}
+
+@keyframes hoverHintPulse {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-3px) scale(1.05);
+    }
+}
+
+/* ---- Mobile: folder sits at the top, photos fall out of the bottom ---- */
+
+@media (max-width: 980px) {
+    .folder-preview {
+        padding: clamp(36px, 6vw, 72px) 22px;
+    }
+
+    .folder-stage {
+        min-height: clamp(800px, 210vw, 920px);
+    }
+
+    .folder {
+        width: min(88vw, 380px);
+        padding: 26px 24px 24px;
+        transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .folder-preview.align-left .folder,
+    .folder-preview.align-right .folder {
+        left: 50%;
+        right: auto;
+        top: 0;
+        transform: translateX(-50%) translateY(24px) rotate(var(--tilt));
+    }
+
+    .folder-preview.is-visible .folder {
+        transform: translateX(-50%) translateY(0) rotate(var(--tilt));
+    }
+
+    .photo-slot {
+        width: clamp(140px, 34vw, 190px);
+    }
+
+    .folder-preview.align-left .photo-slot,
+    .folder-preview.align-right .photo-slot {
+        left: 50%;
+        right: auto;
+        top: 0;
+        transform: translateX(-50%) scale(0.4);
+    }
+
+    /* fy-m is deliberately larger than the folder's rendered height (~290px) so
+       every photo fully clears the folder instead of staying hidden behind it. */
+    .photo-slot:nth-child(1) {
+        --fx-m: 36px;
+        --fy-m: clamp(320px, 74vw, 360px);
+    }
+
+    .photo-slot:nth-child(2) {
+        --fx-m: -54px;
+        --fy-m: clamp(440px, 100vw, 500px);
+    }
+
+    .photo-slot:nth-child(3) {
+        --fx-m: 60px;
+        --fy-m: clamp(560px, 126vw, 620px);
+    }
+
+    .folder-preview.is-visible .photo-slot {
+        opacity: 1;
+        transform:
+            translate(calc(-50% + var(--dir) * var(--fx-m)), var(--fy-m))
+            rotate(calc(var(--dir) * var(--fr)))
+            scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* The folder's scroll entrance is always automatic motion, so it's disabled
+       unconditionally. The photo pop-out is disabled by default too, since most
+       contexts (mobile, and desktop-sized touchscreens) trigger it on scroll —
+       automatic motion the same way. It's re-enabled below specifically for the
+       one context where it's a deliberate, user-initiated hover interaction. */
+    .folder,
+    .photo-slot {
+        transition: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 981px) and (hover: hover) and (pointer: fine) {
+    .photo-slot {
+        transition: opacity 1000ms ease, transform 1800ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+}

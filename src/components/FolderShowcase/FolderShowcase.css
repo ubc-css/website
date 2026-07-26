@@ -1,0 +1,8 @@
+.folder-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-block: clamp(20px, 5vw, 48px) 60px;
+    position: relative;
+    z-index: 1;
+}

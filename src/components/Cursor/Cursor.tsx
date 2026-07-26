@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import './Cursor.css'
 
 function Cursor() {
     const dotRef = useRef<HTMLDivElement | null>(null)
