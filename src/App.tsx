@@ -1,5 +1,7 @@
 import { useRef } from 'react'
 import Cursor from './Cursor'
+import NavDropdown from './NavDropdown'
+import MobileNav from './MobileNav'
 import logo from './assets/robbie-icon-black.png'
 
 import './App.css'
@@ -19,8 +21,46 @@ function App() {
         element.style.setProperty('--pointer-y', `${y}%`)
     }
 
+    const navContent = (
+        <>
+        <a href="home">Home</a>
+            <NavDropdown
+                label="Events"
+                items={[
+                    { label: 'Upcoming', href: '#upcoming' },
+                    { label: 'Past Events', href: '#past' },
+                ]}
+            />
+             <NavDropdown
+                label="Merch"
+                items={[
+                    { label: 'Clothing', href: '#clothing' },
+                    { label: 'Accessories', href: '#accessories' },
+                ]}
+            />
+             <NavDropdown
+                label="Resources"
+                items={[
+                    { label: 'Degree Planning', href: '#degree' },
+                    { label: 'Career', href: '#career' },
+                    { label: 'Podcast', href: '#podcast' },
+                ]}
+            />
+             <NavDropdown
+                label="About"
+                items={[
+                    { label: 'Our Team', href: '#team' },
+                    { label: 'Our Mission', href: '#mission' },
+                    { label: 'Contact', href: '#contact' },
+                ]}
+            />
+            <a href="#join" className="nav-cta">Become A Member</a>
+        </>
+    )
+
+
     return (
-        <main className="site-shell" ref={shellRef} onPointerMove={handlePointerMove}> {/*onPointerMove={handlePointerMove}*/}
+        <main className="site-shell" ref={shellRef} onPointerMove={handlePointerMove}>
             <Cursor />
             <header className="site-header">
 
@@ -28,14 +68,12 @@ function App() {
                     <img src={logo} alt="UBC CSS logo" className="brand-logo" />
                 </a>
 
-                <nav className="site-nav">
-                    <a href="home">Home</a>
-                    <a href="#events">Events</a>
-                    <a href="#resources">Resources</a>
-                    <a href="#merch">Merch</a>
-                    <a href="#about">About</a>
-                    <a href="#join" className="nav-cta">Become A Member</a>
-                </nav>
+                <nav className="site-nav desktop-only"> {navContent}</nav>
+
+                <div className="mobile-only">
+                    <MobileNav>{navContent}</MobileNav>
+                </div>
+
             </header>
 
             <section className="hero-section">
@@ -71,7 +109,7 @@ function App() {
                                         C 181.3 39.2 184.046 32.62 190.803 32.075"
                                         fill="none"
                                     />
-                                    {/* body rectangle, slightly rounded + hand-drawn feel */}
+                                    {/* body rectangle */}
                                     <path
                                         className="mascot-line"
                                         d="M45 95
