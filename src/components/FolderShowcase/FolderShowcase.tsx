@@ -14,6 +14,17 @@ import lounge from '../../assets/about/lounge.jpg'
 import './FolderShowcase.css'
 
 const previews: FolderPreviewProps[] = [
+     {
+        title: 'About',
+        description: 'Meet the team behind CSS and learn what the club is all about.',
+        href: '#about',
+        align: 'right',
+        photos: [
+            { alt: 'About photo 1', src: team},
+            { alt: 'About photo 2', src: lounge},
+            { alt: 'About photo 3', src: colleen},
+        ],
+    },
     {
         title: 'Events',
         description:
@@ -22,8 +33,8 @@ const previews: FolderPreviewProps[] = [
         align: 'left',
         photos: [
             { alt: 'Event photo 1', src: welcomeBack},
-            { alt: 'Event photo 2', src: alumNight},
-            { alt: 'Event photo 3', src: labPanel},
+            { alt: 'Event photo 2', src: labPanel},
+            { alt: 'Event photo 3', src: alumNight},
         ],
     },
     {
@@ -50,22 +61,37 @@ const previews: FolderPreviewProps[] = [
             { alt: 'Resource photo 3', src: labRobots},
         ],
     },
-    {
-        title: 'About',
-        description: 'Meet the team behind CSS and learn what the club is all about.',
-        href: '#about',
-        align: 'right',
-        photos: [
-            { alt: 'About photo 1', src: team},
-            { alt: 'About photo 2', src: lounge},
-            { alt: 'About photo 3', src: colleen},
-        ],
-    },
+    // {
+    //     title: 'About',
+    //     description: 'Meet the team behind CSS and learn what the club is all about.',
+    //     href: '#about',
+    //     align: 'right',
+    //     photos: [
+    //         { alt: 'About photo 1', src: team},
+    //         { alt: 'About photo 2', src: lounge},
+    //         { alt: 'About photo 3', src: colleen},
+    //     ],
+    // },
 ]
 
 function FolderShowcase() {
     return (
         <section className="folder-showcase" id="folder-showcase">
+            {/* Desktop-only decorative background (hidden via CSS on mobile) — a
+                subtle path winding through the empty column beside each folder
+                (folders alternate left/right, so the "empty" side alternates
+                too), just to fill the space rather than connect anything
+                literal. preserveAspectRatio="none" stretches it to whatever
+                the section's real height ends up being. */}
+            <svg
+                className="folder-showcase-path"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+            >
+                <path d="M 78 8 C 78 20, 22 24, 22 36 C 22 48, 78 52, 78 64 C 78 76, 22 80, 22 92" />
+            </svg>
+
             {previews.map((preview) => (
                 <FolderPreview key={preview.title} {...preview} />
             ))}
