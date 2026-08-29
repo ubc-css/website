@@ -4,7 +4,10 @@
     width: 100%;
     max-width: 1180px;
     margin: 0 auto;
-    padding: clamp(16px, 2.5vw, 32px) 22px;
+    /* Vertical padding only — this is the gap between one folder and the
+       next. Kept tight on desktop (mobile gets its own larger value below)
+       since each folder-stage is already tall on its own. */
+    padding: clamp(0px, 0.3vw, 4px) 22px;
 }
 
 .folder-preview.align-right {
@@ -47,7 +50,7 @@
    tucked exactly behind the folder and travel out from underneath it. */
 .folder-stage {
     position: relative;
-    min-height: clamp(600px, 48vw, 820px);
+    min-height: clamp(780px, 76vw, 1100px);
 }
 
 /* ---- Folder ---- */
@@ -146,7 +149,7 @@
 .photo-slot {
     position: absolute;
     top: 50%;
-    width: clamp(170px, 20vw, 260px);
+    width: clamp(220px, 26vw, 340px);
     aspect-ratio: 4 / 5;
     border-radius: 12px;
     display: grid;
@@ -161,14 +164,54 @@
     box-shadow: 0 18px 38px rgba(11, 11, 12, 0.14);
     opacity: 0;
     transition: opacity 1000ms ease, transform 1800ms cubic-bezier(0.34, 1.56, 0.64, 1);
-    overflow: hidden;
+    /* No overflow:hidden: it isn't needed for clipping anymore (photos use
+       object-fit:contain, which never overflows its box in the first place),
+       and it would otherwise cut off the image's filter:drop-shadow right at
+       the box edge, undoing the point of using drop-shadow. */
 }
 
 .photo-slot img {
+    /* position:absolute + inset:0, not just width/height:100% — for some
+       source images (tall/narrow ones in particular, e.g. product photos far
+       from the 4:5 box ratio) percentage height on an <img> failed to resolve
+       against a parent whose own height comes from aspect-ratio rather than
+       an explicit height, and fell back to the image's intrinsic ratio at the
+       resolved width instead — so the <img> rendered taller than its box and
+       .photo-slot's overflow:hidden silently cropped the excess. inset:0
+       sidesteps that percentage-resolution path entirely. */
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* contain, not cover: shows the whole image (scaled down to fit the box,
+       letterboxed on whichever axis doesn't match the box's 4:5 ratio) rather
+       than cropping it to fill every edge. */
+    object-fit: contain;
     border-radius: inherit;
+    /* No shadow at all here (previously filter:drop-shadow) — for a plain
+       rectangular photo with no transparency, a drop-shadow still renders as
+       a rectangle, same as the box-shadow it replaced. Just the image now. */
+}
+
+/* Scales one specific photo up beyond its normal contain-fit size (see the
+   FolderPhoto.large prop) — the slot itself stays the same size as every
+   other slot, this only affects how big the image renders within it. Safe to
+   overflow slightly: .photo-slot has no overflow:hidden (removed earlier so
+   the drop-shadow wouldn't get clipped), so a bit of edge bleed here isn't cut
+   off either. Applies on every breakpoint — no media query. */
+.photo-slot-img-large {
+    transform: scale(1.25);
+}
+
+/* Once a real photo is set, drop every trace of the placeholder's box look —
+   filled backdrop, dashed border, padding, and the box-shaped shadow — so
+   only the image itself is visible, with its own shadow (set on the <img>
+   above) rather than the container's. */
+.photo-slot:has(img) {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 .folder-preview.align-left .photo-slot {
@@ -191,7 +234,12 @@
 }
 
 .photo-slot:nth-child(2) {
-    --fx: clamp(680px, 58vw, 880px);
+    /* Lower floor than the mid/max values would suggest: at the narrow end of
+       the desktop range (~981px) the old 680px floor pushed this photo past
+       the left edge of the viewport entirely — there just isn't 680px of
+       room to travel into on a narrow desktop window. 580px still clears the
+       folder (max 500px wide) with margin, but stays on-screen. */
+    --fx: clamp(580px, 58vw, 880px);
     --fy: clamp(-10px, 1vw, 30px);
     --fr: 10deg;
     transition-delay: 300ms;
@@ -286,7 +334,7 @@
     }
 
     .folder-stage {
-        min-height: clamp(800px, 210vw, 920px);
+        min-height: clamp(880px, 220vw, 1000px);
     }
 
     .folder {
@@ -307,8 +355,14 @@
         transform: translateX(-50%) translateY(0) rotate(var(--tilt));
     }
 
+    /* Lower floor/growth rate than a purely "bigger" width would suggest: at
+       the narrowest supported width (320px, matching body's min-width in
+       index.css), the rotation + horizontal jitter on photo 3 (--fr: 20deg,
+       --fx-m: 60px) pushed it past the right edge of the screen. This still
+       reaches the same 260px cap on most phones — it only pulls back right
+       at the low end. */
     .photo-slot {
-        width: clamp(140px, 34vw, 190px);
+        width: clamp(140px, 42vw, 260px);
     }
 
     .folder-preview.align-left .photo-slot,

@@ -4,6 +4,11 @@ import './FolderPreview.css'
 export interface FolderPhoto {
     alt: string
     src?: string
+    /** Renders this photo bigger than its neighbors within the same fixed-size
+     * slot (a scale transform on the <img>, not a bigger box — every slot
+     * still takes up the same space). For one-off cases where a specific
+     * photo should stand out, not a general size knob. */
+    large?: boolean
 }
 
 export interface FolderPreviewProps {
@@ -27,7 +32,11 @@ function FolderPreview({ title, description, href, align, photos }: FolderPrevie
                     {photos.map((photo) => (
                         <div key={photo.alt} className="photo-slot">
                             {photo.src ? (
-                                <img src={photo.src} alt={photo.alt} />
+                                <img
+                                    src={photo.src}
+                                    alt={photo.alt}
+                                    className={photo.large ? 'photo-slot-img-large' : undefined}
+                                />
                             ) : (
                                 <span>{photo.alt}</span>
                             )}

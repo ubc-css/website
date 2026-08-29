@@ -1,7 +1,8 @@
 .folder-showcase {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    /* No gap here — each .folder-preview's own vertical padding is what
+       spaces them apart, so a gap on top of that would just double it up. */
     padding-block: clamp(20px, 5vw, 48px) 60px;
     position: relative;
     z-index: 1;
