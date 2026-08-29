@@ -14,12 +14,12 @@ function Header() {
 
     const navContent = (
         <>
-            <a href="home">Home</a>
+            <a href="/">Home</a>
             <NavDropdown
                 label="Events"
                 items={[
                     { label: 'Upcoming', href: '#upcoming' },
-                    { label: 'Past Events', href: '#past' },
+                    { label: 'Past Events', href: '/events/past' },
                 ]}
                 {...dropdownProps('Events')}
             />

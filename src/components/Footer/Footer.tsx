@@ -6,7 +6,7 @@ const footerColumns = [
         title: 'Events',
         links: [
             { label: 'Upcoming', href: '#upcoming' },
-            { label: 'Past Events', href: '#past' },
+            { label: 'Past Events', href: '/events/past' },
         ],
     },
     {
