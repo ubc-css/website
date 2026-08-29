@@ -286,21 +286,6 @@ h1 {
         gap: 20px;
     }
 
-    .hero-copy {
-        text-align: left;
-        justify-self: start;
-    }
-
-    .eyebrow,
-    .lede,
-    h1 {
-        margin-inline: 0;
-    }
-
-    .actions {
-        justify-content: flex-start;
-    }
-
     .hero-mascot {
         display: none;
     }

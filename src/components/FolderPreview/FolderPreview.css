@@ -247,7 +247,7 @@
         background: rgba(208, 208, 208, 0.5);
         color: #000000;
         font-size: 0.78rem;
-        font-weight: 700;
+        font-weight: 700; 
         white-space: nowrap;
         opacity: 0;
         transform: translateY(6px);

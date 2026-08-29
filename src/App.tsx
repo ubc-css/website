@@ -3,6 +3,7 @@ import Cursor from './components/Cursor/Cursor'
 import Header from './components/Header/Header'
 import Hero from './components/Hero/Hero'
 import FolderShowcase from './components/FolderShowcase/FolderShowcase'
+import Footer from './components/Footer/Footer'
 import ScrollCue from './components/ScrollCue/ScrollCue'
 
 import './App.css'
@@ -28,6 +29,7 @@ function App() {
             <Header />
             <Hero />
             <FolderShowcase />
+            <Footer />
             <ScrollCue />
         </main>
     )

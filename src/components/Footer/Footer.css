@@ -1,0 +1,255 @@
+/* Full-bleed: breaks out of .site-shell's centered padding so the footer spans
+   the true viewport width, then cancels that same padding on the bottom edge
+   (via a negative margin, compensated by extra padding-bottom) so the dark
+   background reaches the bottom of the page with no gap below it. */
+.site-footer {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-top: 32px;
+    margin-bottom: -22px;
+    position: relative;
+    z-index: 1;
+    padding: clamp(28px, 4vw, 44px) clamp(22px, 5vw, 60px);
+    padding-bottom: calc(22px + clamp(28px, 4vw, 44px));
+    background: var(--color-dark-plum);
+    color: #fff;
+}
+
+.footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.footer-columns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(28px, 5vw, 64px);
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 120px;
+}
+
+.footer-column-title {
+    color: rgba(255, 255, 255, 0.55);
+    font-weight: 800;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.footer-column a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    position: relative;
+    width: fit-content;
+    transition: color 180ms ease;
+}
+
+.footer-column a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-gray-blue);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 200ms ease;
+}
+
+.footer-column a:hover::after {
+    transform: scaleX(1);
+}
+
+.footer-cta-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.footer-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 24px;
+    border-radius: 999px;
+    background: var(--color-pastel-pink);
+    color: var(--color-ink-black);
+    text-decoration: none;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.footer-cta:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(226, 182, 210, 0.35);
+}
+
+.back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.back-to-top-arrow {
+    display: inline-flex;
+    transition: transform 200ms ease;
+}
+
+.back-to-top:hover .back-to-top-arrow,
+.back-to-top:focus-visible .back-to-top-arrow {
+    transform: translateY(-4px);
+}
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 24px;
+}
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+    display: block;
+    /* transform doesn't affect layout, so scale(2) from the left edge renders
+       the icon a full natural-width (~45px) wider than the box reserved for
+       it; the footer-bottom row has plenty of gap either side so this is
+       cosmetic headroom rather than a strict overlap fix like before. */
+    margin-right: 45px;
+    transform: scale(2);
+    transform-origin: left center;
+    filter: brightness(0) invert(1);
+}
+
+.footer-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-contact-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-right: 2px;
+}
+
+.footer-contact a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--color-black);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    transition: color 200ms ease, background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+.footer-contact a svg {
+    width: 18px;
+    height: 18px;
+}
+
+.footer-contact a:hover,
+.footer-contact a:focus-visible {
+    color: var(--color-gray-blue);
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 980px) {
+    /* Reordering the logo above the nav columns/CTA (and those above the contact
+       row) needs the logo and contact icons to become direct flex children of
+       .site-footer, even though they're nested inside .footer-bottom in the
+       markup (kept that way so desktop's brand+contact same-row layout doesn't
+       need separate markup). display:contents "unwraps" .footer-bottom here —
+       it stops generating its own box, so its children (.footer-brand and
+       .footer-contact) lay out as if they were direct children of .site-footer,
+       letting each section get its own `order` below. */
+    .site-footer {
+        margin-top: 24px;
+        margin-bottom: -14px;
+        padding-bottom: calc(14px + clamp(28px, 4vw, 44px));
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .footer-brand {
+        order: 0;
+        align-self: center;
+    }
+
+    .footer-top {
+        order: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 28px;
+    }
+
+    .footer-columns {
+        width: 100%;
+        justify-content: space-between;
+        row-gap: 24px;
+    }
+
+    .footer-column {
+        min-width: 45%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-cta-block {
+        align-items: center;
+        width: 100%;
+    }
+
+    .footer-cta {
+        width: 100%;
+    }
+
+    .footer-bottom {
+        display: contents;
+    }
+
+    .footer-contact {
+        order: 2;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

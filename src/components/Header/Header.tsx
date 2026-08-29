@@ -44,7 +44,7 @@ function Header() {
                 label="About"
                 items={[
                     { label: 'Our Team', href: '#team' },
-                    { label: 'Our Mission', href: '#mission' },
+                    { label: 'The Lounge', href: '#thelounge' },
                     { label: 'Contact', href: '#contact' },
                 ]}
                 {...dropdownProps('About')}
