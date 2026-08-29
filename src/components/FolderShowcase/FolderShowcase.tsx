@@ -1,7 +1,7 @@
 import FolderPreview, { type FolderPreviewProps } from '../FolderPreview/FolderPreview'
 import merchHoodies from '../../assets/merch/MerchHoodies.png'
 import merchKeychain from '../../assets/merch/MerchKeychain.png'
-import merchSticker from '../../assets/merch/nerdrobbie.png'
+import merchSticker from '../../assets/merch/MerchStickers.png'
 import welcomeBack from '../../assets/events/Welcome-back-bbq.jpg'
 import alumNight from '../../assets/events/alumni-mixer.jpg'
 import labPanel from '../../assets/events/lab-panel.jpg'
@@ -20,9 +20,9 @@ const previews: FolderPreviewProps[] = [
         href: '#about',
         align: 'right',
         photos: [
-            { alt: 'About photo 1', src: team},
-            { alt: 'About photo 2', src: lounge},
-            { alt: 'About photo 3', src: colleen},
+            { alt: 'The 2025/2026 CSS exec Team at the COGSquerade', src: team},
+            { alt: 'A cozy little corner in our beloved COGS Lounge', src: lounge},
+            { alt: 'Our program coordinator Colleen Kennedy blowing bubbles whimsically', src: colleen},
         ],
     },
     {
@@ -32,9 +32,9 @@ const previews: FolderPreviewProps[] = [
         href: '#events',
         align: 'left',
         photos: [
-            { alt: 'Event photo 1', src: welcomeBack},
-            { alt: 'Event photo 2', src: labPanel},
-            { alt: 'Event photo 3', src: alumNight},
+            { alt: 'CSS members enjoying good food and great company at the Welcome Back BBQ', src: welcomeBack},
+            { alt: 'Lab Panelists making the word "COGS" with their arms', src: labPanel},
+            { alt: 'Friends, Faculty, and Alumni at the Alumni-Student Mixer', src: alumNight},
         ],
     },
     {
@@ -44,9 +44,9 @@ const previews: FolderPreviewProps[] = [
         href: '#merch',
         align: 'right',
         photos: [
-            { alt: 'Merch photo 1', src: merchSticker },
-            { alt: 'Merch photo 2', src: merchKeychain},
-            { alt: 'Merch photo 3', src: merchHoodies, large: true },
+            { alt: 'COGS Stickers and Pins', src: merchSticker },
+            { alt: 'Cute robbie keychain', src: merchKeychain},
+            { alt: '2025/2026 CSS Zipups', src: merchHoodies, large: true },
         ],
     },
     {
@@ -56,22 +56,11 @@ const previews: FolderPreviewProps[] = [
         href: '#resources',
         align: 'left',
         photos: [
-            { alt: 'Resource photo 1', src: gearingUp},
-            { alt: 'Resource photo 2', src: podcast},
-            { alt: 'Resource photo 3', src: labRobots},
+            { alt: 'Students listening intentively at Gearing Up for 402 Presentation', src: gearingUp},
+            { alt: 'The Cognitive Conundrum: Our very own CSS run podcast', src: podcast},
+            { alt: 'Robots built by students in the COGS lab', src: labRobots},
         ],
     },
-    // {
-    //     title: 'About',
-    //     description: 'Meet the team behind CSS and learn what the club is all about.',
-    //     href: '#about',
-    //     align: 'right',
-    //     photos: [
-    //         { alt: 'About photo 1', src: team},
-    //         { alt: 'About photo 2', src: lounge},
-    //         { alt: 'About photo 3', src: colleen},
-    //     ],
-    // },
 ]
 
 function FolderShowcase() {
