@@ -10,7 +10,9 @@ export interface EventPhoto {
 export interface EventCardProps {
     name: string
     description: string
-    year: string
+    /** The academic year's starting calendar year (e.g. 2025 for "2025/26") —
+     * a real number so it sorts/filters correctly, not a display string. */
+    year: number
     photos: EventPhoto[]
 }
 

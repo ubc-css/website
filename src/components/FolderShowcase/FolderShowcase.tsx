@@ -2,7 +2,7 @@ import FolderPreview, { type FolderPreviewProps } from '../FolderPreview/FolderP
 import merchHoodies from '../../assets/merch/MerchHoodies.png'
 import merchKeychain from '../../assets/merch/MerchKeychain.png'
 import merchSticker from '../../assets/merch/MerchStickers.png'
-import welcomeBack from '../../assets/events/Welcome-back-bbq.jpg'
+import welcomeBack from '../../assets/events/Welcome-back-bbq-1.jpg'
 import alumNight from '../../assets/events/alumni-mixer.jpg'
 import labPanel from '../../assets/events/lab-panel.jpg'
 import podcast from '../../assets/resources/css-podcast.jpg'

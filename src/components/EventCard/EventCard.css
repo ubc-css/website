@@ -60,12 +60,13 @@
 .event-card-body h3 {
     margin: 0;
     color: var(--color-black);
-    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    font-size: clamp(1.65rem, 2.6vw, 2.15rem);
     line-height: 1.15;
 }
 
 .event-card-body p {
     color: rgba(11, 11, 12, 0.75);
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
     line-height: 1.65;
 }
 
