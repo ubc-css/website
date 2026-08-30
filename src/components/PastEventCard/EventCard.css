@@ -23,7 +23,7 @@
 }
 
 .event-card:nth-of-type(4n+1) {
-    --event-accent: var(--color-gray-blue);
+    --event-accent: var(--color-pastel-pink);
 }
 
 .event-card:nth-of-type(4n+2) {
@@ -35,7 +35,7 @@
 }
 
 .event-card:nth-of-type(4n+4) {
-    --event-accent: var(--color-pastel-pink);
+    --event-accent: var(--color-gray-blue);
 }
 
 .event-card-tab {

@@ -29,7 +29,7 @@ const previews: FolderPreviewProps[] = [
         title: 'Events',
         description:
             'From socials to workshops, see what CSS has coming up on the calendar this term.',
-        href: '#events',
+        href: '/events/upcoming',
         align: 'left',
         photos: [
             { alt: 'CSS members enjoying good food and great company at the Welcome Back BBQ', src: welcomeBack},

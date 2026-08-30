@@ -18,7 +18,7 @@ function Header() {
             <NavDropdown
                 label="Events"
                 items={[
-                    { label: 'Upcoming', href: '#upcoming' },
+                    { label: 'Upcoming', href: '/events/upcoming' },
                     { label: 'Past Events', href: '/events/past' },
                 ]}
                 {...dropdownProps('Events')}

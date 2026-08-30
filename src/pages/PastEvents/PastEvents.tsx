@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import EventCard, { type EventCardProps } from '../../components/EventCard/EventCard'
-import { formatAcademicYear } from '../../components/EventCard/formatAcademicYear'
+import { createPortal } from 'react-dom'
+import EventCard, { type EventCardProps } from '../../components/PastEventCard/EventCard'
+import { formatAcademicYear } from '../../components/PastEventCard/formatAcademicYear'
 
 // PHOTO IMPORTS
 import welcomeBack1 from '../../assets/events/Welcome-back-bbq-1.jpg'
@@ -192,6 +193,7 @@ type YearFilter = number | typeof ALL_YEARS
 function PastEvents() {
     const [search, setSearch] = useState('')
     const [year, setYear] = useState<YearFilter>(ALL_YEARS)
+    const [isMobileYearMenuOpen, setIsMobileYearMenuOpen] = useState(false)
 
     // Numeric sort, not string sort — correct regardless of digit count or
     // century boundaries, unlike sorting the old "2025/26"-style strings.
@@ -212,8 +214,61 @@ function PastEvents() {
 
     return (
         <section className="past-events">
+            {/* Mobile-only: replaces the desktop .year-filter pill with a
+                compact icon button fixed next to the hamburger menu, so the
+                mobile header row stays uncluttered. Opens the same year
+                options as a small floating menu rather than losing the
+                filter functionality. Portaled to document.body — same
+                reasoning as MobileNav's hamburger button/panel — so this
+                fixed-position UI isn't trapped under the header by
+                .past-events's own stacking context (position: relative;
+                z-index: 1 here beats any z-index set on a descendant). */}
+            {createPortal(
+                <>
+                    <button
+                        type="button"
+                        className="mobile-year-filter-button"
+                        onClick={() => setIsMobileYearMenuOpen((prev) => !prev)}
+                        aria-expanded={isMobileYearMenuOpen}
+                        aria-label="Filter by year"
+                    >
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                            <line x1="3" y1="7" x2="21" y2="7" strokeLinecap="round" />
+                            <circle cx="15" cy="7" r="2.2" />
+                            <line x1="3" y1="17" x2="21" y2="17" strokeLinecap="round" />
+                            <circle cx="9" cy="17" r="2.2" />
+                        </svg>
+                    </button>
+
+                    {isMobileYearMenuOpen && (
+                        <div className="mobile-year-filter-menu">
+                            {years.map((yearOption) => (
+                                <button
+                                    key={yearOption}
+                                    type="button"
+                                    className={`mobile-year-filter-option ${year === yearOption ? 'is-active' : ''}`}
+                                    onClick={() => {
+                                        setYear(yearOption)
+                                        setIsMobileYearMenuOpen(false)
+                                    }}
+                                >
+                                    {yearOption === ALL_YEARS ? ALL_YEARS : formatAcademicYear(yearOption)}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </>,
+                document.body,
+            )}
+
             <div className="past-events-title-row">
-                <h1>Past Events</h1>
+                <div className="past-events-title-group">
+                    <h1>Past Events</h1>
+                    <a className="cross-events-link" href="/events/upcoming">
+                        See Upcoming Events
+                        <span className="cross-events-link-arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
 
                 <label className="year-filter">
                     <span className="year-filter-label">Year</span>

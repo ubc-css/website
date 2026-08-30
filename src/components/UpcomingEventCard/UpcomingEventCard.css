@@ -1,0 +1,208 @@
+/* Same "folder" visual language as EventCard.css (asymmetric rounded
+   corners, gradient card background, colored tab cycling the same 4 palette
+   accents) but mirrored: a single graphic on the left instead of a carousel,
+   and a body on the right built for a call to action rather than browsing
+   photos. */
+.upcoming-event-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 40px);
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: 6px 26px 26px 26px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 244, 0.97));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 24px 54px rgba(11, 11, 12, 0.1);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.upcoming-event-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.upcoming-event-card:nth-of-type(4n+1) {
+    --event-accent: var(--color-pastel-pink);
+}
+
+.upcoming-event-card:nth-of-type(4n+2) {
+    --event-accent: var(--color-dark-plum);
+}
+
+.upcoming-event-card:nth-of-type(4n+3) {
+    --event-accent: var(--color-ink-black);
+}
+
+.upcoming-event-card:nth-of-type(4n+4) {
+    --event-accent: var(--color-gray-blue);
+}
+
+.upcoming-event-tab {
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    width: 104px;
+    height: 22px;
+    border-radius: 10px 10px 0 0;
+    background: var(--event-accent, var(--color-gray-blue));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    border-bottom: none;
+}
+
+.upcoming-event-image {
+    position: relative;
+    /* Instagram's default portrait post ratio — this graphic is meant to be
+       the same asset dropped straight into an IG post. */
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(11, 11, 12, 0.04);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Once a real graphic is added (image.src set), drop the placeholder box
+   styling entirely so only the image itself shows — same treatment as
+   EventCard's carousel frame / FolderPreview's photo slots. */
+.upcoming-event-image:has(img) {
+    background: none;
+    border: none;
+}
+
+.upcoming-event-image span {
+    padding: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(11, 11, 12, 0.45);
+}
+
+.upcoming-event-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.upcoming-event-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.upcoming-event-body h3 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: clamp(2.1rem, 3.6vw, 2.8rem);
+    line-height: 1.05;
+}
+
+/* Date/time/location — bold, icon-led chips, but kept compact so all three
+   fit on a single line instead of competing with the (much bigger) event
+   name for attention. */
+.upcoming-event-meta {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+}
+
+.upcoming-event-meta li {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-black);
+    font-weight: 800;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.upcoming-event-meta svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    /* Fixed dark color rather than the per-card --event-accent — some accents
+       (e.g. the pastel pink cycle) are too light to read clearly here, and
+       these need to stay legible on every card. */
+    color: rgba(11, 11, 12, 0.6);
+}
+
+.upcoming-event-description {
+    margin: 0;
+    color: rgba(11, 11, 12, 0.75);
+    font-size: clamp(0.92rem, 1vw, 1rem);
+    line-height: 1.6;
+}
+
+.upcoming-event-actions {
+    margin-top: auto;
+    padding-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+/* The prominent call to action — same gradient as the site's primary CTA
+   (Header's "Become A Member" / Footer's "Become a Member") so it reads as
+   the button that matters on this card. */
+.rsvp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-dark-magenta), var(--color-gray-crimson));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.rsvp-button:hover,
+.rsvp-button:focus-visible {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 10px 22px rgba(91, 35, 72, 0.28);
+}
+
+/* Deliberately understated — a plain underlined text link, not a button, so
+   it never competes with the RSVP CTA for attention. */
+.upcoming-member-link {
+    color: rgba(11, 11, 12, 0.45);
+    text-decoration: underline;
+    text-decoration-color: rgba(11, 11, 12, 0.25);
+    text-underline-offset: 3px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 180ms ease;
+}
+
+.upcoming-member-link:hover,
+.upcoming-member-link:focus-visible {
+    color: rgba(11, 11, 12, 0.75);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .upcoming-event-card {
+        transition: none;
+    }
+}
+
+@media (max-width: 980px) {
+    .upcoming-event-card {
+        grid-template-columns: 1fr;
+    }
+
+    .upcoming-event-image {
+        order: -1;
+    }
+}

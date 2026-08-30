@@ -1,4 +1,4 @@
-.past-events {
+.upcoming-events {
     max-width: 1180px;
     margin: 0 auto;
     width: 100%;
@@ -7,7 +7,7 @@
     z-index: 1;
 }
 
-.past-events-title-row {
+.upcoming-events-title-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -16,14 +16,14 @@
     margin-bottom: 24px;
 }
 
-.past-events-title-row h1 {
+.upcoming-events-title-row h1 {
     margin: 0;
     color: var(--color-black);
     font-size: clamp(2.2rem, 4vw, 3.2rem);
     letter-spacing: -0.02em;
 }
 
-.past-events-title-group {
+.upcoming-events-title-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -66,36 +66,37 @@
     text-shadow: 0 0 6px var(--color-gray-blue), 0 0 16px var(--color-gray-blue);
 }
 
-.year-filter {
+.calendar-view-button {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 18px;
+    min-height: 46px;
+    padding: 0 22px;
     border-radius: 999px;
     background: rgba(242, 242, 244, 0.9);
     border: 1px solid rgba(11, 11, 12, 0.08);
     box-shadow: 0 10px 24px rgba(11, 11, 12, 0.06);
-}
-
-.year-filter-label {
-    font-weight: 800;
-    font-size: 0.78rem;
-    color: rgba(11, 11, 12, 0.55);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-.year-filter select {
-    border: none;
-    background: transparent;
-    font-family: inherit;
-    font-weight: 700;
-    font-size: 0.95rem;
     color: var(--color-black);
-    cursor: pointer;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
-.past-events-search {
+.calendar-view-button svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.calendar-view-button:hover,
+.calendar-view-button:focus-visible {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(11, 11, 12, 0.1);
+}
+
+.upcoming-events-search {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -108,14 +109,14 @@
     box-shadow: 0 10px 24px rgba(11, 11, 12, 0.06);
 }
 
-.past-events-search svg {
+.upcoming-events-search svg {
     flex-shrink: 0;
     width: 18px;
     height: 18px;
     color: rgba(11, 11, 12, 0.5);
 }
 
-.past-events-search input {
+.upcoming-events-search input {
     flex: 1;
     min-width: 0;
     border: none;
@@ -126,49 +127,46 @@
     outline: none;
 }
 
-.past-events-list {
+.upcoming-events-list {
     display: flex;
     flex-direction: column;
     gap: 28px;
 }
 
-.past-events-empty {
+.upcoming-events-empty {
     color: rgba(11, 11, 12, 0.6);
     padding: 40px 0;
     text-align: center;
     font-size: 1.05rem;
 }
 
-/* Mobile-only fixed icon button that replaces .year-filter, sitting to the
-   left of MobileNav's hamburger button (which is itself position: fixed;
-   top: 28px; right: 34px; width: 40px — see MobileNav.css). 84px = 34 + 40 +
-   10px gap, so the two sit level with a consistent gap between them. Hidden
-   by default; only shown at the same breakpoint the hamburger appears at. */
-.mobile-year-filter-button {
-    display: none;
-}
-
-.mobile-year-filter-menu {
+/* Mobile-only fixed icon link that replaces .calendar-view-button, sitting
+   to the left of MobileNav's hamburger button (which is itself
+   position: fixed; top: 28px; right: 34px; width: 40px — see
+   MobileNav.css). 84px = 34 + 40 + 10px gap, so the two sit level with a
+   consistent gap between them. Hidden by default; only shown at the same
+   breakpoint the hamburger appears at. */
+.mobile-calendar-view-button {
     display: none;
 }
 
 @media (max-width: 980px) {
-    .past-events-title-row {
+    .upcoming-events-title-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 14px;
     }
 
-    /* Replaced by .mobile-year-filter-button below. */
-    .year-filter {
+    /* Replaced by .mobile-calendar-view-button below. */
+    .calendar-view-button {
         display: none;
     }
 
-    .past-events-search {
+    .upcoming-events-search {
         max-width: 100%;
     }
 
-    .mobile-year-filter-button {
+    .mobile-calendar-view-button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -183,44 +181,10 @@
         border: 1px solid rgba(11, 11, 12, 0.08);
         box-shadow: 0 10px 24px rgba(11, 11, 12, 0.06);
         color: var(--color-black);
-        cursor: pointer;
     }
 
-    .mobile-year-filter-button svg {
+    .mobile-calendar-view-button svg {
         width: 20px;
         height: 20px;
-    }
-
-    .mobile-year-filter-menu {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 78px;
-        right: 34px;
-        z-index: 149;
-        min-width: 160px;
-        padding: 8px;
-        border-radius: 16px;
-        background: #fff;
-        border: 1px solid rgba(11, 11, 12, 0.08);
-        box-shadow: 0 14px 32px rgba(11, 11, 12, 0.14);
-    }
-
-    .mobile-year-filter-option {
-        padding: 10px 12px;
-        border: none;
-        border-radius: 10px;
-        background: transparent;
-        color: var(--color-black);
-        font-family: inherit;
-        font-weight: 700;
-        font-size: 0.95rem;
-        text-align: left;
-        cursor: pointer;
-    }
-
-    .mobile-year-filter-option.is-active {
-        background: rgba(100, 151, 206, 0.14);
-        color: var(--color-gray-blue);
     }
 }
