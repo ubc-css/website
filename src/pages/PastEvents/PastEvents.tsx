@@ -271,8 +271,8 @@ function PastEvents() {
                 </div>
 
                 <label className="year-filter">
-                    <span className="year-filter-label">Year</span>
                     <select
+                        aria-label="Filter by year"
                         value={year}
                         onChange={(event) => {
                             const { value } = event.target
