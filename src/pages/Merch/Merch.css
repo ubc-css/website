@@ -11,18 +11,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* Title sits near the top instead of dead-center in the viewport-filling
+       block; the carousel (flex: 1, see .merch-carousel) grows to fill
+       whatever vertical space is left below it, so IT reads as the hero. */
+    justify-content: flex-start;
     text-align: center;
     gap: clamp(20px, 3vw, 32px);
+    /* Fills the initial viewport like the homepage's .hero-section (same
+       header-height offset), so the title/carousel/section-nav read as the
+       page's own hero rather than just a header row above the catalog. */
+    min-height: calc(100svh - 130px);
+    padding-top: clamp(8px, 1.5vw, 20px);
     padding-bottom: clamp(40px, 6vw, 72px);
 }
 
 .merch-hero h1 {
     margin: 0;
     color: var(--color-black);
-    font-size: clamp(2.8rem, 6vw, 4.6rem);
-    /* Spread out, not condensed — the opposite of the tight negative tracking
-       used on the other pages' titles, since this one is meant to breathe. */
-    letter-spacing: 0.04em;
+    /* Sized off viewport width more aggressively than a typical heading (and
+       kept to one line below) so it reads as a big hero title rather than
+       shrinking to fit — same "bigger, not condensed" intent as before, just
+       pushed further. */
+    font-size: clamp(2.2rem, 9vw, 6.5rem);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .merch-section-nav {
@@ -33,17 +45,23 @@
     gap: 10px;
 }
 
+/* Underlined by default (not just on hover) — the universal "this is a
+   link" signal, same recipe as UpcomingEventCard's .upcoming-member-link —
+   so these read as clickable at a glance instead of just as bold labels. */
 .merch-section-nav a {
     color: var(--color-black);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: rgba(11, 11, 12, 0.3);
+    text-underline-offset: 4px;
     font-weight: 800;
     font-size: 1rem;
-    transition: color 200ms ease;
+    transition: color 200ms ease, text-decoration-color 200ms ease;
 }
 
 .merch-section-nav a:hover,
 .merch-section-nav a:focus-visible {
     color: var(--color-gray-blue);
+    text-decoration-color: var(--color-gray-blue);
 }
 
 .merch-section-nav-divider {
@@ -55,11 +73,42 @@
     padding-top: clamp(32px, 5vw, 56px);
 }
 
+.merch-section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
 .merch-section h2 {
-    margin: 0 0 24px;
+    margin: 0;
     color: var(--color-black);
     font-size: clamp(1.7rem, 2.8vw, 2.2rem);
     letter-spacing: -0.02em;
+}
+
+/* Same pill recipe as Past Events' .year-filter, reused here for the
+   Clothing/Accessories sort dropdowns. */
+.merch-sort {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(242, 242, 244, 0.9);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 10px 24px rgba(11, 11, 12, 0.06);
+}
+
+.merch-sort select {
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-black);
+    cursor: pointer;
 }
 
 .merch-grid {
@@ -139,6 +188,20 @@
 }
 
 @media (max-width: 980px) {
+    /* Unlike the homepage's .hero-section (which drops to min-height: auto
+       on mobile), the merch hero keeps filling the viewport on phones too —
+       explicitly requested, since the carousel is the whole point of the
+       page's opening screen. */
+    .merch-hero h1 {
+        /* Bigger than the desktop clamp's own low end, and allowed to wrap
+           (the desktop rule's white-space: nowrap is overridden back to
+           normal) — a phone doesn't have room for this title on one line at
+           a size worth calling "big", so wrapping to two lines is the
+           tradeoff instead of shrinking the text down to fit one. */
+        font-size: clamp(2.4rem, 11vw, 3.6rem);
+        white-space: normal;
+    }
+
     .merch-grid {
         grid-template-columns: 1fr;
     }

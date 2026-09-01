@@ -53,7 +53,11 @@
     background: linear-gradient(90deg, var(--color-gray-blue), transparent);
 }
 
-h1 {
+/* Scoped to .hero-copy — a bare `h1` selector here would apply to every
+   <h1> on the site (this stylesheet is global, not component-scoped), which
+   silently constrained other pages' titles (e.g. Merch's) to this one's
+   12ch/13ch max-width until this was caught. */
+.hero-copy h1 {
     margin: 0;
     max-width: 12ch;
     color: var(--color-black);
@@ -234,7 +238,7 @@ h1 {
         font-size: 0.9rem;
     }
 
-    h1 {
+    .hero-copy h1 {
         font-size: clamp(4rem, 7.6vw, 7.4rem);
         max-width: 13ch;
     }
@@ -277,7 +281,7 @@ h1 {
         padding-top: 12px;
     }
 
-    h1 {
+    .hero-copy h1 {
         max-width: 13ch;
     }
 

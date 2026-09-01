@@ -1,5 +1,13 @@
 .merch-carousel {
     width: 100%;
+    /* Grows to fill whatever vertical space .merch-hero's flex column has
+       left below the title/above the section nav, and centers the track
+       within that space — this (plus the bigger .merch-carousel-item size
+       below) is what makes the carousel itself read as the page's hero
+       image, not just a strip under the title. */
+    flex: 1;
+    display: flex;
+    align-items: center;
     /* Full-bleed within .merch-hero's centered column so the strip can run
        edge to edge and the mask fade below has room to work. */
     overflow: hidden;
@@ -27,7 +35,11 @@
 .merch-carousel-item {
     position: relative;
     flex-shrink: 0;
-    width: clamp(220px, 22vw, 300px);
+    /* Scales with both viewport width and the hero's available height
+       (min() of the two) so it actually grows to use the extra vertical
+       room .merch-carousel's flex: 1 gives it, instead of just sitting
+       small in the middle of a tall empty strip. */
+    width: clamp(240px, min(26vw, 46vh), 460px);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;

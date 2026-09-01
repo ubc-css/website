@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import MerchCarousel from '../../components/MerchCarousel/MerchCarousel'
 import MerchProductCard, { type MerchProductCardProps } from '../../components/MerchProductCard/MerchProductCard'
 import merchHoodies from '../../assets/merch/MerchHoodies.png'
@@ -14,24 +15,29 @@ const carouselImages = [
     { src: merchKeychain, alt: 'Cute Robbie keychain' },
 ]
 
-// Placeholder catalog — names/descriptions/prices are all stand-ins until the
-// club has a real product lineup. Ordered newest-first (left to right, top
-// row first) per the layout sketch's "ordered from newest to oldest" note.
+// Placeholder catalog — names/descriptions/prices/years are all stand-ins
+// until the club has a real product lineup. `year` is a real number (the
+// year each product was added to the catalog) purely so the sort dropdown
+// below can order oldest/newest correctly — same "store a real sortable
+// value" reasoning as Past Events' numeric year, and it's never rendered.
 const clothingItems: MerchProductCardProps[] = [
     {
         name: 'CSS Zip-Up Hoodie',
+        year: 2025,
         description: 'Placeholder description: a cozy embroidered zip-up in the club colors, our newest drop.',
         price: '$45',
         image: { src: merchHoodies, alt: '2025/2026 CSS zip-up hoodie' },
     },
     {
         name: 'COGS Crewneck',
+        year: 2024,
         description: 'Placeholder description: a classic crewneck sweater with the COGS logo across the chest.',
         price: '$40',
         image: { src: merchHoodies, alt: 'COGS crewneck sweater' },
     },
     {
         name: 'Classic CSS Tee',
+        year: 2023,
         description: 'Placeholder description: our original club tee — soft cotton, screen-printed logo.',
         price: '$25',
         image: { src: merchHoodies, alt: 'Classic CSS t-shirt' },
@@ -41,25 +47,84 @@ const clothingItems: MerchProductCardProps[] = [
 const accessoryItems: MerchProductCardProps[] = [
     {
         name: 'Robbie Enamel Pin',
+        year: 2025,
         description: 'Placeholder description: a hard enamel pin of our mascot Robbie, perfect for a tote or lanyard.',
         price: '$8',
         image: { src: merchKeychain, alt: 'Robbie enamel pin' },
     },
     {
         name: 'COGS Sticker Pack',
+        year: 2024,
         description: 'Placeholder description: a set of 5 vinyl stickers featuring COGS-themed designs.',
         price: '$6',
         image: { src: merchStickers, alt: 'COGS sticker pack' },
     },
     {
         name: 'Robbie Keychain',
+        year: 2023,
         description: 'Placeholder description: a mini acrylic charm of Robbie to clip onto your bag or keys.',
         price: '$10',
         image: { src: merchKeychain, alt: 'Robbie keychain' },
     },
 ]
 
+type MerchSort = 'newest' | 'oldest' | 'price-low' | 'price-high'
+
+const SORT_OPTIONS: { value: MerchSort; label: string }[] = [
+    { value: 'newest', label: 'Newest First' },
+    { value: 'oldest', label: 'Oldest First' },
+    { value: 'price-low', label: 'Price: Low to High' },
+    { value: 'price-high', label: 'Price: High to Low' },
+]
+
+// Prices are stored as display strings ("$45"), so sorting by price needs a
+// real number pulled back out of that string rather than comparing text.
+function parsePrice(price: string): number {
+    return Number.parseFloat(price.replace(/[^0-9.]/g, '')) || 0
+}
+
+function sortMerchItems(items: MerchProductCardProps[], sort: MerchSort): MerchProductCardProps[] {
+    const sorted = [...items]
+    switch (sort) {
+        case 'newest':
+            sorted.sort((a, b) => b.year - a.year)
+            break
+        case 'oldest':
+            sorted.sort((a, b) => a.year - b.year)
+            break
+        case 'price-low':
+            sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price))
+            break
+        case 'price-high':
+            sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price))
+            break
+    }
+    return sorted
+}
+
+function MerchSortSelect({ value, onChange, label }: { value: MerchSort; onChange: (value: MerchSort) => void; label: string }) {
+    return (
+        <label className="merch-sort">
+            <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value as MerchSort)}>
+                {SORT_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+        </label>
+    )
+}
+
 function Merch() {
+    // Newest-to-oldest by default, per the layout sketch's "ordered from
+    // newest to oldest" note — each section sorts independently.
+    const [clothingSort, setClothingSort] = useState<MerchSort>('newest')
+    const [accessoriesSort, setAccessoriesSort] = useState<MerchSort>('newest')
+
+    const sortedClothing = useMemo(() => sortMerchItems(clothingItems, clothingSort), [clothingSort])
+    const sortedAccessories = useMemo(() => sortMerchItems(accessoryItems, accessoriesSort), [accessoriesSort])
+
     return (
         <section className="merch">
             <div className="merch-hero">
@@ -80,18 +145,24 @@ function Merch() {
             </div>
 
             <div className="merch-section" id="clothing">
-                <h2>Clothing</h2>
+                <div className="merch-section-title-row">
+                    <h2>Clothing</h2>
+                    <MerchSortSelect value={clothingSort} onChange={setClothingSort} label="Sort clothing" />
+                </div>
                 <div className="merch-grid">
-                    {clothingItems.map((item) => (
+                    {sortedClothing.map((item) => (
                         <MerchProductCard key={item.name} {...item} />
                     ))}
                 </div>
             </div>
 
             <div className="merch-section" id="accessories">
-                <h2>Accessories</h2>
+                <div className="merch-section-title-row">
+                    <h2>Accessories</h2>
+                    <MerchSortSelect value={accessoriesSort} onChange={setAccessoriesSort} label="Sort accessories" />
+                </div>
                 <div className="merch-grid">
-                    {accessoryItems.map((item) => (
+                    {sortedAccessories.map((item) => (
                         <MerchProductCard key={item.name} {...item} />
                     ))}
                 </div>

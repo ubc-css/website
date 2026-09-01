@@ -5,6 +5,10 @@ export interface MerchProductCardProps {
     name: string
     description: string
     price: string
+    /** The year this product was added to the catalog — used only for the
+     * section's oldest/newest sort in Merch.tsx, never rendered on the card
+     * itself (there's no "year" shown anywhere in the UI). */
+    year: number
     image: {
         alt: string
         /** Left unset until a real product photo exists — renders a labeled

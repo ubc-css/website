@@ -12,8 +12,11 @@ export interface MerchCarouselImage {
 
 interface MerchCarouselProps {
     images: MerchCarouselImage[]
-    /** How fast the strip scrolls, in pixels per second. */
+    /** Pixels per second while nothing is hovering/focusing the strip. */
     speed?: number
+    /** Pixels per second while hovered/focused — slower, but still moving
+     * (never a full stop). */
+    hoverSpeed?: number
 }
 
 // A continuously auto-scrolling horizontal strip (no arrows, no dots, no
@@ -23,12 +26,11 @@ interface MerchCarouselProps {
 // for its continuous motion) rather than a CSS @keyframes animation.
 // Deliberately does NOT stop for prefers-reduced-motion like the rest of the
 // site's automatic motion does (FolderPreview's reveal, the old click-through
-// carousel this replaced) — explicitly requested to always keep moving, and
-// pausing on hover/focus below still gives a way to stop it.
-function MerchCarousel({ images, speed = 55 }: MerchCarouselProps) {
+// carousel this replaced) — explicitly requested to always keep moving.
+function MerchCarousel({ images, speed = 90, hoverSpeed = 22 }: MerchCarouselProps) {
     const trackRef = useRef<HTMLDivElement | null>(null)
     const offset = useRef(0)
-    const isPaused = useRef(false)
+    const isHovered = useRef(false)
 
     // The image list rendered twice back to back, so the strip can scroll a
     // full loop (0 to -halfWidth) and jump back to 0 seamlessly — the second
@@ -47,36 +49,35 @@ function MerchCarousel({ images, speed = 55 }: MerchCarouselProps) {
             const deltaSeconds = (time - lastTime) / 1000
             lastTime = time
 
-            if (!isPaused.current) {
-                const halfWidth = track.scrollWidth / 2
-                offset.current += speed * deltaSeconds
-                if (halfWidth > 0 && offset.current >= halfWidth) {
-                    offset.current -= halfWidth
-                }
-                track.style.transform = `translateX(${-offset.current}px)`
+            const currentSpeed = isHovered.current ? hoverSpeed : speed
+            const halfWidth = track.scrollWidth / 2
+            offset.current += currentSpeed * deltaSeconds
+            if (halfWidth > 0 && offset.current >= halfWidth) {
+                offset.current -= halfWidth
             }
+            track.style.transform = `translateX(${-offset.current}px)`
 
             rafId = requestAnimationFrame(step)
         }
 
         rafId = requestAnimationFrame(step)
         return () => cancelAnimationFrame(rafId)
-    }, [speed])
+    }, [speed, hoverSpeed])
 
     return (
         <div
             className="merch-carousel"
             onMouseEnter={() => {
-                isPaused.current = true
+                isHovered.current = true
             }}
             onMouseLeave={() => {
-                isPaused.current = false
+                isHovered.current = false
             }}
             onFocus={() => {
-                isPaused.current = true
+                isHovered.current = true
             }}
             onBlur={() => {
-                isPaused.current = false
+                isHovered.current = false
             }}
         >
             <div
