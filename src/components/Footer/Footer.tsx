@@ -12,8 +12,9 @@ const footerColumns = [
     {
         title: 'Merch',
         links: [
-            { label: 'Clothing', href: '#clothing' },
-            { label: 'Accessories', href: '#accessories' },
+            { label: 'Clothing', href: '/merch#clothing' },
+            { label: 'Accessories', href: '/merch#accessories' },
+            { label: 'Purchasing Swag', href: '/merch#purchasing' },
         ],
     },
     {

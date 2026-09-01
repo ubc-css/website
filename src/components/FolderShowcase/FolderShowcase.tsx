@@ -41,7 +41,7 @@ const previews: FolderPreviewProps[] = [
         title: 'Merch',
         description:
             'Hoodies, pins, and stickers designed by COGS students, for COGS students.',
-        href: '#merch',
+        href: '/merch',
         align: 'right',
         photos: [
             { alt: 'COGS Stickers and Pins', src: merchSticker },

@@ -1,0 +1,119 @@
+/* Same "folder" visual language as PastEventCard/UpcomingEventCard (asymmetric
+   rounded corners, gradient card background, colored tab cycling the same 4
+   palette accents), but a simple stacked tile — image on top, details below —
+   since a grid of products reads better as tiles than as wide rows. */
+.merch-product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(22px, 2.4vw, 30px);
+    border-radius: 6px 26px 26px 26px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 244, 0.97));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 24px 54px rgba(11, 11, 12, 0.1);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.merch-product-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.merch-product-card:nth-of-type(4n+1) {
+    --merch-accent: var(--color-pastel-pink);
+}
+
+.merch-product-card:nth-of-type(4n+2) {
+    --merch-accent: var(--color-dark-plum);
+}
+
+.merch-product-card:nth-of-type(4n+3) {
+    --merch-accent: var(--color-ink-black);
+}
+
+.merch-product-card:nth-of-type(4n+4) {
+    --merch-accent: var(--color-gray-blue);
+}
+
+.merch-product-tab {
+    position: absolute;
+    top: -16px;
+    left: 28px;
+    width: 88px;
+    height: 22px;
+    border-radius: 10px 10px 0 0;
+    background: var(--merch-accent, var(--color-gray-blue));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    border-bottom: none;
+}
+
+.merch-product-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(11, 11, 12, 0.04);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Once a real photo is set, drop the placeholder box look entirely — same
+   treatment as UpcomingEventCard's .upcoming-event-image. */
+.merch-product-image:has(img) {
+    background: none;
+    border: none;
+}
+
+.merch-product-image span {
+    padding: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(11, 11, 12, 0.45);
+}
+
+.merch-product-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.merch-product-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.merch-product-body h3 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+    line-height: 1.2;
+}
+
+.merch-product-body p {
+    margin: 0;
+    color: rgba(11, 11, 12, 0.75);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+.merch-product-price {
+    margin-top: 4px;
+    color: var(--color-gray-blue);
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .merch-product-card {
+        transition: none;
+    }
+}
