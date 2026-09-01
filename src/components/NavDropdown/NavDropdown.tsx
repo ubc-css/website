@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './NavDropdown.css'
 
 interface NavDropdownProps {
@@ -9,11 +9,10 @@ interface NavDropdownProps {
 }
 
 function NavDropdown({ label, items, isOpen, onToggle }: NavDropdownProps) {
-    const [supportsHover, setSupportsHover] = useState(true)
-
-    useEffect(() => {
-        setSupportsHover(window.matchMedia('(hover: hover) and (pointer: fine)').matches)
-    }, [])
+    // Lazy initializer, not useState + a sync-only useEffect — this only
+    // ever needs to be read once (on mount), so there's no reason to render
+    // once with the wrong default and then correct it a tick later.
+    const [supportsHover] = useState(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches)
 
     const handleClick = (event: React.MouseEvent) => {
         event.stopPropagation()
