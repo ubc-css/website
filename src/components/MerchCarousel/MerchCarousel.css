@@ -1,13 +1,15 @@
 .merch-carousel {
     width: 100%;
-    /* Grows to fill whatever vertical space .merch-hero's flex column has
-       left below the title/above the section nav, and centers the track
-       within that space — this (plus the bigger .merch-carousel-item size
-       below) is what makes the carousel itself read as the page's hero
-       image, not just a strip under the title. */
-    flex: 1;
+    /* NOT flex: 1 — that grew this container to fill *all* leftover vertical
+       space in .merch-hero, but .merch-carousel-item's own size is capped
+       (width: clamp(..., 46vh, ...)), so the images stayed the same size
+       while the box around them kept growing, leaving a big invisible gap
+       between the visible carousel and the section-nav below it. Sized by
+       its own content instead — .merch-hero's own `gap` provides the
+       spacing to the nav, same as it does everywhere else. */
     display: flex;
     align-items: center;
+    justify-content: center;
     /* Full-bleed within .merch-hero's centered column so the strip can run
        edge to edge and the mask fade below has room to work. */
     overflow: hidden;
@@ -35,11 +37,12 @@
 .merch-carousel-item {
     position: relative;
     flex-shrink: 0;
-    /* Scales with both viewport width and the hero's available height
-       (min() of the two) so it actually grows to use the extra vertical
-       room .merch-carousel's flex: 1 gives it, instead of just sitting
-       small in the middle of a tall empty strip. */
-    width: clamp(240px, min(26vw, 46vh), 460px);
+    /* Scales with both viewport width and viewport height (min() of the
+       two), not just width, so the photos use more of the hero's vertical
+       room on tall screens instead of staying a small fixed size. Trimmed
+       down from an earlier min(26vw, 46vh)/460px version — that pushed
+       .merch-section-nav below the fold on common desktop viewport heights. */
+    width: clamp(220px, min(22vw, 36vh), 400px);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
@@ -71,6 +74,11 @@
 
 @media (max-width: 980px) {
     .merch-carousel-item {
-        width: clamp(160px, 46vw, 220px);
+        /* Noticeably bigger than the old clamp(160px, 46vw, 220px) — a
+           small carousel left a lot of unused vertical room in the hero,
+           pushing the section-nav up higher than it needed to sit. Also
+           height-aware (min() with vh) like the desktop size, so it grows
+           on tall phones too, not just wide ones. */
+        width: clamp(220px, min(64vw, 34vh), 340px);
     }
 }

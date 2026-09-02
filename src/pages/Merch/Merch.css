@@ -2,7 +2,13 @@
     max-width: 1180px;
     margin: 0 auto;
     width: 100%;
-    padding: clamp(24px, 4vw, 48px) 22px clamp(48px, 6vw, 80px);
+    /* No top padding (unlike a typical section) — .merch-hero is always the
+       first child, and it's a colored full-bleed block; any padding here
+       shows as a plain-background gap before that color starts, which read
+       as a visible seam right under the header. .merch-hero's own smaller
+       padding-top handles spacing from here on, and that padding is inside
+       the hero's own box, already covered by its background. */
+    padding: 0 22px clamp(48px, 6vw, 80px);
     position: relative;
     z-index: 1;
 }
@@ -12,17 +18,106 @@
     flex-direction: column;
     align-items: center;
     /* Title sits near the top instead of dead-center in the viewport-filling
-       block; the carousel (flex: 1, see .merch-carousel) grows to fill
-       whatever vertical space is left below it, so IT reads as the hero. */
+       block; MerchCarousel is naturally sized (no longer flex: 1 — see its
+       own CSS for why) and .merch-hero's own `gap` below spaces it from the
+       nav, so this whole group reads as "top-anchored" rather than
+       stretched to fill every pixel. */
     justify-content: flex-start;
     text-align: center;
-    gap: clamp(20px, 3vw, 32px);
+    /* Trimmed from clamp(20px, 3vw, 32px) — every pixel here counts twice
+       (once between the copy block and the carousel, once between the
+       carousel and the nav) toward how far down the nav sits. */
+    gap: clamp(18px, 2.2vw, 26px);
     /* Fills the initial viewport like the homepage's .hero-section (same
        header-height offset), so the title/carousel/section-nav read as the
        page's own hero rather than just a header row above the catalog. */
     min-height: calc(100svh - 130px);
     padding-top: clamp(8px, 1.5vw, 20px);
-    padding-bottom: clamp(40px, 6vw, 72px);
+    /* A bit more than the original clamp(40px, 6vw, 72px) — the section-nav
+       had no breathing room from the bottom edge otherwise. */
+    padding-bottom: clamp(48px, 7vw, 88px);
+    /* Full-bleed, same trick Footer.css uses (safe because .site-shell
+       already has overflow-x: hidden) — breaks the hero out of .merch's
+       max-width: 1180px + 22px side padding so the color wash and
+       MerchCarousel (width: 100%, a direct child) both span the entire
+       browser window on every screen size, not just up to the content
+       column's edge. No horizontal padding here on purpose: adding any
+       would inset the carousel too. .merch-hero-copy and .merch-section-nav
+       carry their own padding-inline instead, so the *text* still keeps
+       clear of the screen edges while the carousel doesn't. */
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    /* A soft, borderless color wash — not a card/panel (that treatment was
+       tried and explicitly reverted) — just two low-opacity radial tints in
+       the site's existing pink/blue accents, so the hero has some depth
+       instead of sitting completely flat on the page background. Several
+       low-opacity intermediate stops, each a small step down from the last
+       (rather than one middle stop and a big final jump to transparent),
+       spread the falloff out so far that there's no point where the glow
+       visibly "ends" — it just gradually disappears well before reaching
+       its own outer edge. Centered around 38%/34% down rather than right
+       near the top (was 15%/12%) — with the center that close to the top
+       edge, the color was still fairly saturated exactly where the box
+       meets the header above it, so the *box's own top edge* (not the
+       gradient's falloff, already fixed) read as a hard line; moving the
+       centers down means the top edge only ever shows the glow's
+       already-faded outer reach. The carousel's own edge mask-image fades
+       into this instead of the plain page background, so the two blend
+       together. */
+    background:
+        radial-gradient(circle at 20% 38%,
+            rgba(226, 182, 210, 0.14) 0%,
+            rgba(226, 182, 210, 0.08) 18%,
+            rgba(226, 182, 210, 0.04) 38%,
+            rgba(226, 182, 210, 0.013) 60%,
+            transparent 85%),
+        radial-gradient(circle at 80% 34%,
+            rgba(100, 151, 206, 0.13) 0%,
+            rgba(100, 151, 206, 0.07) 18%,
+            rgba(100, 151, 206, 0.035) 38%,
+            rgba(100, 151, 206, 0.012) 60%,
+            transparent 85%);
+}
+
+.merch-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-inline: 22px;
+}
+
+/* Same kicker-label recipe as the homepage's Hero.css .eyebrow (small caps +
+   a short gradient line before it), reimplemented under its own class here
+   rather than shared — Hero.css's h1 selector already leaked across pages
+   once before scoping fixed it, so nothing there is reused unscoped. */
+.merch-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    color: var(--color-gray-blue);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.merch-hero-eyebrow::before {
+    content: '';
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-gray-blue), transparent);
+}
+
+.merch-hero-lede {
+    margin: 0;
+    max-width: 36rem;
+    color: rgba(11, 11, 12, 0.78);
+    font-size: clamp(1.02rem, 1.6vw, 1.15rem);
+    line-height: 1.6;
 }
 
 .merch-hero h1 {
@@ -43,6 +138,9 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    /* .merch-hero is full-bleed with no padding of its own (see above) — this
+       keeps the links themselves clear of the actual screen edge. */
+    padding-inline: 22px;
 }
 
 /* Underlined by default (not just on hover) — the universal "this is a

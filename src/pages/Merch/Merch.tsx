@@ -141,7 +141,19 @@ function Merch() {
     return (
         <section className="merch">
             <div className="merch-hero">
-                <h1>The CSS Has Merch!</h1>
+                <div className="merch-hero-copy">
+                    {/* Same eyebrow-label pattern as the homepage's Hero.tsx
+                        (small caps kicker + a short gradient line), just
+                        scoped to its own class here rather than reused —
+                        Hero.css's own .eyebrow is intentionally left
+                        unshared/unscoped-selector-free after the earlier h1
+                        leak bug. */}
+                    <p className="merch-hero-eyebrow">Official CSS Merch</p>
+                    <h1>Shop Now</h1>
+                    <p className="merch-hero-lede">
+                        Hoodies, pins, and stickers designed by COGS students, for COGS students.
+                    </p>
+                </div>
 
                 <MerchCarousel images={carouselImages} />
 
