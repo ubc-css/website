@@ -59,6 +59,17 @@
     pointer-events: none;
 }
 
+/* Wraps the image frame + (when there's more than one photo) the dots below
+   it. A plain flex column with no visual styling of its own — for a
+   single-photo product this adds no extra gap (flex gap only applies
+   between rendered children, and the dots row doesn't render), so it looks
+   pixel-identical to before carousel support existed. */
+.merch-product-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .merch-product-image {
     position: relative;
     aspect-ratio: 1 / 1;
@@ -69,6 +80,65 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Same hand-rolled prev/next + dots recipe as PastEventCard's EventCard
+   (.event-carousel-arrow/.event-carousel-dot) — only rendered at all when a
+   product has more than one photo. */
+.merch-product-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-black);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(11, 11, 12, 0.18);
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.merch-product-carousel-arrow:hover,
+.merch-product-carousel-arrow:focus-visible {
+    background: #fff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.merch-product-carousel-arrow-prev {
+    left: 10px;
+}
+
+.merch-product-carousel-arrow-next {
+    right: 10px;
+}
+
+.merch-product-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.merch-product-carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: rgba(11, 11, 12, 0.2);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.merch-product-carousel-dot.is-active {
+    background: var(--color-gray-blue);
+    transform: scale(1.25);
 }
 
 /* Once a real photo is set, drop the placeholder box look entirely — same

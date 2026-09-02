@@ -26,21 +26,29 @@ const clothingItems: MerchProductCardProps[] = [
         year: 2025,
         description: 'Placeholder description: a cozy embroidered zip-up in the club colors, our newest drop.',
         price: '$45',
-        image: { src: merchHoodies, alt: '2025/2026 CSS zip-up hoodie' },
+        // Multiple photos — demos MerchProductCard's carousel (arrows +
+        // dots). Cycles the site's 3 real merch photos same as everywhere
+        // else in this placeholder catalog, not actual extra angles of the
+        // hoodie.
+        images: [
+            { src: merchHoodies, alt: '2025/2026 CSS zip-up hoodie' },
+            { src: merchStickers, alt: 'COGS stickers and pins' },
+            { src: merchKeychain, alt: 'Cute Robbie keychain' },
+        ],
     },
     {
         name: 'COGS Crewneck',
         year: 2024,
         description: 'Placeholder description: a classic crewneck sweater with the COGS logo across the chest.',
         price: '$40',
-        image: { src: merchHoodies, alt: 'COGS crewneck sweater' },
+        images: [{ src: merchHoodies, alt: 'COGS crewneck sweater' }],
     },
     {
         name: 'Classic CSS Tee',
         year: 2023,
         description: 'Placeholder description: our original club tee — soft cotton, screen-printed logo.',
         price: '$25',
-        image: { src: merchHoodies, alt: 'Classic CSS t-shirt' },
+        images: [{ src: merchHoodies, alt: 'Classic CSS t-shirt' }],
     },
 ]
 
@@ -50,21 +58,26 @@ const accessoryItems: MerchProductCardProps[] = [
         year: 2025,
         description: 'Placeholder description: a hard enamel pin of our mascot Robbie, perfect for a tote or lanyard.',
         price: '$8',
-        image: { src: merchKeychain, alt: 'Robbie enamel pin' },
+        images: [{ src: merchKeychain, alt: 'Robbie enamel pin' }],
     },
     {
         name: 'COGS Sticker Pack',
         year: 2024,
         description: 'Placeholder description: a set of 5 vinyl stickers featuring COGS-themed designs.',
         price: '$6',
-        image: { src: merchStickers, alt: 'COGS sticker pack' },
+        images: [{ src: merchStickers, alt: 'COGS sticker pack' }],
     },
     {
         name: 'Robbie Keychain',
         year: 2023,
         description: 'Placeholder description: a mini acrylic charm of Robbie to clip onto your bag or keys.',
         price: '$10',
-        image: { src: merchKeychain, alt: 'Robbie keychain' },
+        // Second product with multiple photos, same reasoning as the hoodie
+        // above.
+        images: [
+            { src: merchKeychain, alt: 'Robbie keychain' },
+            { src: merchStickers, alt: 'COGS stickers and pins' },
+        ],
     },
 ]
 

@@ -1,5 +1,14 @@
+import { useState } from 'react'
 import { useInView } from '../../hooks/useInView'
 import './MerchProductCard.css'
+
+export interface MerchProductImage {
+    alt: string
+    /** Left unset until a real product photo exists — renders a labeled
+     * placeholder box instead of an <img>, same pattern as FolderPreview's
+     * photo slots. */
+    src?: string
+}
 
 export interface MerchProductCardProps {
     name: string
@@ -9,17 +18,20 @@ export interface MerchProductCardProps {
      * section's oldest/newest sort in Merch.tsx, never rendered on the card
      * itself (there's no "year" shown anywhere in the UI). */
     year: number
-    image: {
-        alt: string
-        /** Left unset until a real product photo exists — renders a labeled
-         * placeholder box instead of an <img>, same pattern as FolderPreview's
-         * photo slots. */
-        src?: string
-    }
+    /** One photo renders exactly like before (plain static image, no
+     * controls). More than one adds prev/next arrows + dot indicators —
+     * same hand-rolled carousel as PastEventCard's EventCard. */
+    images: MerchProductImage[]
 }
 
-function MerchProductCard({ name, description, price, image }: MerchProductCardProps) {
+function MerchProductCard({ name, description, price, images }: MerchProductCardProps) {
+    const [index, setIndex] = useState(0)
     const { ref, isInView } = useInView<HTMLDivElement>(0.15)
+
+    const showPrev = () => setIndex((current) => (current - 1 + images.length) % images.length)
+    const showNext = () => setIndex((current) => (current + 1) % images.length)
+
+    const currentImage = images[index]
 
     return (
         <div ref={ref} className={`merch-product-card ${isInView ? 'is-visible' : ''}`}>
@@ -44,8 +56,50 @@ function MerchProductCard({ name, description, price, image }: MerchProductCardP
                 <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
             </svg>
 
-            <div className="merch-product-image">
-                {image.src ? <img src={image.src} alt={image.alt} /> : <span>{image.alt}</span>}
+            <div className="merch-product-carousel">
+                <div className="merch-product-image">
+                    {currentImage.src ? (
+                        <img src={currentImage.src} alt={currentImage.alt} />
+                    ) : (
+                        <span>{currentImage.alt}</span>
+                    )}
+
+                    {images.length > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                className="merch-product-carousel-arrow merch-product-carousel-arrow-prev"
+                                onClick={showPrev}
+                                aria-label={`Previous photo of ${name}`}
+                            >
+                                ‹
+                            </button>
+                            <button
+                                type="button"
+                                className="merch-product-carousel-arrow merch-product-carousel-arrow-next"
+                                onClick={showNext}
+                                aria-label={`Next photo of ${name}`}
+                            >
+                                ›
+                            </button>
+                        </>
+                    )}
+                </div>
+
+                {images.length > 1 && (
+                    <div className="merch-product-carousel-dots">
+                        {images.map((image, photoIndex) => (
+                            <button
+                                key={image.alt + photoIndex}
+                                type="button"
+                                className={`merch-product-carousel-dot ${photoIndex === index ? 'is-active' : ''}`}
+                                onClick={() => setIndex(photoIndex)}
+                                aria-label={`Show photo ${photoIndex + 1} of ${images.length}`}
+                                aria-current={photoIndex === index}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="merch-product-body">
