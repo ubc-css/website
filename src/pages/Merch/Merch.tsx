@@ -195,6 +195,9 @@ function Merch() {
 
             <div className="merch-purchase" id="purchasing">
                 <h2>Like What You See?</h2>
+                <p className="merch-purchase-lede">
+                       Purchase your swag using one of the following two options:
+                    </p>
 
                 <div className="merch-purchase-options">
                     <div className="merch-purchase-option">
