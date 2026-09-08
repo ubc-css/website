@@ -70,7 +70,12 @@ function UpcomingEventCard({ name, date, time, location, description, image, rsv
                     <a className="rsvp-button" href={rsvpHref}>
                         RSVP
                     </a>
-                    <a className="upcoming-member-link" href="#join">
+                    <a
+                        className="upcoming-member-link"
+                        href="https://www.showpass.com/m/css-club-membership/"
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         Become a member
                     </a>
                 </div>

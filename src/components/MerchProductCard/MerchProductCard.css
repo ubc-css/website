@@ -160,7 +160,25 @@
     inset: 0;
     width: 100%;
     height: 100%;
+    /* contain, not cover — Accessories' photos (flat sticker illustrations,
+       a single centered keychain/tote shot) looked wrong cropped, so this
+       stays the original default for them. */
     object-fit: contain;
+}
+
+/* Clothing is the one section that needs `cover` instead: the real product
+   photos there have very mixed aspect ratios (e.g. the zip-up hoodie's tall
+   ~739x964 shots vs. the crewneck's wide ~597x448 one), and `contain` let
+   each one keep its own native size within the square frame, so the garment
+   in a tall photo like the zip-up rendered noticeably smaller (letterboxed)
+   than one in a near-square photo. `cover` scales every Clothing photo to
+   fill the square frame edge-to-edge instead, cropping the excess on
+   whichever axis runs long, so every card's garment reads as roughly the
+   same size — scoped to #clothing specifically rather than changed as the
+   shared default, since Accessories' photos don't have that problem and
+   look worse cropped. */
+#clothing .merch-product-image img {
+    object-fit: cover;
 }
 
 .merch-product-body {

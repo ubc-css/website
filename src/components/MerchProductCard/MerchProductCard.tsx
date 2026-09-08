@@ -8,6 +8,13 @@ export interface MerchProductImage {
      * placeholder box instead of an <img>, same pattern as FolderPreview's
      * photo slots. */
     src?: string
+    /** Overrides the crop anchor for Clothing's `object-fit: cover` (see
+     * MerchProductCard.css) — a CSS `object-position` value. Left unset to
+     * use the default center crop, right for most photos; a portrait photo
+     * like the zip-up hoodie's crops top and bottom evenly by default,
+     * which can cut into the hood/collar near the top of frame, so those
+     * use `'top'` to crop the (less important) hem instead. */
+    objectPosition?: string
 }
 
 export interface MerchProductCardProps {
@@ -18,6 +25,12 @@ export interface MerchProductCardProps {
      * section's oldest/newest sort in Merch.tsx, never rendered on the card
      * itself (there's no "year" shown anywhere in the UI). */
     year: number
+    /** A product category (e.g. "Hoodie", "Sticker") — like `year`, this
+     * exists purely for `Merch.tsx`'s "Group by Type" filter dropdown and is
+     * never rendered on the card itself. Free-form rather than a fixed union
+     * of Clothing/Accessories values, since this same props type covers
+     * both sections. */
+    type: string
     /** One photo renders exactly like before (plain static image, no
      * controls). More than one adds prev/next arrows + dot indicators —
      * same hand-rolled carousel as PastEventCard's EventCard. */
@@ -59,7 +72,11 @@ function MerchProductCard({ name, description, price, images }: MerchProductCard
             <div className="merch-product-carousel">
                 <div className="merch-product-image">
                     {currentImage.src ? (
-                        <img src={currentImage.src} alt={currentImage.alt} />
+                        <img
+                            src={currentImage.src}
+                            alt={currentImage.alt}
+                            style={currentImage.objectPosition ? { objectPosition: currentImage.objectPosition } : undefined}
+                        />
                     ) : (
                         <span>{currentImage.alt}</span>
                     )}

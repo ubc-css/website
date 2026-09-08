@@ -1,0 +1,63 @@
+.lounge-carousel {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    /* Fades the strip out at both edges instead of a hard clip, same recipe
+       as MerchCarousel. */
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.lounge-carousel-track {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 2.4vw, 28px);
+    width: max-content;
+    /* No CSS transition/animation here — LoungeCarousel.tsx writes `transform`
+       directly on this element every animation frame (same technique as
+       MerchCarousel/Cursor.tsx). */
+}
+
+.lounge-carousel-item {
+    position: relative;
+    flex-shrink: 0;
+    /* Smaller than MerchCarousel's hero-sized items — this is a secondary
+       section strip, not the page's opening hero. */
+    width: clamp(160px, 20vw, 240px);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: rgba(11, 11, 12, 0.55);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(242, 242, 244, 0.94));
+    border: 1px dashed rgba(11, 11, 12, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 14px 30px rgba(11, 11, 12, 0.12);
+}
+
+.lounge-carousel-item:has(img) {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: 0 14px 30px rgba(11, 11, 12, 0.16);
+}
+
+.lounge-carousel-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+@media (max-width: 980px) {
+    .lounge-carousel-item {
+        width: clamp(140px, 46vw, 200px);
+    }
+}

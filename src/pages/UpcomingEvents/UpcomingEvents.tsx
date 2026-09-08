@@ -72,17 +72,17 @@ function UpcomingEvents() {
         <section className="upcoming-events">
             {/* Mobile-only: replaces the desktop .calendar-view-button pill
                 with a compact icon link fixed next to the hamburger menu, so
-                the mobile header row stays uncluttered. Same placeholder
-                href as the desktop button — swap both once a real calendar
-                link exists. Portaled to document.body — same reasoning as
-                MobileNav's hamburger button/panel — so this fixed-position
+                the mobile header row stays uncluttered. Same real calendar
+                href as the desktop button. Portaled to document.body — same
+                reasoning as MobileNav's hamburger button/panel — so this
+                fixed-position
                 icon isn't trapped under the header by .upcoming-events's own
                 stacking context (position: relative; z-index: 1 here beats
                 any z-index set on a descendant). */}
             {createPortal(
                 <a
                     className="mobile-calendar-view-button"
-                    href="#"
+                    href="https://calendar.google.com/calendar/u/0/embed?src=9dc50ef9a69b4502a344057732675ce11f7cebade23d99fe226e0f6718e3c3b4@group.calendar.google.com&src=cogsubc@gmail.com&ctz=America/Vancouver"
                     target="_blank"
                     rel="noreferrer"
                     aria-label="Calendar view"
@@ -104,9 +104,15 @@ function UpcomingEvents() {
                     </a>
                 </div>
 
-                {/* Placeholder href — swap for the club's real external
-                    calendar link (Google Calendar, etc.) once one exists. */}
-                <a className="calendar-view-button" href="#" target="_blank" rel="noreferrer">
+                {/* The club's real Google Calendar (an embed URL, but it
+                    renders fine as a standalone page too, not just in an
+                    iframe). */}
+                <a
+                    className="calendar-view-button"
+                    href="https://calendar.google.com/calendar/u/0/embed?src=9dc50ef9a69b4502a344057732675ce11f7cebade23d99fe226e0f6718e3c3b4@group.calendar.google.com&src=cogsubc@gmail.com&ctz=America/Vancouver"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                         <rect x="3" y="5" width="18" height="16" rx="2.5" />
                         <path d="M3 10h18M8 3v4M16 3v4" strokeLinecap="round" />

@@ -4,6 +4,32 @@ import MerchProductCard, { type MerchProductCardProps } from '../../components/M
 import merchHoodies from '../../assets/merch/MerchHoodies.png'
 import merchKeychain from '../../assets/merch/MerchKeychain.png'
 import merchStickers from '../../assets/merch/MerchStickers.png'
+// Real product photos — replacing the generic reused placeholders above for
+// the actual catalog below (the three MerchXxx imports stay in use for the
+// hero MerchCarousel, which wasn't part of this update).
+import zipupFront from '../../assets/merch/zipup-front.png'
+import zipupBack from '../../assets/merch/zipup-back.png'
+import beigeCrewFront from '../../assets/merch/beigeCrew-front.png'
+import beigeCrewBack from '../../assets/merch/beigeCrew-back.png'
+import robbieShirtFront from '../../assets/merch/robbieShirt-front.png'
+import robbieShirtBack from '../../assets/merch/robbieShirt-back.png'
+import robbieHoodieFront from '../../assets/merch/robbieHoodie-front.png'
+import robbieHoodieBack from '../../assets/merch/robbieHoodie-back.png'
+import brainHoodieFront from '../../assets/merch/brainHoodie-front.png'
+import brainHoodieBack from '../../assets/merch/brainHoodie-back.png'
+import whiteHoodieFront from '../../assets/merch/whiteHoodie-front.png'
+import whiteHoodieBack from '../../assets/merch/whiteHoodie-back.png'
+import boboRobbie from '../../assets/merch/boboRobbie.png'
+import confusedRobbie from '../../assets/merch/confusedRobbie.png'
+import cryRobbie from '../../assets/merch/cryRobbie.png'
+import loveRobbie from '../../assets/merch/loveRobbie.png'
+import nerdRobbie from '../../assets/merch/nerdRobbie.png'
+import shyRobbie from '../../assets/merch/shyRobbie.png'
+import brainyTote from '../../assets/merch/brainyTote.png'
+import robbieTote from '../../assets/merch/robbieTote.png'
+import cognitiveSisyphusSticker from '../../assets/merch/cognitivesisyphusSticker.png'
+import cogsPortalSticker from '../../assets/merch/cogsportalSticker.jpg'
+import robbieXWugSticker from '../../assets/merch/robbiexwugSticker.jpg'
 import './Merch.css'
 
 // Cycles through the site's existing real merch photos for the hero
@@ -24,31 +50,72 @@ const clothingItems: MerchProductCardProps[] = [
     {
         name: 'CSS Zip-Up Hoodie',
         year: 2025,
-        description: 'Placeholder description: a cozy embroidered zip-up in the club colors, our newest drop.',
-        price: '$45',
-        // Multiple photos — demos MerchProductCard's carousel (arrows +
-        // dots). Cycles the site's 3 real merch photos same as everywhere
-        // else in this placeholder catalog, not actual extra angles of the
-        // hoodie.
+        type: 'Hoodie',
+        description: 'NEW: a cozy zip-up with a trippy looking back graphic',
+        price: '$35',
+        // Both photos are portrait shots (~739x964/692x907) that get
+        // cropped top-and-bottom evenly by the card's object-fit: cover —
+        // objectPosition: 'top' shifts that crop down instead, so the hood
+        // stays fully in frame and the hem gets cropped instead.
         images: [
-            { src: merchHoodies, alt: '2025/2026 CSS zip-up hoodie' },
-            { src: merchStickers, alt: 'COGS stickers and pins' },
-            { src: merchKeychain, alt: 'Cute Robbie keychain' },
+            { src: zipupFront, alt: 'Black CSS zip-up hoodie, front, with a small embroidered chest logo', objectPosition: 'top' },
+            { src: zipupBack, alt: 'Black CSS zip-up hoodie, back, with a large "Question Everything" print', objectPosition: 'top' },
+        ],
+    },
+    {
+        name: 'Robbie Hoodie',
+        year: 2025,
+        type: 'Hoodie',
+        description: 'Placeholder description: a soft pullover hoodie with an embroidered Robbie logo on the chest and our university seal across the back.',
+        price: '$40',
+        images: [
+            { src: robbieHoodieFront, alt: 'Black pullover hoodie, front, with a small Robbie chest logo' },
+            { src: robbieHoodieBack, alt: 'Black pullover hoodie, back, with a circular UBC CSS seal print' },
+        ],
+    },
+    {
+        name: 'Brain Hoodie',
+        year: 2024,
+        type: 'Hoodie',
+        description: 'Placeholder description: a pullover hoodie featuring a bold circuit-brain graphic across the back.',
+        price: '$42',
+        images: [
+            { src: brainHoodieFront, alt: 'Black pullover hoodie, front, with a small chest logo' },
+            { src: brainHoodieBack, alt: 'Black pullover hoodie, back, with a large circuit-brain graphic' },
+        ],
+    },
+    {
+        name: 'White Hoodie',
+        year: 2024,
+        type: 'Hoodie',
+        description: 'Placeholder description: a cream pullover hoodie with a small embroidered logo up front and a colourful crest on the back.',
+        price: '$42',
+        images: [
+            { src: whiteHoodieFront, alt: 'Cream pullover hoodie, front, with a small chest logo' },
+            { src: whiteHoodieBack, alt: 'Cream pullover hoodie, back, with a colourful circular UBC CSS crest' },
         ],
     },
     {
         name: 'COGS Crewneck',
-        year: 2024,
+        year: 2023,
+        type: 'Crewneck',
         description: 'Placeholder description: a classic crewneck sweater with the COGS logo across the chest.',
         price: '$40',
-        images: [{ src: merchHoodies, alt: 'COGS crewneck sweater' }],
+        images: [
+            { src: beigeCrewFront, alt: 'Beige crewneck sweater, front, with a "Cognitive Systems" chest graphic' },
+            { src: beigeCrewBack, alt: 'Beige crewneck sweater, back' },
+        ],
     },
     {
         name: 'Classic CSS Tee',
         year: 2023,
+        type: 'Tee',
         description: 'Placeholder description: our original club tee — soft cotton, screen-printed logo.',
         price: '$25',
-        images: [{ src: merchHoodies, alt: 'Classic CSS t-shirt' }],
+        images: [
+            { src: robbieShirtFront, alt: 'Navy pocket t-shirt, front, with a Robbie graphic over the pocket' },
+            { src: robbieShirtBack, alt: 'Navy pocket t-shirt, back, with a "UBC CSS" varsity print' },
+        ],
     },
 ]
 
@@ -56,30 +123,106 @@ const accessoryItems: MerchProductCardProps[] = [
     {
         name: 'Robbie Enamel Pin',
         year: 2025,
+        type: 'Pin',
+        // No dedicated pin photo yet — still reusing the keychain's stock
+        // photo as a stand-in, same as before this update.
         description: 'Placeholder description: a hard enamel pin of our mascot Robbie, perfect for a tote or lanyard.',
         price: '$8',
         images: [{ src: merchKeychain, alt: 'Robbie enamel pin' }],
     },
     {
-        name: 'COGS Sticker Pack',
-        year: 2024,
-        description: 'Placeholder description: a set of 5 vinyl stickers featuring COGS-themed designs.',
-        price: '$6',
-        images: [{ src: merchStickers, alt: 'COGS sticker pack' }],
+        name: 'Bobo Robbie Sticker',
+        year: 2025,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of Robbie dressed up as a clown.',
+        price: '$3',
+        images: [{ src: boboRobbie, alt: 'Sticker of Robbie dressed as a clown' }],
     },
     {
-        name: 'Robbie Keychain',
+        name: 'Love Robbie Sticker',
+        year: 2025,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of Robbie with heart eyes.',
+        price: '$3',
+        images: [{ src: loveRobbie, alt: 'Sticker of Robbie with heart eyes' }],
+    },
+    {
+        name: 'Nerd Robbie Sticker',
+        year: 2024,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of Robbie rocking a pair of glasses.',
+        price: '$3',
+        images: [{ src: nerdRobbie, alt: 'Sticker of Robbie wearing glasses' }],
+    },
+    {
+        name: 'Confused Robbie Sticker',
+        year: 2024,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of a puzzled-looking Robbie.',
+        price: '$3',
+        images: [{ src: confusedRobbie, alt: 'Sticker of a confused-looking Robbie' }],
+    },
+    {
+        name: 'Shy Robbie Sticker',
         year: 2023,
-        description: 'Placeholder description: a mini acrylic charm of Robbie to clip onto your bag or keys.',
-        price: '$10',
-        // Second product with multiple photos, same reasoning as the hoodie
-        // above.
-        images: [
-            { src: merchKeychain, alt: 'Robbie keychain' },
-            { src: merchStickers, alt: 'COGS stickers and pins' },
-        ],
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of a bashful, blushing Robbie.',
+        price: '$3',
+        images: [{ src: shyRobbie, alt: 'Sticker of a shy, sweating Robbie' }],
+    },
+    {
+        name: 'Cry Robbie Sticker',
+        year: 2023,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of a teary-eyed Robbie.',
+        price: '$3',
+        images: [{ src: cryRobbie, alt: 'Sticker of a crying Robbie' }],
+    },
+    {
+        name: 'Cognitive Sisyphus Sticker',
+        year: 2025,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of a figure pushing a giant gear up a hill, à la Sisyphus.',
+        price: '$3',
+        images: [{ src: cognitiveSisyphusSticker, alt: 'Sticker of a figure pushing a gear up a hill like Sisyphus' }],
+    },
+    {
+        name: 'COGS Portal Sticker',
+        year: 2025,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of Robbie unlocking a hidden gear-covered door inside a giant brain.',
+        price: '$3',
+        images: [{ src: cogsPortalSticker, alt: 'Sticker of Robbie opening a door inside a giant brain' }],
+    },
+    {
+        name: 'Robbie x Wug Sticker',
+        year: 2025,
+        type: 'Sticker',
+        description: 'Placeholder description: a vinyl sticker of Robbie posing alongside the classic linguistics "wug" bird.',
+        price: '$3',
+        images: [{ src: robbieXWugSticker, alt: 'Sticker of Robbie next to the linguistics "wug" bird' }],
+    },
+    {
+        name: 'Brainy Tote',
+        year: 2025,
+        type: 'Tote',
+        description: 'Placeholder description: a canvas tote bag with our walking-brain mascot printed up front.',
+        price: '$18',
+        images: [{ src: brainyTote, alt: 'Canvas tote bag with a walking brain character graphic' }],
+    },
+    {
+        name: 'Robbie Tote',
+        year: 2025,
+        type: 'Tote',
+        description: 'Placeholder description: a canvas tote bag with a big Robbie outline and the club’s full name.',
+        price: '$18',
+        images: [{ src: robbieTote, alt: 'Canvas tote bag with a large Robbie outline graphic' }],
     },
 ]
+
+// Derived once from the catalog above, not hardcoded — see getMerchTypes.
+const clothingTypes = getMerchTypes(clothingItems)
+const accessoryTypes = getMerchTypes(accessoryItems)
 
 type MerchSort = 'newest' | 'oldest' | 'price-low' | 'price-high'
 
@@ -115,6 +258,22 @@ function sortMerchItems(items: MerchProductCardProps[], sort: MerchSort): MerchP
     return sorted
 }
 
+// Sentinel for "no type filter applied" — lowercase specifically so it can't
+// collide with a real `type` value (all of which are capitalized, e.g.
+// "Hoodie"), same reasoning Past Events' `'All'` year option uses.
+const ALL_TYPES = 'all'
+
+// Each section's available types are derived from its own item list rather
+// than hardcoded, so adding/removing a product's `type` automatically
+// updates the dropdown's options with no second place to edit.
+function getMerchTypes(items: MerchProductCardProps[]): string[] {
+    return Array.from(new Set(items.map((item) => item.type)))
+}
+
+function filterMerchItemsByType(items: MerchProductCardProps[], type: string): MerchProductCardProps[] {
+    return type === ALL_TYPES ? items : items.filter((item) => item.type === type)
+}
+
 function MerchSortSelect({ value, onChange, label }: { value: MerchSort; onChange: (value: MerchSort) => void; label: string }) {
     return (
         <label className="merch-sort">
@@ -129,14 +288,43 @@ function MerchSortSelect({ value, onChange, label }: { value: MerchSort; onChang
     )
 }
 
+// Same `.merch-sort` pill styling as MerchSortSelect — reused rather than a
+// new class, since visually it's the same "small pill select" control, just
+// filtering by `type` instead of resorting by year/price.
+function MerchTypeSelect({ value, onChange, types, label }: { value: string; onChange: (value: string) => void; types: string[]; label: string }) {
+    return (
+        <label className="merch-sort">
+            <select aria-label={label} value={value} onChange={(event) => onChange(event.target.value)}>
+                <option value={ALL_TYPES}>All Types</option>
+                {types.map((type) => (
+                    <option key={type} value={type}>
+                        {type}
+                    </option>
+                ))}
+            </select>
+        </label>
+    )
+}
+
 function Merch() {
     // Newest-to-oldest by default, per the layout sketch's "ordered from
     // newest to oldest" note — each section sorts independently.
     const [clothingSort, setClothingSort] = useState<MerchSort>('newest')
     const [accessoriesSort, setAccessoriesSort] = useState<MerchSort>('newest')
+    // "Group by Type" filters — independent per section, same as sort.
+    // Defaults to ALL_TYPES (no filtering) rather than the first real type,
+    // so the section shows everything until the visitor actively narrows it.
+    const [clothingType, setClothingType] = useState(ALL_TYPES)
+    const [accessoriesType, setAccessoriesType] = useState(ALL_TYPES)
 
-    const sortedClothing = useMemo(() => sortMerchItems(clothingItems, clothingSort), [clothingSort])
-    const sortedAccessories = useMemo(() => sortMerchItems(accessoryItems, accessoriesSort), [accessoriesSort])
+    const sortedClothing = useMemo(
+        () => sortMerchItems(filterMerchItemsByType(clothingItems, clothingType), clothingSort),
+        [clothingType, clothingSort],
+    )
+    const sortedAccessories = useMemo(
+        () => sortMerchItems(filterMerchItemsByType(accessoryItems, accessoriesType), accessoriesSort),
+        [accessoriesType, accessoriesSort],
+    )
 
     return (
         <section className="merch">
@@ -172,7 +360,15 @@ function Merch() {
             <div className="merch-section" id="clothing">
                 <div className="merch-section-title-row">
                     <h2>Clothing</h2>
-                    <MerchSortSelect value={clothingSort} onChange={setClothingSort} label="Sort clothing" />
+                    <div className="merch-section-filters">
+                        <MerchTypeSelect
+                            value={clothingType}
+                            onChange={setClothingType}
+                            types={clothingTypes}
+                            label="Filter clothing by type"
+                        />
+                        <MerchSortSelect value={clothingSort} onChange={setClothingSort} label="Sort clothing" />
+                    </div>
                 </div>
                 <div className="merch-grid">
                     {sortedClothing.map((item) => (
@@ -184,7 +380,15 @@ function Merch() {
             <div className="merch-section" id="accessories">
                 <div className="merch-section-title-row">
                     <h2>Accessories</h2>
-                    <MerchSortSelect value={accessoriesSort} onChange={setAccessoriesSort} label="Sort accessories" />
+                    <div className="merch-section-filters">
+                        <MerchTypeSelect
+                            value={accessoriesType}
+                            onChange={setAccessoriesType}
+                            types={accessoryTypes}
+                            label="Filter accessories by type"
+                        />
+                        <MerchSortSelect value={accessoriesSort} onChange={setAccessoriesSort} label="Sort accessories" />
+                    </div>
                 </div>
                 <div className="merch-grid">
                     {sortedAccessories.map((item) => (

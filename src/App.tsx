@@ -4,6 +4,8 @@ import Home from './pages/Home/Home'
 import PastEvents from './pages/PastEvents/PastEvents'
 import UpcomingEvents from './pages/UpcomingEvents/UpcomingEvents'
 import Merch from './pages/Merch/Merch'
+import About from './pages/About/About'
+import Resources from './pages/Resources/Resources'
 
 function App() {
     return (
@@ -13,6 +15,8 @@ function App() {
                 <Route path="/events/upcoming" element={<UpcomingEvents />} />
                 <Route path="/events/past" element={<PastEvents />} />
                 <Route path="/merch" element={<Merch />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/resources" element={<Resources />} />
             </Route>
         </Routes>
     )

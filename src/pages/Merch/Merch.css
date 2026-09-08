@@ -187,8 +187,20 @@
     letter-spacing: -0.02em;
 }
 
-/* Same pill recipe as Past Events' .year-filter, reused here for the
-   Clothing/Accessories sort dropdowns. */
+/* Groups the type filter + sort pills together as one flex child of
+   .merch-section-title-row (which is itself `justify-content: space-between`
+   between the <h2> and this group) — without this wrapper, adding the type
+   filter as a second bare sibling would space all three items evenly across
+   the row instead of keeping the two filter pills next to each other. */
+.merch-section-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Same pill recipe as Past Events' .year-filter, reused here for both the
+   Clothing/Accessories sort dropdowns and the "Group by Type" filter. */
 .merch-sort {
     display: inline-flex;
     align-items: center;

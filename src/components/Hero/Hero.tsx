@@ -16,7 +16,12 @@ function Hero() {
                         <a className="secondary-action" href="#folder-showcase">
                             Learn what CSS does
                         </a>
-                        <a className="primary-action" href="#join">
+                        <a
+                            className="primary-action"
+                            href="https://www.showpass.com/m/css-club-membership/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             Join CSS
                         </a>
                     </div>

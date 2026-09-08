@@ -39,10 +39,14 @@
     flex-shrink: 0;
     /* Scales with both viewport width and viewport height (min() of the
        two), not just width, so the photos use more of the hero's vertical
-       room on tall screens instead of staying a small fixed size. Trimmed
-       down from an earlier min(26vw, 46vh)/460px version — that pushed
-       .merch-section-nav below the fold on common desktop viewport heights. */
-    width: clamp(220px, min(22vw, 36vh), 400px);
+       room on tall screens instead of staying a small fixed size. This was
+       previously trimmed down to clamp(220px, min(22vw, 36vh), 400px) to
+       keep .merch-section-nav above the fold on common desktop viewport
+       heights — since then, explicitly enlarged past even the original
+       bigger version (min(26vw, 46vh)/460px) per a direct request to push
+       the nav further down the page, so "above the fold" is no longer the
+       constraint driving this size. */
+    width: clamp(280px, min(30vw, 50vh), 520px);
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
@@ -74,11 +78,7 @@
 
 @media (max-width: 980px) {
     .merch-carousel-item {
-        /* Noticeably bigger than the old clamp(160px, 46vw, 220px) — a
-           small carousel left a lot of unused vertical room in the hero,
-           pushing the section-nav up higher than it needed to sit. Also
-           height-aware (min() with vh) like the desktop size, so it grows
-           on tall phones too, not just wide ones. */
-        width: clamp(220px, min(64vw, 34vh), 340px);
+        /* Enlarged along with the desktop size above, same reasoning. */
+        width: clamp(260px, min(72vw, 44vh), 420px);
     }
 }

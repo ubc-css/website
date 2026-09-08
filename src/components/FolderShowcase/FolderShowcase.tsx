@@ -17,7 +17,7 @@ const previews: FolderPreviewProps[] = [
      {
         title: 'About',
         description: 'Meet the team behind CSS and learn what the club is all about.',
-        href: '#about',
+        href: '/about',
         align: 'right',
         photos: [
             { alt: 'The 2025/2026 CSS exec Team at the COGSquerade', src: team},
@@ -53,7 +53,7 @@ const previews: FolderPreviewProps[] = [
         title: 'Resources',
         description:
             'Degree planning guides, career resources, and the CSS podcast, all in one place.',
-        href: '#resources',
+        href: '/resources',
         align: 'left',
         photos: [
             { alt: 'Students listening intentively at Gearing Up for 402 Presentation', src: gearingUp},

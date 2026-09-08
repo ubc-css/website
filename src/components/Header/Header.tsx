@@ -35,22 +35,29 @@ function Header() {
             <NavDropdown
                 label="Resources"
                 items={[
-                    { label: 'Degree Planning', href: '#degree' },
-                    { label: 'Career', href: '#career' },
-                    { label: 'Podcast', href: '#podcast' },
+                    { label: 'Degree Planning', href: '/resources#degree' },
+                    { label: 'Career', href: '/resources#career' },
+                    { label: 'Podcast', href: '/resources#podcast' },
                 ]}
                 {...dropdownProps('Resources')}
             />
             <NavDropdown
                 label="About"
                 items={[
-                    { label: 'Our Team', href: '#team' },
-                    { label: 'The Lounge', href: '#thelounge' },
-                    { label: 'Contact', href: '#contact' },
+                    { label: 'Our Team', href: '/about#team' },
+                    { label: 'The Lounge', href: '/about#thelounge' },
+                    { label: 'Contact', href: '/about#contact' },
                 ]}
                 {...dropdownProps('About')}
             />
-            <a href="#join" className="nav-cta">Become A Member</a>
+            <a
+                href="https://www.showpass.com/m/css-club-membership/"
+                target="_blank"
+                rel="noreferrer"
+                className="nav-cta"
+            >
+                Become A Member
+            </a>
         </>
     )
 

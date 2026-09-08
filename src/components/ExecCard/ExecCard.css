@@ -1,0 +1,63 @@
+.exec-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: clamp(180px, 24vw, 240px);
+    text-align: center;
+}
+
+/* Same placeholder-until-src-is-set recipe as MerchCarousel/FolderPreview's
+   photo slots, just circular instead of square/rectangular — a headshot
+   reads as a circle, a product or event photo doesn't. One size for every
+   card (President included) — there used to be a bigger "large" variant for
+   just the President, but all the profiles are meant to read as one
+   consistent roster now. */
+.exec-photo {
+    position: relative;
+    width: clamp(150px, 18vw, 210px);
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: rgba(11, 11, 12, 0.5);
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(242, 242, 244, 0.94));
+    border: 1px dashed rgba(11, 11, 12, 0.2);
+    box-shadow: 0 14px 30px rgba(11, 11, 12, 0.12);
+}
+
+.exec-photo:has(img) {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: 0 14px 30px rgba(11, 11, 12, 0.16);
+}
+
+.exec-photo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.exec-title {
+    color: var(--color-black);
+    font-weight: 800;
+    font-size: 1.08rem;
+    line-height: 1.25;
+}
+
+/* The "sub header ... in a lighter gray color" for the person's name,
+   distinct from the bold black title above it. */
+.exec-name {
+    color: var(--color-gray);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
