@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useInView } from '../../hooks/useInView'
-import './EventCard.css'
+import './PastEventCard.css'
 
 export interface EventPhoto {
     src: string
     alt: string
 }
 
-export interface EventCardProps {
+export interface PastEventCardProps {
     name: string
     description: string
     /** The academic year's starting calendar year (e.g. 2025 for "2025/26") —
@@ -16,7 +16,7 @@ export interface EventCardProps {
     photos: EventPhoto[]
 }
 
-function EventCard({ name, description, photos }: EventCardProps) {
+function PastEventCard({ name, description, photos }: PastEventCardProps) {
     const [index, setIndex] = useState(0)
     const { ref, isInView } = useInView<HTMLDivElement>(0.15)
 
@@ -77,4 +77,4 @@ function EventCard({ name, description, photos }: EventCardProps) {
     )
 }
 
-export default EventCard
+export default PastEventCard

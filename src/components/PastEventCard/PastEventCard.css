@@ -60,7 +60,7 @@
 .event-card-body h3 {
     margin: 0;
     color: var(--color-black);
-    font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+    font-size: clamp(2rem, 3vw, 2.5rem); 
     line-height: 1.15;
 }
 

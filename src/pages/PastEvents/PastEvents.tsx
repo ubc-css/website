@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import EventCard, { type EventCardProps } from '../../components/PastEventCard/EventCard'
+import PastEventCard, { type PastEventCardProps } from '../../components/PastEventCard/PastEventCard'
 import { formatAcademicYear } from '../../components/PastEventCard/formatAcademicYear'
 
 // PHOTO IMPORTS
@@ -65,9 +65,9 @@ import robotparty10 from '../../assets/events/robotparty10.jpg'
 import './PastEvents.css'
 
 
-const pastEvents: EventCardProps[] = [
+const pastEvents: PastEventCardProps[] = [
     {
-        name: 'Welcome Back BBQ',
+        name: 'Welcome Back BBQ 2025/26',
         year: 2025,
         description:
             'The annual kickoff BBQ social welcoming new and returning COGS students back for the year.',
@@ -80,7 +80,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'Alumni Mixer Night',
+        name: 'Alumni Mixer Night 2025/26',
         year: 2025,
         description:
             'Our annual Alumni-Student Mixer. Whether you’re a new COG in the community or one of our COGS alumni, join us for a night of reconnection with friends new and old!',
@@ -104,7 +104,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'Meet The Profs',
+        name: 'Meet The Profs 2025/26',
         year: 2025,
         description: 'An annual evening of COGSy vibes, great convos, and even better company! Chat with professors and peers across the COGS disciplines in a casual setting and snag some free food!',
         photos: [
@@ -118,7 +118,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'Interyear Mingle ',
+        name: 'Interyear Mingle 2025/26',
         year: 2025,
         description: 'This night gave upper year and lower year COGS students a chance to meet all across the COGS discipline! An evening of making friends, sharing laughs, and trading stories over food and games.',
         photos: [
@@ -129,7 +129,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'Gearing Up for 402',
+        name: 'Gearing Up for 402 2025/26',
         year: 2025,
         description:
             'Professors and COGS alumni come together to help current COGS students prepare for COGS 402, the final boss of your Cognitive Systems degree. Whether you’re in need of project ideas, a project supervisor, or just want to get ahead of the curve, Gearing Up for 402 helps students get inspired by alumni who have been there, done that, and crushed it!',
@@ -154,7 +154,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'COGS-querade: The CSS Winter Formal',
+        name: 'COGS-querade: The CSS Winter Formal 2025/26',
         year: 2025,
         description:
             'The Winter COGS-querade Formal was an end-of-term themed celebration, bringing together the entire COGS community for an unforgettable night of music and memories.',
@@ -168,7 +168,7 @@ const pastEvents: EventCardProps[] = [
         ],
     },
     {
-        name: 'Robot Party',
+        name: 'Robot Party 2025/26',
         year: 2025,
         description:
             'The largest social event of the year! Our annual Robot Party consists of amazing free food, drinks, activities, a robot building contest, prizes, games, and much more! Each year’s Robot Party is always one for the memory books!',
@@ -305,7 +305,7 @@ function PastEvents() {
             <div className="past-events-list">
                 {filteredEvents.length > 0 ? (
                     filteredEvents.map((event, index) => (
-                        <EventCard key={`${event.name}-${event.year}-${index}`} {...event} />
+                        <PastEventCard key={`${event.name}-${event.year}-${index}`} {...event} />
                     ))
                 ) : (
                     <p className="past-events-empty">No past events match your search.</p>

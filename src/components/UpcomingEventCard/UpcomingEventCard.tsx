@@ -20,7 +20,8 @@ export interface UpcomingEventCardProps {
     location: string
     description: string
     image: UpcomingEventImage
-    /** Placeholder until the club has real RSVP forms/links per event. */
+    /** The event's real external RSVP page (Luma, currently) — rendered as a
+     * new-tab link, same as every other external link on the site. */
     rsvpHref: string
 }
 
@@ -67,7 +68,18 @@ function UpcomingEventCard({ name, date, time, location, description, image, rsv
                 <p className="upcoming-event-description">{description}</p>
 
                 <div className="upcoming-event-actions">
-                    <a className="rsvp-button" href={rsvpHref}>
+                    {/* Opens in a new tab like every other external link on
+                        the site (the "Become a member" link right below, the
+                        header/footer CTAs, the social icons) — an RSVP goes
+                        off to Luma, so keeping the event page itself open
+                        behind it means nobody loses their place in the list
+                        to come back and check the other events. */}
+                    <a
+                        className="rsvp-button"
+                        href={rsvpHref}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         RSVP
                     </a>
                     <a

@@ -1,4 +1,4 @@
-/* Same "folder" visual language as EventCard.css (asymmetric rounded
+/* Same "folder" visual language as PastEventCard.css (asymmetric rounded
    corners, gradient card background, colored tab cycling the same 4 palette
    accents) but mirrored: a single graphic on the left instead of a carousel,
    and a body on the right built for a call to action rather than browsing
@@ -67,7 +67,7 @@
 
 /* Once a real graphic is added (image.src set), drop the placeholder box
    styling entirely so only the image itself shows — same treatment as
-   EventCard's carousel frame / FolderPreview's photo slots. */
+   PastEventCard's carousel frame / FolderPreview's photo slots. */
 .upcoming-event-image:has(img) {
     background: none;
     border: none;
@@ -137,7 +137,7 @@
 .upcoming-event-description {
     margin: 0;
     color: rgba(11, 11, 12, 0.75);
-    font-size: clamp(0.92rem, 1vw, 1rem);
+    font-size: clamp(1rem, 1.3vw, 1.3rem);
     line-height: 1.6;
 }
 

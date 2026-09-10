@@ -82,7 +82,7 @@
     justify-content: center;
 }
 
-/* Same hand-rolled prev/next + dots recipe as PastEventCard's EventCard
+/* Same hand-rolled prev/next + dots recipe as PastEventCard
    (.event-carousel-arrow/.event-carousel-dot) — only rendered at all when a
    product has more than one photo. */
 .merch-product-carousel-arrow {

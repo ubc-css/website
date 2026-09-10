@@ -26,7 +26,7 @@ interface LoungeCarouselProps {
 // importing MerchCarousel directly — this codebase's convention is for each
 // section to own its small hand-rolled carousel rather than share one
 // generic component across unrelated pages (see MerchProductCard's carousel
-// vs PastEventCard's EventCard, documented in CLAUDE.md, for the same
+// vs PastEventCard's own, documented in CLAUDE.md, for the same
 // choice).
 function LoungeCarousel({ images, speed = 70, hoverSpeed = 18 }: LoungeCarouselProps) {
     const trackRef = useRef<HTMLDivElement | null>(null)

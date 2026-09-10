@@ -33,7 +33,7 @@ export interface MerchProductCardProps {
     type: string
     /** One photo renders exactly like before (plain static image, no
      * controls). More than one adds prev/next arrows + dot indicators —
-     * same hand-rolled carousel as PastEventCard's EventCard. */
+     * same hand-rolled carousel as PastEventCard. */
     images: MerchProductImage[]
 }
 

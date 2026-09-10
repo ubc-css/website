@@ -5,50 +5,30 @@ import UpcomingEventCard, {
 } from '../../components/UpcomingEventCard/UpcomingEventCard'
 import './UpcomingEvents.css'
 
-// Placeholder content — names/descriptions/dates/RSVP links are all
-// stand-ins until the club has real upcoming events to swap in. Dates are
-// real ISO values (not just display strings) specifically so the list below
-// can be sorted chronologically rather than relying on this array's order.
+import welcomeBack from '../../assets/events/Graphics/welcomeBackBBQ.png'
+import interYear from '../../assets/events/Graphics/interyearMingle.png'
+
+
 const upcomingEvents: UpcomingEventCardProps[] = [
     {
-        name: 'General Meeting: Kickoff',
-        date: '2026-09-10',
-        time: '6:00 PM – 7:30 PM',
-        location: 'COGS Lounge, Buchanan D',
+        name: 'Welcome Back BBQ',
+        date: '2026-09-11',
+        time: '6:00 PM',
+        location: 'Acadia Beach',
         description:
-            'Placeholder description: our first general meeting of the term — meet the exec team, hear what’s planned for the year, and find out how to get involved.',
-        image: { alt: 'General meeting graphic placeholder' },
-        rsvpHref: '#',
+            'Our annual Welcome Back BBQ is BACK‼️Join us at Acadia Beach on Friday for a fun evening of free food, games like spikeball and volleyball, a custom CSS photobooth, and much more (and hopefully a nice sunset 🤩). Bring your friends and get excited to make new ones! This is one of our biggest events of the year so you do NOT want to miss out. We WILL see you there 😉',
+        image: {src: welcomeBack, alt: 'Welcome Back BBQ graphic' },
+        rsvpHref: "https://luma.com/z5zyqbmc",
     },
     {
-        name: 'Guest Speaker Series: Careers in Cognitive Science',
-        date: '2026-09-24',
-        time: '5:30 PM – 7:00 PM',
-        location: 'Forest Sciences Centre 1005',
-        description:
-            'Placeholder description: an industry guest speaker shares their path from a Cognitive Systems degree into their current career, with time for Q&A.',
-        image: { alt: 'Guest speaker series graphic placeholder' },
-        rsvpHref: '#',
-    },
-    {
-        name: 'Study Night: Midterm Prep',
-        date: '2026-10-15',
+        name: 'Inter-year Mingle',
+        date: '2026-09-15',
         time: '6:00 PM – 9:00 PM',
-        location: 'COGS Lounge, Buchanan D',
+        location: 'Cogs Lounge, Iona Building',
         description:
-            'Placeholder description: a casual, snack-fueled study session with peers before midterms hit — bring your notes and your questions.',
-        image: { alt: 'Study night graphic placeholder' },
-        rsvpHref: '#',
-    },
-    {
-        name: 'Game Night',
-        date: '2026-11-07',
-        time: '6:30 PM – 9:00 PM',
-        location: 'COGS Lounge, Buchanan D',
-        description:
-            'Placeholder description: board games, video games, and snacks — a low-key social to unwind with the COGS community.',
-        image: { alt: 'Game night graphic placeholder' },
-        rsvpHref: '#',
+            'Join us for the annual Interyear Mingle for a night of quality time and fun and games with your COGS community. Reunite with old pals, make new friends, and stay for the activities we have planned 👀',
+        image: {src: interYear, alt: 'interyear mingle graphic' },
+        rsvpHref: 'https://luma.com/tprtykgv',
     },
 ]
 
