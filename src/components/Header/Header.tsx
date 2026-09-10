@@ -25,6 +25,7 @@ function Header() {
             />
             <NavDropdown
                 label="Merch"
+                href="/merch"
                 items={[
                     { label: 'Clothing', href: '/merch#clothing' },
                     { label: 'Accessories', href: '/merch#accessories' },
@@ -34,6 +35,7 @@ function Header() {
             />
             <NavDropdown
                 label="Resources"
+                href="/resources"
                 items={[
                     { label: 'Degree Planning', href: '/resources#degree' },
                     { label: 'Career', href: '/resources#career' },
@@ -43,6 +45,7 @@ function Header() {
             />
             <NavDropdown
                 label="About"
+                href="/about"
                 items={[
                     { label: 'Our Team', href: '/about#team' },
                     { label: 'The Lounge', href: '/about#thelounge' },

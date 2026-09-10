@@ -146,7 +146,7 @@ function About() {
                     kicker — see .about-section-subtitle's own rule for why
                     these two "same idea, different volume" treatments aren't
                     shared. */}
-                <p className="about-section-subtitle">The Cogs That Power the Club</p>
+                <p className="about-section-subtitle">The Cogs that power the club</p>
 
                 <div className="exec-tier exec-tier-president">
                     <ExecCard
@@ -215,7 +215,7 @@ function About() {
 
             <div className="about-section" id="thelounge">
                 <h2>The COGS Lounge</h2>
-                <p className="about-section-subtitle">The Perfect Place to Get the Gears Turning</p>
+                <p className="about-section-subtitle">The perfect place to get your gears turning</p>
 
                 {/* <figure>/<figcaption> rather than a plain <img> + separate
                     label — the caption is genuinely describing the image next
