@@ -2,25 +2,45 @@ import { preload } from 'react-dom'
 import ExecCard from '../../components/ExecCard/ExecCard'
 import LoungeCarousel, { type LoungeCarouselImage } from '../../components/LoungeCarousel/LoungeCarousel'
 import SocialLinks from '../../components/SocialLinks/SocialLinks'
+import execsAndFaculty from '../../assets/about/execsAndFaculty.jpg'
 import loungePhoto from '../../assets/about/lounge.jpg'
+import loungePhoto2 from '../../assets/about/lounge2.jpg'
+import loungePhoto3 from '../../assets/about/lounge3.jpg'
+import loungePhoto4 from '../../assets/about/lounge4.jpg'
+import loungePhoto5 from '../../assets/about/lounge5.jpg'
+import loungePhoto6 from '../../assets/about/lounge6.jpg'
+import loungePhoto7 from '../../assets/about/lounge7.jpg'
+import loungePhoto8 from '../../assets/about/lounge8.jpg'
+import loungePhoto9 from '../../assets/about/lounge9.jpg'
+import mapToIona from '../../assets/about/mapToIona.jpg'
+import loungeFloorMap from '../../assets/about/Lounge-map.webp'
 import './About.css'
 
-// Reuses the one real lounge photo already in the site (also used by the
-// homepage's "About" folder preview) as one of the four sneak-peek slots —
-// same "reuse the few real photos we have" approach as Merch/Past Events'
-// placeholder cards — with the rest left as placeholders, since that's the
-// only lounge-specific photo currently on hand.
+// Above-the-fold hero content, so it's worth a head start on the fetch —
+// same reasoning as Merch.tsx's carousel photos, just for a single static
+// image instead of an auto-scrolling strip.
+preload(execsAndFaculty, { as: 'image', fetchPriority: 'high' })
+
+// 9 real lounge photos now on hand (2–9 started as iPhone HEIC exports —
+// converted to JPEG, downscaled to a 1400px long edge, and re-compressed to
+// match the rest of the site's photos, same ~100–200KB range) — no more
+// placeholder slots needed.
 const sneakPeekImages: LoungeCarouselImage[] = [
     { src: loungePhoto, alt: 'A cozy little corner in our beloved COGS Lounge' },
-    { alt: 'Lounge sneak peek photo placeholder' },
-    { alt: 'Lounge sneak peek photo placeholder' },
-    { alt: 'Lounge sneak peek photo placeholder' },
+    { src: loungePhoto2, alt: 'The COGS Lounge’s couches and round tables, strung with pennant flags' },
+    { src: loungePhoto3, alt: 'A reading nook in the COGS Lounge with a round red pod chair and floor-to-ceiling bookshelves' },
+    { src: loungePhoto4, alt: 'Plant-covered shelves, a card catalog, and framed cohort photos in the COGS Lounge hallway' },
+    { src: loungePhoto5, alt: 'The skylight over the COGS Lounge hallway' },
+    { src: loungePhoto6, alt: 'A plant-filled corner of the COGS Lounge hallway near the exit' },
+    { src: loungePhoto7, alt: 'A mannequin dressed as CSS mascot Robbie in a club hoodie, in the COGS lab' },
+    { src: loungePhoto8, alt: 'The COGS Lounge lit up with colourful lights for a party' },
+    { src: loungePhoto9, alt: 'A whiteboard doodle of Robbie and the UBC CSS logo above a bookshelf and plants in the COGS Lounge' },
 ]
 
 // Same fix as Merch.tsx's carousel: LoungeCarousel starts scrolling the
-// instant it mounts, so the one real photo in the strip needs its fetch (and
+// instant it mounts, so every real photo in the strip needs its fetch (and
 // decode) kicked off as early as possible, or the strip's second lap can
-// visibly outrun it. See Merch.tsx / CLAUDE.md for the full explanation.
+// visibly outrun them. See Merch.tsx / CLAUDE.md for the full explanation.
 sneakPeekImages.forEach((image) => {
     if (!image.src) return
     preload(image.src, { as: 'image', fetchPriority: 'high' })
@@ -33,19 +53,19 @@ sneakPeekImages.forEach((image) => {
 // club has a real one. `name` left undefined renders no sub-header at all
 // (used below for the not-yet-filled coordinator roles instead of a fake
 // name).
-const president = { title: 'President', name: 'Firstname Lastname' }
+const president = { title: 'President', name: 'Bonnie Situ' }
 
 const vpTeam = [
-    { title: 'VP Admin', name: 'Firstname Lastname' },
-    { title: 'VP Finance', name: 'Firstname Lastname' },
-    { title: 'VP Events', name: 'Firstname Lastname' },
-    { title: 'VP Media', name: 'Firstname Lastname' },
+    { title: 'VP Admin', name: 'Olivia Kennell' },
+    { title: 'VP Finance', name: 'Yolanda Peng' },
+    { title: 'VP Events', name: 'Jeffrey Kim' },
+    { title: 'VP Media', name: 'Gianna Li' },
 ]
 
 const directors = [
-    { title: 'Social Director', name: 'Firstname Lastname' },
-    { title: 'Academic Director', name: 'Firstname Lastname' },
-    { title: 'Industry Director', name: 'Firstname Lastname' },
+    { title: 'Social Director', name: 'Austyn Jasper' },
+    { title: 'Academic Director', name: 'Edith Liu' },
+    { title: 'Industry Director', name: 'Wrenly Crampton' },
 ]
 
 // Not individual people — 2 open seats each, grouped under one title with a
@@ -58,53 +78,75 @@ const coordinatorGroups = [
 function About() {
     return (
         <section className="about">
+            {/* .about-hero itself is now just the full-bleed color-wash box
+                (same recipe as Merch's .merch-hero) — the actual content
+                sits inside .about-hero-inner, which puts it back at the
+                site's normal 1180px content width instead of letting the
+                mission/photo row and title stretch edge-to-edge with the
+                background. */}
             <div className="about-hero">
-                {/* Title spans the full hero width on its own line, with the
-                    mission statement and photo as a side-by-side row
-                    underneath it — rather than the title sharing the left
-                    column with just the mission text. */}
-                <h1 className="about-hero-title">Meet the CSS</h1>
+                <div className="about-hero-inner">
+                    {/* Same eyebrow-label pattern as Merch's .merch-hero-eyebrow
+                        (small caps kicker + a short gradient line) — reimplemented
+                        under its own class rather than shared, same reasoning as
+                        Merch's own copy of it (Hero.css's h1 leak bug). Paired
+                        with the title directly since it's the thing being
+                        introduced here, even though About's title (unlike
+                        Merch's) sits outside .about-hero-copy on its own line. */}
+                    <p className="about-hero-eyebrow">Our Mission, Team, and Lounge</p>
 
-                <div className="about-hero-content">
-                    <div className="about-hero-copy">
-                        <p className="about-hero-mission">
-                            “Placeholder mission statement — a short line about what the
-                            Cognitive Systems Society exists to do, and who it's for.”
-                        </p>
+                    {/* Title spans the full hero width on its own line, with the
+                        mission statement and photo as a side-by-side row
+                        underneath it — rather than the title sharing the left
+                        column with just the mission text. */}
+                    <h1 className="about-hero-title">Meet the CSS</h1>
+
+                    <div className="about-hero-content">
+                        <div className="about-hero-copy">
+                            <p className="about-hero-mission">
+                                The Cognitive Systems Society (CSS) is the student hub
+                                 for students of the COGS program and those interested
+                                 in cognitive systems. Our mission is to connect like-minded students with social, academic, and industry opportunities!
+                            </p>
+                        </div>
+
+                        <div className="about-hero-image">
+                            <img src={execsAndFaculty} alt="The CSS exec team and faculty on a beach in Vancouver" />
+                        </div>
                     </div>
 
-                    <div className="about-hero-image" aria-hidden="true">
-                        <span>CSS exec team photo placeholder</span>
+                    {/* Takes all the vertical space left in the hero after the
+                        eyebrow/title/content row (i.e. everything down to the
+                        bottom of the first screen, since .about-hero-inner
+                        fills it) and centers the nav inside it — so the links
+                        sit exactly halfway between the mission/photo row and
+                        the bottom of the window at any size, rather than at a
+                        fixed offset that only reads right on one screen. */}
+                    <div className="about-hero-nav-spacer">
+                        {/* Native #fragment anchors + the site-wide smooth-scroll
+                            from index.css — same approach as the Merch page's own
+                            .merch-section-nav. Ids match the placeholder hrefs
+                            Header.tsx/Footer.tsx's "About" nav items already used
+                            before this page existed (#team/#thelounge/#contact), now
+                            pointed at /about instead of a bare fragment. */}
+                        <nav className="about-section-nav" aria-label="Jump to about section">
+                            <a href="#team">Our Team</a>
+                            <span className="about-section-nav-divider" aria-hidden="true">|</span>
+                            <a href="#thelounge">The Lounge</a>
+                            <span className="about-section-nav-divider" aria-hidden="true">|</span>
+                            <a href="#contact">Contact Us</a>
+                        </nav>
                     </div>
-                </div>
-
-                {/* Wraps the nav in the leftover vertical space below the
-                    mission/photo row, down to the hero's own bottom edge
-                    (the bottom of the initial viewport, since the hero fills
-                    it) — .about-hero-nav-spacer grows to fill exactly that
-                    space (flex: 1) and centers the nav inside it, so the nav
-                    sits vertically centered between the mission statement and
-                    the bottom of the screen, on any window size, rather than
-                    at a fixed offset from either edge. */}
-                <div className="about-hero-nav-spacer">
-                    {/* Native #fragment anchors + the site-wide smooth-scroll
-                        from index.css — same approach as the Merch page's own
-                        .merch-section-nav. Ids match the placeholder hrefs
-                        Header.tsx/Footer.tsx's "About" nav items already used
-                        before this page existed (#team/#thelounge/#contact),
-                        now pointed at /about instead of a bare fragment. */}
-                    <nav className="about-section-nav" aria-label="Jump to about section">
-                        <a href="#team">Our Team</a>
-                        <span className="about-section-nav-divider" aria-hidden="true">|</span>
-                        <a href="#thelounge">The Lounge</a>
-                        <span className="about-section-nav-divider" aria-hidden="true">|</span>
-                        <a href="#contact">Contact Us</a>
-                    </nav>
                 </div>
             </div>
 
             <div className="about-section" id="team">
-                <h2>Our Team</h2>
+                <h2>Our 2026/27 Exec Team</h2>
+                {/* Deliberately quieter than .about-hero-eyebrow's small-caps
+                    kicker — see .about-section-subtitle's own rule for why
+                    these two "same idea, different volume" treatments aren't
+                    shared. */}
+                <p className="about-section-subtitle">The Cogs That Power the Club</p>
 
                 <div className="exec-tier exec-tier-president">
                     <ExecCard
@@ -158,7 +200,7 @@ function About() {
 
                 <p className="about-note">
                     Want to be more involved with the CSS? Event and Media Coordinator hiring
-                    opens in September 2026! More info can be found on our{' '}
+                    is now open! More info can be found on our{' '}
                     <a
                         className="about-inline-link"
                         href="https://www.instagram.com/cogsubc/"
@@ -173,20 +215,45 @@ function About() {
 
             <div className="about-section" id="thelounge">
                 <h2>The COGS Lounge</h2>
+                <p className="about-section-subtitle">The Perfect Place to Get the Gears Turning</p>
 
-                <div className="lounge-map" aria-hidden="true">
-                    <span>Map placeholder — embed a real map here</span>
-                </div>
+                {/* <figure>/<figcaption> rather than a plain <img> + separate
+                    label — the caption is genuinely describing the image next
+                    to it, which is exactly what figcaption is for, and it
+                    keeps the visible label and the alt text (which stays as
+                    the fuller, standalone description for screen readers)
+                    from just duplicating each other. */}
+                <figure className="lounge-map">
+                    <img
+                        src={mapToIona}
+                        alt="Campus map showing the 120m walking route from Great Dane's Coffee to the COGS Lounge entrance in the Iona Building"
+                    />
+                    <figcaption>How to get to the Iona basement</figcaption>
+                </figure>
+
+                {/* Where exactly inside the building, now that the map above
+                    gets you to the entrance — the Lounge's own floor plan,
+                    alongside the lab, kitchen, and offices it shares a floor
+                    with. */}
+                <figure className="lounge-floor-map">
+                    <img
+                        src={loungeFloorMap}
+                        alt="Floor plan of the COGS Lounge floor: the Lounge itself, the B151 lab, the B152 TA office, the kitchen, Colleen and Dr. Mole's offices, washrooms, and the stairwell/elevator"
+                    />
+                    <figcaption>Floor plan of the COGS Lounge</figcaption>
+                </figure>
 
                 <div className="lounge-details">
-                    {/* Fake location/hours for now, per instruction — swap for
-                        the club's real ones once confirmed. */}
+                    {/* Hours are still made up, per instruction — swap for the
+                        real ones once confirmed. Location now matches the real
+                        map above (Iona Building) rather than the earlier
+                        placeholder guess; exact room number isn't labeled on
+                        either map, so it's left out rather than invented. */}
                     <p>
-                        <strong>Location:</strong> ICICS Building, Room X050 — UBC Point Grey
-                        Campus
+                        <strong>Location:</strong> Iona Building — UBC Point Grey Campus <br></br> 6000 Iona Dr, Vancouver, BC, V6T 1L4, Room B150
                     </p>
                     <p>
-                        <strong>Hours:</strong> Monday–Friday, 10:00 AM – 4:00 PM
+                        <strong>Hours:</strong> Monday–Friday, 7:30 AM – 5:00 PM
                     </p>
                 </div>
 
@@ -201,7 +268,7 @@ function About() {
                     Interested in sponsoring?{' '}
                     {/* Placeholder — swap for a real VP Finance contact
                         (mailto or a contact form) once one exists. */}
-                    <a className="about-inline-link" href="#">
+                    <a className="about-inline-link" href="mailto:cogsubcfinance@gmail.com">
                         connect with our VP Finance
                     </a>
                     .

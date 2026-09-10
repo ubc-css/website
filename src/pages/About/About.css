@@ -2,35 +2,158 @@
     max-width: 1180px;
     margin: 0 auto;
     width: 100%;
-    /* Standard page-container padding (same values UpcomingEvents/PastEvents
-       use) — unlike Merch, this hero has no full-bleed colored background of
-       its own, so there's no seam-under-the-header problem to work around
-       with a zeroed top padding. */
-    padding: clamp(24px, 4vw, 48px) 22px clamp(48px, 6vw, 80px);
+    /* No top padding — same reasoning as .merch: .about-hero is now a
+       full-bleed colored block too (it picked up Merch's own color wash),
+       and any padding here would show as a plain-background gap before that
+       color starts, reading as a visible seam right under the header.
+       .about-hero-inner's own smaller padding-top takes over that spacing
+       instead, already inside the hero's own colored box. */
+    padding: 0 22px clamp(48px, 6vw, 80px);
     position: relative;
     z-index: 1;
 }
 
 /* ---------- Hero ---------- */
 
+/* Full-bleed color-wash box — the exact same recipe (radial gradients,
+   full-bleed width/margins) as Merch's .merch-hero background, so this hero
+   gets the same soft pink/blue glow behind its content instead of sitting
+   flat on the page background. .about-hero-inner (below) holds the actual
+   content and puts it back at the site's normal width — see its own
+   comment. */
 .about-hero {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background:
+        radial-gradient(circle at 20% 38%,
+            rgba(226, 182, 210, 0.14) 0%,
+            rgba(226, 182, 210, 0.08) 18%,
+            rgba(226, 182, 210, 0.04) 38%,
+            rgba(226, 182, 210, 0.013) 60%,
+            transparent 85%),
+        radial-gradient(circle at 80% 34%,
+            rgba(100, 151, 206, 0.13) 0%,
+            rgba(100, 151, 206, 0.07) 18%,
+            rgba(100, 151, 206, 0.035) 38%,
+            rgba(100, 151, 206, 0.012) 60%,
+            transparent 85%);
+}
+
+/* The hero's actual content, back at the site's normal 1180px column (same
+   max-width + padding-inline as .about itself) rather than stretching
+   edge-to-edge with .about-hero's full-bleed background above. Everything
+   that used to live directly on .about-hero (the flex column + its
+   positioning) moved here unchanged. */
+.about-hero-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-inline: 22px;
     display: flex;
     flex-direction: column;
-    /* This `gap` (title-to-content, and content-to-.about-hero-nav-spacer)
-       and `padding-bottom` below use the identical clamp() on purpose —
-       .about-hero-nav-spacer only centers the nav *within itself*, so for
-       the nav's total space-above (this gap + half the spacer's leftover
-       height) to exactly equal its space-below (padding-bottom + the other
-       half) at every viewport, not just where both clamps happen to be
-       past their floor, the floor/preferred/ceiling all have to match too. */
-    gap: clamp(24px, 4vw, 48px);
+    /* Was a pair of flex: 1 "spacer" divs around .about-hero-content, sized
+       to consume 100% of the hero's leftover vertical space and so pin the
+       nav to the hero's bottom edge (with the content centered exactly
+       halfway between the title and it). That pinned-to-bottom position
+       scales with viewport *height* — on a screen taller than the ~900px
+       this was tuned against, it pins the nav much further down than
+       Merch's own nav, which is purely content-driven (Merch's hero just
+       stacks copy → carousel → nav with justify-content: flex-start and a
+       fixed gap, never redistributing leftover space) — asked to land in
+       the same place as Merch's, the fix was to copy that same mechanism
+       here instead: plain flex-start stacking, gap doing all the work, no
+       spacer elements. This does mean the mission/photo row is no longer
+       forced to sit exactly centered between the title and the nav — that
+       centering fundamentally required the height-scaling spacer trick this
+       replaces, so it's traded off in favor of actually matching Merch's
+       nav position at any viewport height, not just the one this was last
+       tuned against. */
+    justify-content: flex-start;
+    /* Every vertical measurement in this hero is capped against *viewport
+       height* as well as width — `min(Xvw, Ysvh)` — not width alone. That's
+       the whole trick behind "the links are never off screen on first load":
+       a width-only clamp keeps growing the title/photo/gaps on a wide but
+       short window (a laptop at 1440×700, a phone in landscape) until the
+       stack no longer fits one screen and the nav gets pushed under the
+       fold. Pinning each piece to a share of the *height* budget instead
+       means the whole composition shrinks together as the window gets
+       shorter, keeping the same proportions and always leaving room for the
+       nav. Same `min(vw, vh)` idea MerchCarousel already uses to size its
+       photos. `svh` (not `vh`/`dvh`) on purpose: it's the *small* viewport
+       height, i.e. the worst case with mobile browser chrome expanded —
+       which is exactly the state a page is in when it first loads. */
+    /* The height budget everything below is sized against. --hero-h is the
+       hero's own height (the first screen minus the header); --hero-avail
+       subtracts the pieces of it that *can't* scale — the eyebrow's line box
+       and the nav's — so the title/photo/gaps are sized as shares of the
+       space genuinely available to them. Sizing them against raw `svh`
+       instead was the bug this replaces: the header is a fixed ~130px, so it
+       eats 14% of a 900px-tall window but 33% of a 390px one, and any
+       coefficient tuned to look right on the former left no room at all on
+       the latter. */
+    /* The real distance from the top of the window to the top of this hero:
+       .site-header's own height (84px desktop / 78px mobile) plus its
+       18px margin-bottom. Measured, not guessed — the rest of the site uses a
+       rounded `calc(100svh - 130px)` for the same idea, which overshoots by
+       6px on desktop and a full 20px on mobile. That slop doesn't matter for
+       Merch/Home (nothing there is positioned against the hero's *bottom*
+       edge), but here it left the hero ending 20px short of the bottom of the
+       window, which threw the nav's centering off by the same amount — so
+       this page uses the exact figure. Keep in sync with Header.css if the
+       header's size ever changes. */
+    --hero-top-offset: 124px;
+    --hero-h: calc(100svh - var(--hero-top-offset));
+    --hero-avail: calc(var(--hero-h) - 64px);
+    --hero-gap: clamp(8px, min(2.2vw, var(--hero-avail) * 0.035), 26px);
+    gap: var(--hero-gap);
     /* Fills the initial viewport like the Merch page's hero (same
        header-height offset), on mobile too — matching that page's explicit
        choice rather than the homepage hero's "shrink to content on mobile"
-       default, since this was asked to work the same way Merch's hero does. */
-    min-height: calc(100svh - 130px);
-    padding-top: clamp(12px, 2vw, 28px);
-    padding-bottom: clamp(24px, 4vw, 48px);
+       default. .about-hero-nav-spacer below then consumes whatever's left
+       of that height after the eyebrow/title/content row, so this is a
+       height the layout genuinely fills rather than a floor it can fall
+       short of. */
+    min-height: var(--hero-h);
+    padding-top: clamp(8px, 1.5vw, 20px);
+    /* Exactly one --hero-gap, and that's load-bearing, not cosmetic. The nav
+       is centered inside .about-hero-nav-spacer, which spans from the bottom
+       of the content row (one `gap` below it) down to this padding. So the
+       nav's space-above is `gap + half the spacer` and its space-below is
+       `half the spacer + this padding` — the two are equal, and the links sit
+       truly centered between the mission/photo row and the bottom of the
+       window, only when this matches the gap above. (Merch's much bigger
+       clamp(48px, 7vw, 88px) was what this inherited; it read as the nav
+       sitting noticeably high.) */
+    padding-bottom: var(--hero-gap);
+}
+
+/* Same kicker-label recipe as Merch's .merch-hero-eyebrow (small caps + a
+   short gradient line before it, single-sided — not a line on both sides,
+   which on a phrase this much longer than Merch's "Official CSS Merch"
+   wrapped the whole thing onto 2 lines at mobile widths) — reimplemented
+   under its own class rather than shared, for the same reason Merch's own
+   copy isn't shared from Hero.css (that file's h1 selector already leaked
+   across pages once before it was scoped down). Centered like the title
+   below it, rather than left-aligned the way Merch's is inside its own
+   left-aligned copy block. */
+.about-hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 10px;
+    color: var(--color-gray-blue);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.about-hero-eyebrow::before {
+    content: '';
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-gray-blue));
 }
 
 /* Full-width title, on its own line above the mission/photo row below —
@@ -41,36 +164,34 @@
     margin: 0;
     text-align: center;
     color: var(--color-black);
-    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    /* Merch's own h1 scale (clamp(2.2rem, 9vw, 6.5rem)) with a share-of-the-
+       height-budget cap folded into the middle term — see .about-hero-inner
+       for what --hero-avail is and why. At 9vw alone this title is ~104px on
+       any 1440-wide window, short or tall, which is a sixth of the entire
+       vertical budget on a 700px-tall one. The 1.5rem floor is lower than
+       Merch's 2.2rem because this title has to survive viewports Merch's
+       never has to (a phone in landscape), where 2.2rem alone would eat the
+       nav's room by itself. */
+    font-size: clamp(1.5rem, min(9vw, var(--hero-avail) * 0.15), 6.5rem);
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: 0.02em;
 }
 
 .about-hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.85fr);
+    /* The photo column is `auto` — sized by .about-hero-image's own width,
+       which is itself viewport-height-aware (see its rule) — and the mission
+       text takes whatever's left. This replaced a series of hand-tuned `fr`
+       ratios (1.1/0.85 → 1/1.05 → 0.75/1.35 → 0.7/1.4): with `fr` the photo's
+       width, and so its height, was driven purely by the container's *width*,
+       which is exactly what made the row overflow short windows and push the
+       nav under the fold. Letting the photo size itself against both axes and
+       giving the text the remainder means the row's height now has a hard
+       ceiling tied to the screen, and there's no ratio left to re-tune every
+       time something above it changes size. */
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: clamp(28px, 5vw, 60px);
-}
-
-/* Grows to consume whatever vertical space is left in .about-hero after the
-   title and mission/photo row (i.e. everything down to the hero's own
-   bottom edge — the bottom of the initial viewport, since .about-hero fills
-   it), then centers .about-section-nav inside that leftover space. This is
-   what actually puts the nav "centered between the mission statement and
-   the bottom of the screen" on any window size: unlike a fixed margin/gap
-   value (which can only ever be right for one viewport height), `flex: 1`
-   here always consumes exactly the real leftover space, whatever that is,
-   so the centering is exact rather than approximated. If the title+content
-   above already exceed .about-hero's min-height (e.g. very short/wide
-   windows), this simply has zero leftover space to distribute and the nav
-   sits directly below the content with no gap — the correct behavior when
-   there's nothing left to center it within. */
-.about-hero-nav-spacer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    gap: clamp(20px, min(5vw, 4svh), 60px);
 }
 
 .about-hero-copy {
@@ -80,17 +201,33 @@
     gap: 18px;
 }
 
-/* Sized as a big pull-quote rather than regular body copy — the mission
-   column sat next to the full-height photo looking small and lost at normal
-   paragraph size, so it's scaled up close to heading size to visually
-   balance against the photo's footprint instead. */
+/* Was sized as a big italic pull-quote (up to 2.8rem, forced into a narrow
+   21rem column) for the short one-line placeholder this originally held —
+   at that length it balanced nicely against the photo. Once real copy (a
+   full 2-sentence paragraph) replaced the placeholder, that same sizing
+   wrapped it into 6+ lines nearly 1150px tall — badly overflowing the hero
+   and breaking the whole "fills the viewport" layout. Sized as regular lede
+   copy instead (same scale as Hero.css's `.lede`), with a wider column
+   (34rem, not 21rem) so it wraps at a normal, readable width instead of an
+   artificially narrow one, and italic dropped — it read fine for a single
+   quote-like line, but not across a real multi-sentence paragraph. Bumped up
+   again afterward (1.05–1.2rem → 1.3–1.65rem) once the layout was confirmed
+   safe at this length — the smaller size left a lot of visibly empty space
+   in the hero above the nav. A smaller intermediate bump (1.15–1.4rem) was
+   tried too, dialed back for the same reason as .about-hero-content's
+   column ratio above (the old spacer-based nav positioning directly
+   penalized a taller content row) — safe to go back to the bigger size now
+   that that mechanism is gone. */
 .about-hero-mission {
     margin: 0;
-    max-width: 21rem;
+    max-width: 34rem;
     color: rgba(11, 11, 12, 0.78);
-    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
-    font-style: italic;
-    line-height: 1.35;
+    /* Same `min(vw, svh)` treatment as the title/photo/gaps — the paragraph
+       is the one element whose height is set by wrapping rather than by a
+       single line box, so on a short window it's the most likely thing to
+       out-grow the photo beside it and become what drives the row's height. */
+    font-size: clamp(1.05rem, min(1.9vw, 2.9svh), 1.65rem);
+    line-height: 1.6;
 }
 
 /* Same "framed graphic" visual language as Hero.css's .mascot-frame (subtle
@@ -98,12 +235,27 @@
    plain dashed placeholder box the rest of the site uses for photos-to-come —
    this is a single static hero graphic like the mascot, not a small tile in
    a grid/strip, so it gets the more polished treatment for a stronger first
-   screen. */
+   screen. `aspect-ratio: 4 / 3` matches the real exec/faculty photo's own
+   native ratio exactly (it was 4 / 5, an arbitrary portrait guess made
+   before any real photo existed) — the photo is a wide group shot with
+   people spread edge to edge, so cropping it into a taller/narrower frame
+   via `object-fit: cover` below would have cut people off at the sides;
+   matching the ratio means that crop never needs to happen. */
 .about-hero-image {
     position: relative;
-    width: 100%;
-    min-height: 220px;
-    aspect-ratio: 4 / 5;
+    /* Sized against the hero's height budget as well as its width — with the
+       fixed 4/3 ratio below, a 0.74×--hero-avail width cap means the photo is
+       never taller than ~55% of the space available to it, so it can't crowd
+       the nav out of the first screen on a short window. The 660px term just
+       stops it outgrowing the 1180px content column on a very wide one.
+       Sizing by `width` (not `max-height`) keeps the aspect ratio intact
+       whichever term wins — a height cap against a `width: 100%` box would
+       have squashed the frame and made `object-fit: cover` start cropping
+       people out of the group shot again. The old `min-height: 220px` is gone
+       with it: a placeholder-era floor from before there was a real photo,
+       and it would have fought the shrink on short screens. */
+    width: min(52vw, var(--hero-avail) * 0.74, 660px);
+    aspect-ratio: 4 / 3;
     border-radius: 28px;
     overflow: hidden;
     display: grid;
@@ -147,9 +299,29 @@
     object-fit: cover;
 }
 
+/* Grows to consume every pixel left in .about-hero-inner after the eyebrow,
+   title and content row have taken theirs — i.e. everything from the bottom
+   of the mission/photo row down to the bottom of the first screen — and
+   centers the nav inside that. `flex: 1` measures the real leftover space
+   whatever it happens to be, so this is exact at any window size rather than
+   a clamp()-based approximation, and it replaces a fixed `margin-top` on the
+   nav that only looked centered at the one screen size it was picked on. If
+   the content above ever does exceed the available height, this collapses to
+   zero and the nav simply follows the content — the correct fallback, and
+   the sizing rules above are built to keep it from happening in the first
+   place. */
+.about-hero-nav-spacer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
 /* Same recipe as Merch's .merch-section-nav: underlined by default (not just
    on hover) so these read as clickable at a glance, native #fragment anchors
-   + the site-wide smooth-scroll from index.css. */
+   + the site-wide smooth-scroll from index.css. Vertical placement is
+   entirely .about-hero-nav-spacer's job above — no margin of its own. */
 .about-section-nav {
     display: flex;
     align-items: center;
@@ -193,6 +365,24 @@
        weight across pages. */
     font-size: clamp(1.9rem, 3.1vw, 2.5rem);
     letter-spacing: -0.02em;
+}
+
+/* A quiet tagline under a section's <h2> — same "kicker" idea as
+   .about-hero-eyebrow but deliberately the opposite volume, since these two
+   sit on the same page and only one of them should be doing the announcing.
+   The eyebrow is the loud version (uppercase, 0.16em tracking, weight 800,
+   accent colour, a gradient rule beside it) because it's introducing the
+   whole page above the fold; these are asides on headings the reader has
+   already scrolled to, so: sentence case, no tracking, no rule, normal-ish
+   weight, and the muted grey the figcaptions use. Not shared with the
+   eyebrow for exactly that reason — they'd immediately want to diverge. */
+.about-section-subtitle {
+    margin: 10px auto 0;
+    max-width: 34rem;
+    color: var(--color-gray);
+    font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+    font-weight: 500;
+    line-height: 1.5;
 }
 
 .about-note {
@@ -293,23 +483,43 @@
 
 /* ---------- The Lounge ---------- */
 
-.lounge-map {
-    position: relative;
+/* Both maps size to their own natural aspect ratio (no forced aspect-ratio
+   box, no object-fit crop) — unlike the decorative photo tiles elsewhere on
+   the site, these are informational (street directions, room labels), so
+   cropping risks cutting off the very text/markers that make them useful.
+   Each is a <figure> (reset back to a plain block — the browser default
+   figure margin would otherwise add unwanted side insets) so its
+   <figcaption> can carry a short visible label without duplicating the
+   fuller alt text screen readers get. */
+.lounge-map,
+.lounge-floor-map {
     width: 100%;
     max-width: 720px;
-    aspect-ratio: 16 / 9;
-    margin: clamp(28px, 4vw, 44px) auto 20px;
+    margin: 0 auto 20px;
+}
+
+.lounge-map {
+    /* Only the first figure needs the bigger gap down from the section
+       heading above it — the floor plan right after it sits close, same
+       `20px` rhythm as everything else in this section. */
+    margin-top: clamp(28px, 4vw, 44px);
+}
+
+.lounge-map img,
+.lounge-floor-map img {
+    display: block;
+    width: 100%;
+    height: auto;
     border-radius: 20px;
-    display: grid;
-    place-items: center;
-    padding: 20px;
-    text-align: center;
-    color: rgba(11, 11, 12, 0.5);
-    font-weight: 700;
-    font-size: 0.9rem;
-    background: linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(242, 242, 244, 0.94));
-    border: 1px dashed rgba(11, 11, 12, 0.2);
     box-shadow: 0 14px 34px rgba(11, 11, 12, 0.08);
+}
+
+.lounge-map figcaption,
+.lounge-floor-map figcaption {
+    margin-top: 10px;
+    color: var(--color-gray);
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .lounge-details {
@@ -323,7 +533,11 @@
 .lounge-details p {
     margin: 0;
     color: rgba(11, 11, 12, 0.78);
-    font-size: 1rem;
+    /* Deliberately between the two neighbors it sits visually between: bigger
+       than the image captions above it (1rem) so it doesn't read as another
+       caption, smaller than "The COGS Lounge" heading (clamp(1.9rem, 3.1vw,
+       2.5rem)) so it stays a supporting detail, not a second title. */
+    font-size: clamp(1.05rem, 1.5vw, 1.2rem);
 }
 
 .lounge-details strong {
@@ -368,16 +582,100 @@
     box-shadow: 0 16px 34px rgba(91, 35, 72, 0.38);
 }
 
+/* Width-only on purpose, unlike the orientation-gated stacking rules below:
+   .site-header genuinely gets shorter at this exact breakpoint (78px instead
+   of 84px, via Header.css's own width-only query), and --hero-top-offset just
+   has to track that. */
 @media (max-width: 980px) {
+    .about-hero-inner {
+        --hero-top-offset: 110px;
+    }
+}
+
+/* Stacking is gated on *orientation*, not width alone. A width-only
+   `max-width: 980px` also caught landscape phones (844×390), handing the
+   tall stacked layout to the one kind of screen with the least height to
+   spare — the mission text and photo stopped sharing a row's height and
+   started adding up, which put the nav ~106px below the fold there. Above
+   1/1 (landscape) the side-by-side layout is both the better fit and the
+   shorter one, so those viewports now stay on the base rules and only get
+   the height-budget scaling. Same class of bug as the raw-`svh` sizing this
+   file used to do: a width-only rule making a decision that's really about
+   height. */
+@media (max-width: 980px) and (max-aspect-ratio: 1/1) {
     .about-hero-content {
         grid-template-columns: 1fr;
     }
 
+    /* Stacked, the text and photo no longer share a row's height — they add
+       up — so the photo takes a smaller share of the budget here (~37% of
+       --hero-avail tall) than the ~55% it can afford on desktop, where it
+       only has to fit *beside* the paragraph rather than under it. The base
+       rule's 52vw/660px terms are dropped: at these widths the column itself
+       is the binding constraint and 52vw would leave the photo absurdly
+       narrow. */
     .about-hero-image {
-        aspect-ratio: 4 / 3;
+        width: min(100%, var(--hero-avail) * 0.5);
     }
 
-    .lounge-map {
-        aspect-ratio: 4 / 3;
+    /* The base clamp is essentially always at its floor on a narrow screen
+       (a phone never reaches the vw term), and stacked full-width above the
+       photo that floor alone wrapped the real mission paragraph into ~8-9
+       lines. Sized down to a mobile-specific scale, still height-capped so it
+       shrinks along with everything else on a short screen. */
+    .about-hero-mission {
+        font-size: clamp(1rem, min(3.4vw, var(--hero-avail) * 0.04), 1.2rem);
+        line-height: 1.55;
+    }
+}
+
+/* The one thing the height-budget scaling above genuinely can't express. A
+   wrapped paragraph's height is a function of its *width* (narrower column →
+   more lines) while the budget it has to fit into is a function of height, and
+   no single CSS expression relates the two — so on a small phone the mission
+   copy wraps to ~9 lines and eats the budget even though every other element
+   has already shrunk. Every clamp above is at its floor by then, and those
+   floors exist for legibility, so the fix is a deliberate short-screen tier
+   that lowers just this one floor rather than making every phone's body copy
+   smaller. Verified: this is what takes 320×568 (the smallest phone still
+   worth supporting) from the nav sitting 53px below the fold to comfortably
+   above it. Bounded by width too, so a short *desktop* window (1440×700),
+   which has no such problem, keeps the normal size. */
+@media (max-width: 980px) and (max-height: 700px) {
+    .about-hero-mission {
+        font-size: 0.9rem;
+        line-height: 1.45;
+    }
+
+    /* Same "wrapping is width-driven, the budget is height-driven" problem as
+       the mission copy above, but worse per line: at ~320px the eyebrow's
+       28 uppercase characters plus its 44px rule and 12px gap spill onto a
+       second line, and a 2-line eyebrow costs ~20px of a budget that has
+       none to give. Tightened just enough to stay on one line at the
+       narrowest width worth supporting. */
+    .about-hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+
+    .about-hero-eyebrow::before {
+        width: 20px;
+    }
+
+    /* Floor of the base clamp, which is otherwise the binding value here. */
+    .about-hero-content {
+        gap: 12px;
+    }
+}
+
+/* Stacked *and* short — the tightest case there is, since the photo's height
+   adds to the paragraph's instead of overlapping it, and there's the least
+   room to put both. Only ~40% of the budget for the photo here, against the
+   50% a comfortably tall phone gives it. */
+@media (max-width: 980px) and (max-aspect-ratio: 1/1) and (max-height: 700px) {
+    .about-hero-image {
+        width: min(100%, var(--hero-avail) * 0.4);
     }
 }
