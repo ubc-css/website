@@ -181,11 +181,19 @@
     object-fit: cover;
 }
 
+/* `flex: 1` so the body absorbs whatever height the card has left over after
+   the photo — which is what lets the price below pin itself to the bottom of
+   the card rather than just trailing the description. .merch-grid stretches
+   every card in a row to the tallest one's height (grid's default
+   `align-items: stretch`), so with this the prices land on a common baseline
+   across the row instead of stepping up and down with each description's
+   length. */
 .merch-product-body {
     display: flex;
     flex-direction: column;
     gap: 6px;
     min-width: 0;
+    flex: 1;
 }
 
 .merch-product-body h3 {
@@ -202,8 +210,15 @@
     line-height: 1.55;
 }
 
+/* `margin-top: auto` (not a fixed 4px) eats all the body's leftover space
+   above it, parking the price on the card's bottom edge — bottom-left, since
+   it's a full-width flex item whose text starts at the left. The card's own
+   padding is the only thing between it and the corner. When a description is
+   long enough to fill the body on its own the auto margin collapses to zero
+   and .merch-product-body's 6px `gap` still keeps them apart. */
 .merch-product-price {
-    margin-top: 4px;
+    margin-top: auto;
+    padding-top: 4px;
     color: var(--color-gray-blue);
     font-weight: 800;
     font-size: 1.05rem;
