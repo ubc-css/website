@@ -605,27 +605,49 @@
 @media (max-width: 980px) and (max-aspect-ratio: 1/1) {
     .about-hero-content {
         grid-template-columns: 1fr;
+        /* Extra breathing room between the title and the mission text,
+           on top of .about-hero-inner's shared --hero-gap. Applied here
+           rather than by widening that gap, since the gap also sets
+           eyebrow-to-title and content-to-nav spacing and only this one
+           gap was meant to grow. */
+        margin-top: clamp(10px, 2.4svh, 26px);
     }
 
-    /* Stacked, the text and photo no longer share a row's height — they add
-       up — so the photo takes a smaller share of the budget here (~37% of
-       --hero-avail tall) than the ~55% it can afford on desktop, where it
-       only has to fit *beside* the paragraph rather than under it. The base
-       rule's 52vw/660px terms are dropped: at these widths the column itself
-       is the binding constraint and 52vw would leave the photo absurdly
-       narrow. */
+    /* Stacked, the photo gets the full width of the content column — it's
+       the centrepiece of the mobile hero, and at the old ~50%-of-budget cap
+       it rendered as a small box floating in the left half of the screen
+       with a lot of dead space under it. `justify-self: center` because the
+       grid column is full-bleed while the photo's own `width` is capped:
+       without it the photo sits at the column's start edge (left) rather
+       than centred, which is what made it look misplaced rather than just
+       small. The --hero-avail term is kept as a *ceiling* so a short phone
+       still claws the height back — on a tall phone 100% wins and the photo
+       goes edge to edge. The flat `460px` is what keeps this a *phone* rule
+       in practice: a 768px-wide tablet is still "stacked", and there 100% of
+       the column is a 724px-wide photo — 543px tall — which on its own
+       overran the height budget and put the nav below the fold. On any
+       actual phone the column is narrower than 460px, so 100% still wins. */
     .about-hero-image {
-        width: min(100%, var(--hero-avail) * 0.5);
+        width: min(100%, var(--hero-avail) * 0.95, 460px);
+        justify-self: center;
     }
 
     /* The base clamp is essentially always at its floor on a narrow screen
        (a phone never reaches the vw term), and stacked full-width above the
        photo that floor alone wrapped the real mission paragraph into ~8-9
-       lines. Sized down to a mobile-specific scale, still height-capped so it
-       shrinks along with everything else on a short screen. */
+       lines. Sized to a mobile-specific scale — nudged up from
+       1–1.2rem — still height-capped so it shrinks along with everything
+       else on a short screen. */
     .about-hero-mission {
-        font-size: clamp(1rem, min(3.4vw, var(--hero-avail) * 0.04), 1.2rem);
+        font-size: clamp(1.08rem, min(3.9vw, var(--hero-avail) * 0.045), 1.3rem);
         line-height: 1.55;
+    }
+
+    /* Pushes the whole hero down from under the header — the eyebrow sat
+       quite tight to it. Scoped here (rather than changing the base rule's
+       padding-top) so desktop is untouched. */
+    .about-hero-inner {
+        padding-top: clamp(20px, 4.5svh, 52px);
     }
 }
 
@@ -641,18 +663,28 @@
    worth supporting) from the nav sitting 53px below the fold to comfortably
    above it. Bounded by width too, so a short *desktop* window (1440×700),
    which has no such problem, keeps the normal size. */
-@media (max-width: 980px) and (max-height: 700px) {
+@media (max-width: 980px) and (max-height: 620px) {
     .about-hero-mission {
         font-size: 0.9rem;
         line-height: 1.45;
     }
 
-    /* Same "wrapping is width-driven, the budget is height-driven" problem as
-       the mission copy above, but worse per line: at ~320px the eyebrow's
-       28 uppercase characters plus its 44px rule and 12px gap spill onto a
-       second line, and a 2-line eyebrow costs ~20px of a budget that has
-       none to give. Tightened just enough to stay on one line at the
-       narrowest width worth supporting. */
+    /* Floor of the base clamp, which is otherwise the binding value here. */
+    .about-hero-content {
+        gap: 12px;
+    }
+}
+
+/* Whether the eyebrow wraps is purely a function of *width*. Measured, not
+   guessed: at the base style ("Our Mission, Team, and Lounge" at 0.85rem,
+   0.16em tracking, uppercase) the text run is 292px, plus the 44px rule and
+   12px gap = 348px, so it needs a 392px viewport to stay on one line. 400px
+   gives that a little margin. It used to be bundled into the height-gated
+   tier above, which was the wrong axis twice over: it tightened the eyebrow
+   on wide-but-short phones that had room for it, and missed narrow-but-tall
+   ones entirely. Re-measure this breakpoint if the eyebrow copy changes — it
+   is a function of that exact string. */
+@media (max-width: 400px) {
     .about-hero-eyebrow {
         font-size: 0.72rem;
         letter-spacing: 0.1em;
@@ -663,19 +695,75 @@
     .about-hero-eyebrow::before {
         width: 20px;
     }
+}
 
-    /* Floor of the base clamp, which is otherwise the binding value here. */
+/* The middle band: phones tall enough to deserve a big photo, but not tall
+   enough to carry the full-width one *plus* the generous top padding and
+   title/mission gap. This is where a modern phone in an in-app browser
+   actually lands (a 430×698 viewport), so it's worth its own tier rather than
+   being lumped in either direction: at the full-width treatment the links sat
+   27px below the fold, and at the small-phone treatment the photo shrank to
+   55% with a big dead gap above them. Keeps the photo large and the gap above
+   the links tight, and buys the room back from padding instead. */
+@media (max-width: 980px) and (max-aspect-ratio: 1/1) and (min-height: 621px) and (max-height: 780px) {
+    /* Affine in --hero-avail rather than a flat multiple of it. A plain
+       coefficient can't fit this band: the fixed costs (title, eyebrow, nav,
+       gaps) don't shrink with the viewport, so they eat proportionally more
+       of a 621px screen than a 780px one, and any single coefficient that
+       fits the bottom of the band starves the top of it (or vice versa). The
+       `- 245px` is that fixed overhead; the 1.15 slope is fitted to the
+       measured fit at both ends. */
+    .about-hero-image {
+        width: min(100%, calc(var(--hero-avail) * 1.15 - 245px));
+    }
+
+    .about-hero-inner {
+        padding-top: clamp(14px, 2.4svh, 24px);
+    }
+
     .about-hero-content {
-        gap: 12px;
+        margin-top: clamp(6px, 1.2svh, 12px);
+    }
+
+    /* A notch down from the tall-phone size. The paragraph is the single
+       biggest consumer in this band — at the full size it runs 6–7 wrapped
+       lines — and trimming it is what buys the photo its extra height. */
+    .about-hero-mission {
+        font-size: clamp(1rem, min(3.9vw, var(--hero-avail) * 0.045), 1.2rem);
     }
 }
 
-/* Stacked *and* short — the tightest case there is, since the photo's height
-   adds to the paragraph's instead of overlapping it, and there's the least
-   room to put both. Only ~40% of the budget for the photo here, against the
-   50% a comfortably tall phone gives it. */
-@media (max-width: 980px) and (max-aspect-ratio: 1/1) and (max-height: 700px) {
+/* Stacked *and* genuinely short — the tightest case there is, since the
+   photo's height adds to the paragraph's instead of overlapping it, and
+   there's the least room to put both. The smallest phones (320×568 and
+   friends) can't afford the full-width photo, the extra top padding or the
+   wider title/mission gap the rules above give a normal phone: all three
+   landed together and put the nav 65px below the fold there.
+
+   The cut-off is 620px, not 700px. At 700 this tier also swallowed ordinary
+   modern phones — a 430×698 viewport (a big phone in an in-app browser, where
+   the surrounding chrome eats ~150px) got the photo tuned for a 320px screen
+   and rendered it at 55% of the width with an 84px gap of dead space above
+   the links, which is exactly the "doesn't look right" case this was reported
+   for. 620 keeps the tier aimed at the phones that actually need it. Worth
+   remembering when reading any `max-height` here: a phone's *usable* viewport
+   is a lot shorter than its spec sheet, so height breakpoints catch bigger
+   devices than you'd guess. */
+@media (max-width: 980px) and (max-aspect-ratio: 1/1) and (max-height: 620px) {
+    /* Same affine shape as the band above, with a bigger fixed subtraction:
+       down here the paragraph has already been cut to 0.9rem and the fixed
+       overhead is a larger share of what's left. A flat coefficient tuned for
+       320×568 made a 430×620 phone drop from a 63% photo to 47% the moment it
+       crossed the boundary; matching the shape keeps that step small. */
     .about-hero-image {
-        width: min(100%, var(--hero-avail) * 0.4);
+        width: min(100%, calc(var(--hero-avail) * 1.15 - 285px));
+    }
+
+    .about-hero-inner {
+        padding-top: clamp(10px, 2svh, 20px);
+    }
+
+    .about-hero-content {
+        margin-top: clamp(6px, 1.2svh, 12px);
     }
 }
