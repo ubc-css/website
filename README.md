@@ -1,4 +1,4 @@
 UBC Cognitive Systems Society 
 =======
 
-Official HTML website. 
+Official UBC CSS website. 
