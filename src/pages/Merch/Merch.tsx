@@ -401,9 +401,7 @@ function Merch() {
                     <div className="merch-purchase-option">
                         <span className="merch-purchase-option-label">Option 1</span>
                         <p>Fill in this online order form and pick up your swag at our next event!</p>
-                        {/* Placeholder href — swap for the club's real external
-                            order form link once one exists. */}
-                        <a className="merch-order-button" href="#" target="_blank" rel="noreferrer">
+                        <a className="merch-order-button" href="https://docs.google.com/forms/d/e/1FAIpQLSfkUI8GBAZxYKx_b8D_1-eDi4Ba1IjP0dMpfzQftS0GqrMteg/viewform" target="_blank" rel="noreferrer">
                             Order Now!
                         </a>
                     </div>

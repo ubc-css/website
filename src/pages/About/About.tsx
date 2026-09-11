@@ -3,6 +3,17 @@ import ExecCard from '../../components/ExecCard/ExecCard'
 import LoungeCarousel, { type LoungeCarouselImage } from '../../components/LoungeCarousel/LoungeCarousel'
 import SocialLinks from '../../components/SocialLinks/SocialLinks'
 import execsAndFaculty from '../../assets/about/execsAndFaculty.jpg'
+// Exec headshots. Each is a square 640px crop (~45–65KB) — the source files
+// were 4000×4000 phone exports at ~2MB each, which is ~10x more pixels than
+// the 210px circle they render in ever needs.
+import austynHeadshot from '../../assets/about/exec headshots/austyn.jpg'
+import bonnieHeadshot from '../../assets/about/exec headshots/bonnie.jpg'
+import edithHeadshot from '../../assets/about/exec headshots/edith.jpg'
+import giannaHeadshot from '../../assets/about/exec headshots/gianna.jpg'
+import jeffreyHeadshot from '../../assets/about/exec headshots/jeffrey.jpg'
+import oliviaHeadshot from '../../assets/about/exec headshots/olivia.jpg'
+import wrenlyHeadshot from '../../assets/about/exec headshots/wrenly.jpg'
+import yolandaHeadshot from '../../assets/about/exec headshots/yolanda.jpg'
 import loungePhoto from '../../assets/about/lounge.jpg'
 import loungePhoto2 from '../../assets/about/lounge2.jpg'
 import loungePhoto3 from '../../assets/about/lounge3.jpg'
@@ -49,24 +60,31 @@ sneakPeekImages.forEach((image) => {
     void decoder.decode?.().catch(() => {})
 })
 
-// Placeholder roster — titles are real, names/photos are stand-ins until the
-// club has a real one. `name` left undefined renders no sub-header at all
-// (used below for the not-yet-filled coordinator roles instead of a fake
-// name).
-const president = { title: 'President', name: 'Bonnie Situ' }
+// The real roster. `photo` is left unset for anyone who hasn't submitted a
+// headshot yet — ExecCard falls back to its dashed placeholder circle for
+// those, so the roster can fill in one person at a time without any other
+// change here. `name` left undefined renders no sub-header at all (used below
+// for the not-yet-filled coordinator roles instead of a fake name).
+const president = { title: 'President', name: 'Bonnie Situ', photo: bonnieHeadshot }
 
 const vpTeam = [
-    { title: 'VP Admin', name: 'Olivia Kennell' },
-    { title: 'VP Finance', name: 'Yolanda Peng' },
-    { title: 'VP Events', name: 'Jeffrey Kim' },
-    { title: 'VP Media', name: 'Gianna Li' },
+    { title: 'VP Admin', name: 'Olivia Kennell', photo: oliviaHeadshot },
+    { title: 'VP Finance', name: 'Yolanda Peng', photo: yolandaHeadshot },
+    { title: 'VP Events', name: 'Jeffrey Kim', photo: jeffreyHeadshot },
+    { title: 'VP Media', name: 'Gianna Li', photo: giannaHeadshot },
 ]
 
-const directors = [
-    { title: 'Social Director', name: 'Austyn Jasper' },
-    { title: 'Academic Director', name: 'Edith Liu' },
-    { title: 'Industry Director', name: 'Wrenly Crampton' },
+const directors: { title: string; name: string; photo?: string }[] = [
+    { title: 'Social Director', name: 'Austyn Jasper', photo: austynHeadshot },
+    { title: 'Academic Director', name: 'Edith Liu', photo: edithHeadshot },
+    { title: 'Industry Director', name: 'Wrenly Crampton', photo: wrenlyHeadshot },
 ]
+
+/** A real headshot gets alt text naming the person; a missing one keeps the
+ * "…headshot placeholder" wording, which is what the dashed placeholder box
+ * actually renders as its visible label. */
+const execPhotoAlt = (person: { title: string; name?: string; photo?: string }) =>
+    person.photo ? `${person.name}, ${person.title}` : `${person.title} headshot placeholder`
 
 // Not individual people — 2 open seats each, grouped under one title with a
 // shared "Coming Soon" stamp rather than ExecCard's per-person photo+name.
@@ -152,7 +170,8 @@ function About() {
                     <ExecCard
                         title={president.title}
                         name={president.name}
-                        photoAlt={`${president.title} headshot placeholder`}
+                        photoSrc={president.photo}
+                        photoAlt={execPhotoAlt(president)}
                     />
                 </div>
 
@@ -162,7 +181,8 @@ function About() {
                             key={exec.title}
                             title={exec.title}
                             name={exec.name}
-                            photoAlt={`${exec.title} headshot placeholder`}
+                            photoSrc={exec.photo}
+                            photoAlt={execPhotoAlt(exec)}
                         />
                     ))}
                 </div>
@@ -173,7 +193,8 @@ function About() {
                             key={exec.title}
                             title={exec.title}
                             name={exec.name}
-                            photoAlt={`${exec.title} headshot placeholder`}
+                            photoSrc={exec.photo}
+                            photoAlt={execPhotoAlt(exec)}
                         />
                     ))}
                 </div>
