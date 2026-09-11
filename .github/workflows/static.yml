@@ -37,15 +37,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # postbuild writes 404.html and a real index.html per route, so Pages
+      # answers 200 on /merch and the rest instead of serving them as 404s.
       - name: Build
         run: npm run build
-
-      # The app uses BrowserRouter, so paths like /merch are handled client
-      # side. Pages serves 404.html for any path it can't find on disk, so
-      # shipping a copy of index.html there lets the router take over instead
-      # of showing a 404.
-      - name: Add SPA fallback
-        run: cp dist/index.html dist/404.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
