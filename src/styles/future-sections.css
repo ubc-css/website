@@ -1,0 +1,248 @@
+/*
+ * Styles staged for site sections that don't exist yet (they roughly map to the
+ * nav's Events / Merch / Resources / About items). Nothing here is imported by
+ * any component right now — keep it that way until the matching JSX is built,
+ * then move the rules you use into that component's own CSS file.
+ */
+
+.join-strip,
+.info-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.brand-lockup {
+    display: grid;
+    gap: 4px;
+}
+
+.brand-mark {
+    color: var(--color-black);
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.brand-subtitle {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+}
+
+.hero-footer {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+    justify-items: center;
+    margin-top: auto;
+    padding-top: 18px;
+}
+
+.strip-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-dark-magenta), var(--color-gray-magenta));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    white-space: nowrap;
+    transition:
+        transform 200ms ease,
+        border-color 200ms ease,
+        background 200ms ease,
+        box-shadow 200ms ease,
+        color 200ms ease;
+}
+
+.strip-cta:hover {
+    transform: translateY(-2px) scale(1.03);
+    background: linear-gradient(135deg, var(--color-gray-crimson), var(--color-dark-magenta));
+    box-shadow: 0 10px 24px rgba(91, 35, 72, 0.3);
+}
+
+.mini-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0;
+}
+
+.mini-stats>div,
+.hero-panel-card,
+.info-card,
+.join-strip {
+    padding: 16px;
+    border-radius: 22px;
+    background: rgba(242, 242, 244, 0.95);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 14px 34px rgba(11, 11, 12, 0.08);
+}
+
+.mini-stats strong {
+    display: block;
+    color: var(--color-black);
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.mini-stats span {
+    color: rgba(11, 11, 12, 0.7);
+}
+
+.hero-panel {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+}
+
+.hero-panel-card h2,
+.info-card h3,
+.join-strip h3 {
+    margin: 10px 0 8px;
+    color: var(--color-black);
+    font-size: 1.3rem;
+    line-height: 1.1;
+}
+
+.hero-panel-card p,
+.info-card p,
+.join-strip p {
+    color: rgba(11, 11, 12, 0.75);
+    line-height: 1.65;
+}
+
+.panel-note {
+    margin-top: 6px;
+    max-width: 30ch;
+}
+
+.card-label {
+    color: var(--color-gray-blue);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.stream-list {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.stream-list li {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+    min-height: 0;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(11, 11, 12, 0.04), rgba(11, 11, 12, 0.02));
+    color: var(--color-black);
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px rgba(11, 11, 12, 0.04);
+}
+
+.stream-list strong {
+    font-size: 1rem;
+}
+
+.stream-list span {
+    color: rgba(11, 11, 12, 0.68);
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 18px;
+    position: relative;
+    z-index: 1;
+    align-items: stretch;
+}
+
+.info-card {
+    display: grid;
+    align-content: start;
+    min-height: 190px;
+}
+
+.join-strip {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+    position: relative;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+.join-strip h3 {
+    margin-top: 10px;
+}
+
+.join-strip p {
+    margin: 0;
+    max-width: 28rem;
+}
+
+.join-strip .card-label {
+    margin-bottom: 2px;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 980px) {
+
+    .info-grid,
+    .join-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .mini-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stream-list {
+        grid-template-columns: 1fr;
+    }
+
+    .join-strip {
+        justify-items: start;
+        align-items: flex-start;
+    }
+
+    .strip-cta {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+    .info-card,
+    .join-strip {
+        animation: rise 700ms ease both;
+    }
+}

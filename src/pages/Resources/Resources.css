@@ -1,0 +1,78 @@
+.resources {
+    max-width: 1180px;
+    margin: 0 auto;
+    width: 100%;
+    padding: clamp(24px, 4vw, 48px) 22px clamp(48px, 6vw, 80px);
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Fills the initial viewport like the other pages' heroes (Home/Merch/
+       About all use this same header-height offset) — there's nothing below
+       it to scroll to yet, so centering the message in that full space reads
+       as an intentional "coming soon" screen rather than a half-empty page. */
+    min-height: calc(100svh - 130px);
+}
+
+.resources-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    max-width: 34rem;
+}
+
+.resources-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 0;
+    color: var(--color-gray-blue);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.resources-eyebrow::before {
+    content: '';
+    width: 44px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-gray-blue), transparent);
+}
+
+.resources-content h1 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.resources-lede {
+    margin: 0;
+    color: rgba(11, 11, 12, 0.78);
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.65;
+}
+
+/* Plain underlined link, not a button — same "this is a link, not the
+   primary action" treatment as UpcomingEventCard's .upcoming-member-link/
+   About's .about-inline-link, since there's no real CTA for a placeholder
+   page beyond "go back". */
+.resources-home-link {
+    color: var(--color-gray-blue);
+    text-decoration: underline;
+    text-decoration-color: rgba(100, 151, 206, 0.4);
+    text-underline-offset: 3px;
+    font-weight: 700;
+    transition: text-decoration-color 200ms ease;
+}
+
+.resources-home-link:hover,
+.resources-home-link:focus-visible {
+    text-decoration-color: var(--color-gray-blue);
+}

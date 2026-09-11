@@ -1,0 +1,75 @@
+.cursor-dot,
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-black);
+    transition: opacity 200ms ease;
+}
+
+.cursor-dot.is-hidden {
+    opacity: 0;
+}
+
+.cursor-ring {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(0, 0, 0, 0.5);
+    transition: width 200ms ease,
+        height 200ms ease,
+        border-radius 200ms ease,
+        border-color 200ms ease,
+        border-width 200ms ease,
+        background-color 200ms ease;
+    ;
+}
+
+.cursor-ring.is-active {
+    width: 50px;
+    height: 50px;
+    border-color: var(--color-black);
+}
+
+.cursor-ring.is-text {
+    width: 2px;
+    height: 24px;
+    border-radius: 2px;
+    border-width: 0px;
+    border-color: transparent;
+    background-color: var(--color-black);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    * {
+        cursor: none !important;
+    }
+
+    .nav-dropdown-label {
+        cursor: none;
+    }
+
+    .brand-logo-link {
+        cursor: none;
+    }
+
+    .hamburger-btn {
+        cursor: none;
+    }
+}
+
+@media (hover: none) {
+
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}

@@ -1,0 +1,86 @@
+.nav-dropdown {
+    position: relative;
+}
+
+/* Renders as either a <button> (Events — a pure grouping label) or an <a>
+   (Merch/Resources/About, whose labels link to their own page); these
+   declarations cover both, so the two are visually identical. */
+.nav-dropdown-label {
+    color: rgba(11, 11, 12, 0.74);
+    font-weight: 700;
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    border-radius: 16px;
+    background: rgba(242, 242, 244, 0.98);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 16px 34px rgba(11, 11, 12, 0.12);
+    z-index: 20;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+    pointer-events: none;
+}
+
+.nav-dropdown-menu-inner {
+    display: grid;
+    gap: 4px;
+    padding: 20px 8px 8px;
+}
+
+.nav-dropdown.is-open .nav-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.nav-dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: background 150ms ease;
+}
+
+.nav-dropdown-item:hover {
+    background: rgba(115, 162, 211, 0.12);
+    color: #73A2D3;
+}
+
+.nav-dropdown-arrow {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    /* `:focus-within` alongside `:hover` so the menu is still reachable by
+       keyboard. It matters now that Merch/Resources/About's labels are real
+       links: pressing Enter on one navigates to its page rather than
+       toggling the menu open the way it used to, so without opening on focus
+       there'd be no keyboard route left to the sub-items on desktop. With
+       it, tabbing to the label reveals the menu and tabbing onward walks
+       into it. */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 0s;
+        pointer-events: auto;
+    }
+}

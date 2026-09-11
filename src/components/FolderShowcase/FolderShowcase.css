@@ -1,0 +1,42 @@
+.folder-showcase {
+    display: flex;
+    flex-direction: column;
+    /* No gap here — each .folder-preview's own vertical padding is what
+       spaces them apart, so a gap on top of that would just double it up. */
+    padding-block: clamp(20px, 5vw, 48px) 60px;
+    position: relative;
+    z-index: 1;
+}
+
+.folder-showcase-path {
+    display: none;
+}
+
+@media (min-width: 981px) {
+    .folder-showcase-path {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        /* .folder-showcase establishes its own stacking context (position:
+           relative + z-index:1 above), so a negative z-index here is confined
+           to staying behind its .folder-preview siblings — it can't drop
+           behind .site-shell's own background layers further up the tree. */
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    .folder-showcase-path path {
+        fill: none;
+        stroke: var(--color-gray-blue);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-dasharray: 4 9;
+        opacity: 0.3;
+        /* Keeps the stroke a consistent, subtle screen-pixel width even
+           though preserveAspectRatio="none" stretches the path's shape
+           non-uniformly to fill whatever height the section ends up at. */
+        vector-effect: non-scaling-stroke;
+    }
+}

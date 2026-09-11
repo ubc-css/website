@@ -1,0 +1,231 @@
+/* Mostly the same card shell as PastEventCard/UpcomingEventCard (asymmetric
+   rounded corners, gradient card background), but a simple stacked tile —
+   image on top, details below — since a grid of products reads better as
+   tiles than as wide rows. The colored *tab* those cards use is swapped for
+   a paperclip (see .merch-product-clip below) so this reads as a clipped
+   photo/file rather than a folder — a merch catalog, not a browsable folder. */
+.merch-product-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(22px, 2.4vw, 30px);
+    border-radius: 6px 26px 26px 26px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 244, 0.97));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 24px 54px rgba(11, 11, 12, 0.1);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.merch-product-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.merch-product-card:nth-of-type(4n+1) {
+    --merch-accent: var(--color-pastel-pink);
+}
+
+.merch-product-card:nth-of-type(4n+2) {
+    --merch-accent: var(--color-dark-plum);
+}
+
+.merch-product-card:nth-of-type(4n+3) {
+    --merch-accent: var(--color-ink-black);
+}
+
+.merch-product-card:nth-of-type(4n+4) {
+    --merch-accent: var(--color-gray-blue);
+}
+
+.merch-product-clip {
+    position: absolute;
+    /* Straddles the CARD's own top edge (the rectangle behind the photo) —
+       negative enough to clear the card's padding and border entirely so the
+       loop end visibly pokes out above the whole card, not just above the
+       photo inset inside it. */
+    top: -20px;
+    left: 24px;
+    width: 34px;
+    height: 34px;
+    /* The glyph's hook-to-tip axis runs at a 45deg diagonal by default;
+       rotating -45deg straightens it to point straight up/down. */
+    transform: rotate(-45deg);
+    color: var(--merch-accent, var(--color-gray-blue));
+    filter: drop-shadow(0 3px 4px rgba(11, 11, 12, 0.3));
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Wraps the image frame + (when there's more than one photo) the dots below
+   it. A plain flex column with no visual styling of its own — for a
+   single-photo product this adds no extra gap (flex gap only applies
+   between rendered children, and the dots row doesn't render), so it looks
+   pixel-identical to before carousel support existed. */
+.merch-product-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.merch-product-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(11, 11, 12, 0.04);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Same hand-rolled prev/next + dots recipe as PastEventCard
+   (.event-carousel-arrow/.event-carousel-dot) — only rendered at all when a
+   product has more than one photo. */
+.merch-product-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-black);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(11, 11, 12, 0.18);
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.merch-product-carousel-arrow:hover,
+.merch-product-carousel-arrow:focus-visible {
+    background: #fff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.merch-product-carousel-arrow-prev {
+    left: 10px;
+}
+
+.merch-product-carousel-arrow-next {
+    right: 10px;
+}
+
+.merch-product-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.merch-product-carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: rgba(11, 11, 12, 0.2);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.merch-product-carousel-dot.is-active {
+    background: var(--color-gray-blue);
+    transform: scale(1.25);
+}
+
+/* Once a real photo is set, drop the placeholder box look entirely — same
+   treatment as UpcomingEventCard's .upcoming-event-image. */
+.merch-product-image:has(img) {
+    background: none;
+    border: none;
+}
+
+.merch-product-image span {
+    padding: 16px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(11, 11, 12, 0.45);
+}
+
+.merch-product-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    /* contain, not cover — Accessories' photos (flat sticker illustrations,
+       a single centered keychain/tote shot) looked wrong cropped, so this
+       stays the original default for them. */
+    object-fit: contain;
+}
+
+/* Clothing is the one section that needs `cover` instead: the real product
+   photos there have very mixed aspect ratios (e.g. the zip-up hoodie's tall
+   ~739x964 shots vs. the crewneck's wide ~597x448 one), and `contain` let
+   each one keep its own native size within the square frame, so the garment
+   in a tall photo like the zip-up rendered noticeably smaller (letterboxed)
+   than one in a near-square photo. `cover` scales every Clothing photo to
+   fill the square frame edge-to-edge instead, cropping the excess on
+   whichever axis runs long, so every card's garment reads as roughly the
+   same size — scoped to #clothing specifically rather than changed as the
+   shared default, since Accessories' photos don't have that problem and
+   look worse cropped. */
+#clothing .merch-product-image img {
+    object-fit: cover;
+}
+
+/* `flex: 1` so the body absorbs whatever height the card has left over after
+   the photo — which is what lets the price below pin itself to the bottom of
+   the card rather than just trailing the description. .merch-grid stretches
+   every card in a row to the tallest one's height (grid's default
+   `align-items: stretch`), so with this the prices land on a common baseline
+   across the row instead of stepping up and down with each description's
+   length. */
+.merch-product-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    flex: 1;
+}
+
+.merch-product-body h3 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+    line-height: 1.2;
+}
+
+.merch-product-body p {
+    margin: 0;
+    color: rgba(11, 11, 12, 0.75);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+/* `margin-top: auto` (not a fixed 4px) eats all the body's leftover space
+   above it, parking the price on the card's bottom edge — bottom-left, since
+   it's a full-width flex item whose text starts at the left. The card's own
+   padding is the only thing between it and the corner. When a description is
+   long enough to fill the body on its own the auto margin collapses to zero
+   and .merch-product-body's 6px `gap` still keeps them apart. */
+.merch-product-price {
+    margin-top: auto;
+    padding-top: 4px;
+    color: var(--color-gray-blue);
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .merch-product-card {
+        transition: none;
+    }
+}

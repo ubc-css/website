@@ -1,0 +1,161 @@
+/* Same visual language as FolderPreview.css's .folder (asymmetric rounded
+   corners, gradient card background, colored tab), but a plain static card —
+   no absolute positioning, no scatter/hover mechanics. This page is for
+   browsing events, not the homepage's playful reveal. */
+.event-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
+    gap: clamp(24px, 3vw, 40px);
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: 6px 26px 26px 26px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(242, 242, 244, 0.97));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    box-shadow: 0 24px 54px rgba(11, 11, 12, 0.1);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.event-card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.event-card:nth-of-type(4n+1) {
+    --event-accent: var(--color-pastel-pink);
+}
+
+.event-card:nth-of-type(4n+2) {
+    --event-accent: var(--color-dark-plum);
+}
+
+.event-card:nth-of-type(4n+3) {
+    --event-accent: var(--color-ink-black);
+}
+
+.event-card:nth-of-type(4n+4) {
+    --event-accent: var(--color-gray-blue);
+}
+
+.event-card-tab {
+    position: absolute;
+    top: -16px;
+    left: 32px;
+    width: 104px;
+    height: 22px;
+    border-radius: 10px 10px 0 0;
+    background: var(--event-accent, var(--color-gray-blue));
+    border: 1px solid rgba(11, 11, 12, 0.08);
+    border-bottom: none;
+}
+
+.event-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.event-card-body h3 {
+    margin: 0;
+    color: var(--color-black);
+    font-size: clamp(2rem, 3vw, 2.5rem); 
+    line-height: 1.15;
+}
+
+.event-card-body p {
+    color: rgba(11, 11, 12, 0.75);
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    line-height: 1.65;
+}
+
+.event-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.event-carousel-frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(11, 11, 12, 0.04);
+    border: 1px solid rgba(11, 11, 12, 0.08);
+}
+
+.event-carousel-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-black);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(11, 11, 12, 0.18);
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.event-carousel-arrow:hover,
+.event-carousel-arrow:focus-visible {
+    background: #fff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.event-carousel-arrow-prev {
+    left: 10px;
+}
+
+.event-carousel-arrow-next {
+    right: 10px;
+}
+
+.event-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.event-carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: rgba(11, 11, 12, 0.2);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.event-carousel-dot.is-active {
+    background: var(--color-gray-blue);
+    transform: scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .event-card {
+        transition: none;
+    }
+}
+
+@media (max-width: 980px) {
+    .event-card {
+        grid-template-columns: 1fr;
+    }
+}

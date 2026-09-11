@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color: #0b0b0c;
+  background: #f2f2f4;
+  font-family: 'Manrope', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --color-gray-magenta: #8a6380;
+  --color-pastel-gray-magenta: #d9b4d2;
+  --color-dark-magenta: #5b2348;
+  --color-gray-blue: #6497CE;
+  --color-gray-crimson: #ba8894;
+  --color-gray-orange: #a96d33;
+  --color-yellow: #d9ae08;
+  --color-green: #8ec640;
+  --color-light-gray: #f2f2f4;
+  --color-gray: #8f8f92;
+  --color-black: #0b0b0c;
+  --accent-border: #d9b4d2;
+  --color-dark-plum: #542141;
+  --color-ink-black: #0f060b;
+  --color-pastel-pink: #e2b6d2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(217, 180, 210, 0.45), transparent 24%),
+    radial-gradient(circle at top right, rgba(142, 198, 64, 0.2), transparent 22%),
+    linear-gradient(180deg, #ffffff 0%, #f2f2f4 100%);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
