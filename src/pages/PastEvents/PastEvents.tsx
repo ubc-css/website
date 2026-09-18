@@ -9,6 +9,44 @@ import './PastEvents.css'
 
 const pastEvents: PastEventCardProps[] = [
     {
+        name: 'Post Orientation Social',
+        year: 2026,
+        description: 'A social to show incoming COGS students what our club is all about!',
+        photos: [
+            { src: img('events/2026.27/postOrientation1.JPG'), alt: 'Students spelling out "COGS" with their arms'},
+            { src: img('events/2026.27/postOrientation2.JPG'), alt: 'Two students in an intense game of chess'},
+            { src: img('events/2026.27/postOrientation3.JPG'), alt: 'Making custom Robbie Shrinky-dink keychains!'},
+            { src: img('events/2026.27/postOrientation4.JPG'), alt: 'Arts and crafts!!!'},
+            { src: img('events/2026.27/postOrientation5.JPG'), alt: 'So many students...!'},
+            { src: img('events/2026.27/postOrientation6.JPG'), alt: 'Sushi for dinner :)'},
+        ],
+    },
+    {
+        name: 'Welcome Back BBQ',
+        year: 2026,
+        description:
+            'The annual Welcome Back BBQ at Acadia Beach! A fun evening of free food, drinks, spikeball, sunsets, and a custom CSS photobooth + doodle booth to kickoff the school year.',
+        photos: [
+            { src: img('events/2026.27/welcomeBack1.JPG'), alt: 'The BBQ is getting started!' },
+            { src: img('events/2026.27/welcomeBack2.JPG'), alt: 'Cute group of friends smiling' },
+            { src: img('events/2026.27/welcomeBack3.JPG'), alt: 'Food is ready!' },
+            { src: img('events/2026.27/welcomeBack4.JPG'), alt: 'The BIGGEST group photo' },
+            { src: img('events/2026.27/welcomeBack5.JPG'), alt: 'Our lovely raffle prize winners!' },
+            { src: img('events/2026.27/welcomeBack6.JPG'), alt: 'What a beautiful sunset...' },
+        ],
+    },
+    {
+        name: 'Interyear Mingle',
+        year: 2026,
+        description: 'The annual Interyear Mingle: A night of quality time, fun, and games with your COGS community. Come to reunite with old pals, stay for the activites, and leave with new friends!',
+        photos: [
+            { src: img('events/2026.27/interYear1.JPG'), alt: 'The game table!'},
+            { src: img('events/2026.27/interYear2.JPG'), alt: 'Making a UBC CSS beaded tapestry'},
+            { src: img('events/2026.27/interYear3.JPG'), alt: 'students laughing in a group'},
+            { src: img('events/2026.27/interYear4.JPG'), alt: 'Say cheese!!'},
+        ],
+    },
+    {
         name: 'Welcome Back BBQ',
         year: 2025,
         description:
