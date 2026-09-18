@@ -5,30 +5,23 @@ import UpcomingEventCard, {
 } from '../../components/UpcomingEventCard/UpcomingEventCard'
 import './UpcomingEvents.css'
 
-import welcomeBack from '../../assets/events/Graphics/welcomeBackBBQ.png'
-import interYear from '../../assets/events/Graphics/interyearMingle.png'
+import resumeBuilding1 from '../../assets/events/Graphics/resumeBuilding1.jpg'
+import resumeBuilding2 from '../../assets/events/Graphics/resumeBuilding2.jpg'
 
 
 const upcomingEvents: UpcomingEventCardProps[] = [
     {
-        name: 'Welcome Back BBQ',
-        date: '2026-09-11',
-        time: '6:00 PM',
-        location: 'Acadia Beach',
+        name: 'Resume Building Workshop',
+        date: '2026-09-21',
+        time: '5:30 PM - 7:00 PM',
+        location: 'LIFE 2202',
         description:
-            'Our annual Welcome Back BBQ is BACK‼️Join us at Acadia Beach on Friday for a fun evening of free food, games like spikeball and volleyball, a custom CSS photobooth, and much more (and hopefully a nice sunset 🤩). Bring your friends and get excited to make new ones! This is one of our biggest events of the year so you do NOT want to miss out. We WILL see you there 😉',
-        image: {src: welcomeBack, alt: 'Welcome Back BBQ graphic' },
-        rsvpHref: "https://luma.com/z5zyqbmc",
-    },
-    {
-        name: 'Inter-year Mingle',
-        date: '2026-09-15',
-        time: '6:00 PM – 9:00 PM',
-        location: 'Cogs Lounge, Iona Building',
-        description:
-            'Join us for the annual Interyear Mingle for a night of quality time and fun and games with your COGS community. Reunite with old pals, make new friends, and stay for the activities we have planned 👀',
-        image: {src: interYear, alt: 'interyear mingle graphic' },
-        rsvpHref: 'https://luma.com/tprtykgv',
+            'First internship? First resume? First idea of what you’re doing? We’ve got you. 🫡 Join us at our first industry event of the year for a hands-on session with Yulia Gracheva, Certified Resume Strategist at Flourish Career Consulting, covering what’s actually getting people interviews right now and how to tell your COGS story in one page. 💬 Bring your resume, we’ll do the rest. RSVP using the Luma in bio. Membership is required to attend, purchase yours now by clicking on the link below!!',
+        images: [
+            {src: resumeBuilding1, alt: 'Resume Building Workshop graphic'},
+            {src: resumeBuilding2, alt: 'Resume Building Workshop details graphic'},
+        ],
+        rsvpHref: "https://luma.com/spotnckx",
     },
 ]
 

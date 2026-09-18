@@ -51,6 +51,18 @@
     border-bottom: none;
 }
 
+/* Wraps the graphic frame + (when there's more than one graphic) the dots
+   below it. This is the grid child now, so it keeps the image column's
+   width; the frame inside still sets its own 4/5 height. A plain flex column
+   with no styling of its own — with a single graphic the dots row doesn't
+   render, and flex `gap` only applies between rendered children, so those
+   cards look pixel-identical to before carousel support existed. */
+.upcoming-event-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .upcoming-event-image {
     position: relative;
     /* Instagram's default portrait post ratio — this graphic is meant to be
@@ -86,6 +98,65 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+/* Same hand-rolled prev/next + dots recipe as MerchProductCard and
+   PastEventCard — only rendered at all when an event has more than one
+   graphic. */
+.upcoming-event-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--color-black);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(11, 11, 12, 0.18);
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.upcoming-event-carousel-arrow:hover,
+.upcoming-event-carousel-arrow:focus-visible {
+    background: #fff;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.upcoming-event-carousel-arrow-prev {
+    left: 10px;
+}
+
+.upcoming-event-carousel-arrow-next {
+    right: 10px;
+}
+
+.upcoming-event-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.upcoming-event-carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: rgba(11, 11, 12, 0.2);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.upcoming-event-carousel-dot.is-active {
+    background: var(--color-gray-blue);
+    transform: scale(1.25);
 }
 
 .upcoming-event-body {
@@ -202,7 +273,9 @@
         grid-template-columns: 1fr;
     }
 
-    .upcoming-event-image {
+    /* The carousel wrapper is the grid child now, so the ordering that pulls
+       the graphic above the body has to sit on it rather than on the frame. */
+    .upcoming-event-carousel {
         order: -1;
     }
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useInView } from '../../hooks/useInView'
 import { formatEventDate } from './formatEventDate'
 import './UpcomingEventCard.css'
@@ -19,21 +20,72 @@ export interface UpcomingEventCardProps {
     time: string
     location: string
     description: string
-    image: UpcomingEventImage
+    /** One graphic renders exactly like before (plain static image, no
+     * controls). More than one adds prev/next arrows + dot indicators — same
+     * hand-rolled carousel as MerchProductCard and PastEventCard. */
+    images: UpcomingEventImage[]
     /** The event's real external RSVP page (Luma, currently) — rendered as a
      * new-tab link, same as every other external link on the site. */
     rsvpHref: string
 }
 
-function UpcomingEventCard({ name, date, time, location, description, image, rsvpHref }: UpcomingEventCardProps) {
+function UpcomingEventCard({ name, date, time, location, description, images, rsvpHref }: UpcomingEventCardProps) {
+    const [index, setIndex] = useState(0)
     const { ref, isInView } = useInView<HTMLDivElement>(0.15)
+
+    const showPrev = () => setIndex((current) => (current - 1 + images.length) % images.length)
+    const showNext = () => setIndex((current) => (current + 1) % images.length)
+
+    const currentImage = images[index]
 
     return (
         <div ref={ref} className={`upcoming-event-card ${isInView ? 'is-visible' : ''}`}>
             <span className="upcoming-event-tab" aria-hidden="true" />
 
-            <div className="upcoming-event-image">
-                {image.src ? <img src={image.src} alt={image.alt} /> : <span>{image.alt}</span>}
+            <div className="upcoming-event-carousel">
+                <div className="upcoming-event-image">
+                    {currentImage.src ? (
+                        <img src={currentImage.src} alt={currentImage.alt} />
+                    ) : (
+                        <span>{currentImage.alt}</span>
+                    )}
+
+                    {images.length > 1 && (
+                        <>
+                            <button
+                                type="button"
+                                className="upcoming-event-carousel-arrow upcoming-event-carousel-arrow-prev"
+                                onClick={showPrev}
+                                aria-label={`Previous graphic for ${name}`}
+                            >
+                                ‹
+                            </button>
+                            <button
+                                type="button"
+                                className="upcoming-event-carousel-arrow upcoming-event-carousel-arrow-next"
+                                onClick={showNext}
+                                aria-label={`Next graphic for ${name}`}
+                            >
+                                ›
+                            </button>
+                        </>
+                    )}
+                </div>
+
+                {images.length > 1 && (
+                    <div className="upcoming-event-carousel-dots">
+                        {images.map((image, imageIndex) => (
+                            <button
+                                key={image.alt + imageIndex}
+                                type="button"
+                                className={`upcoming-event-carousel-dot ${imageIndex === index ? 'is-active' : ''}`}
+                                onClick={() => setIndex(imageIndex)}
+                                aria-label={`Show graphic ${imageIndex + 1} of ${images.length}`}
+                                aria-current={imageIndex === index}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
 
             <div className="upcoming-event-body">
