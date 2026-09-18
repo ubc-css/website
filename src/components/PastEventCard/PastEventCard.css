@@ -70,6 +70,25 @@
     line-height: 1.65;
 }
 
+.event-card-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Subheader under the title. Bold but muted and much smaller, so it reads as
+   a label rather than competing with the event name. The extra class beats
+   `.event-card-body p` above, which would otherwise style it like the
+   description. */
+.event-card-body .event-card-year {
+    margin: 0;
+    color: rgba(11, 11, 12, 0.5);
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+}
+
 .event-carousel {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useInView } from '../../hooks/useInView'
+import { formatAcademicYear } from './formatAcademicYear'
 import './PastEventCard.css'
 
 export interface EventPhoto {
@@ -16,7 +17,7 @@ export interface PastEventCardProps {
     photos: EventPhoto[]
 }
 
-function PastEventCard({ name, description, photos }: PastEventCardProps) {
+function PastEventCard({ name, description, year, photos }: PastEventCardProps) {
     const [index, setIndex] = useState(0)
     const { ref, isInView } = useInView<HTMLDivElement>(0.15)
 
@@ -28,7 +29,15 @@ function PastEventCard({ name, description, photos }: PastEventCardProps) {
             <span className="event-card-tab" aria-hidden="true" />
 
             <div className="event-card-body">
-                <h3>{name}</h3>
+                {/* Title + year grouped so the year sits tight under the name
+                    instead of taking the body's full 12px gap. The year comes
+                    from the numeric `year` field rather than the name, so it
+                    shows on every card with the same formatting as the
+                    year filter. */}
+                <div className="event-card-heading">
+                    <h3>{name}</h3>
+                    <p className="event-card-year">{formatAcademicYear(year)}</p>
+                </div>
                 <p>{description}</p>
             </div>
 
