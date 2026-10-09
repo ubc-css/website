@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { useInView } from '../../hooks/useInView'
 import { formatEventDate } from './formatEventDate'
 import './UpcomingEventCard.css'
@@ -19,7 +19,9 @@ export interface UpcomingEventCardProps {
     date: string
     time: string
     location: string
-    description: string
+    /** Usually plain text; pass JSX (`<>… <b>bold</b> …</>`) when part of it
+     * needs emphasis. */
+    description: ReactNode
     /** One graphic renders exactly like before (plain static image, no
      * controls). More than one adds prev/next arrows + dot indicators — same
      * hand-rolled carousel as MerchProductCard and PastEventCard. */

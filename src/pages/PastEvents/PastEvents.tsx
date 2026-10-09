@@ -9,6 +9,28 @@ import './PastEvents.css'
 
 const pastEvents: PastEventCardProps[] = [
     {
+        name: 'Tri-Mentorship Kickoff',
+        year: 2026,
+        description: 'A social to kick off this years tri-mentorship program -- joining new, experienced, and alumni COGs students all together!',
+        photos: [
+            { src: img('events/2026.27/triMentKickoff1.jpg'), alt: 'A group photo of all attendees'},
+            { src: img('events/2026.27/triMentKickoff2.JPG'), alt: 'The director of the COGS program doing a very important speech (or dance..?)'},
+            { src: img('events/2026.27/triMentKickoff3.JPG'), alt: 'Attendees in discussion, getting to know each other.'},
+            { src: img('events/2026.27/triMentKickoff4.JPG'), alt: 'A fun icebreaker, guessing game activity.'},
+            { src: img('events/2026.27/triMentKickoff5.JPG'), alt: 'Attendees working together on a lego building activity!!'},
+        ],
+    },
+    {
+        name: 'Resume Building Workshop',
+        year: 2026,
+        description: 'A hands-on resume critiquing session with Yulia Gracheva, Certified Resume Strategist at Flourish Career Consulting, to help COGs students up their resume game!',
+        photos: [
+            { src: img('events/2026.27/resumeWorkshop1.JPG'), alt: 'Students waiting for the speaker to begin her presentation'},
+            { src: img('events/2026.27/resumeWorkshop2.JPG'), alt: 'The workshop speaker and Industry director standing side-by-side'},
+            { src: img('events/2026.27/resumeWorkshop3.JPG'), alt: 'Student attendees smiling at the camera!'},
+        ],
+    },
+    {
         name: 'Post Orientation Social',
         year: 2026,
         description: 'A social to show incoming COGS students what our club is all about!',

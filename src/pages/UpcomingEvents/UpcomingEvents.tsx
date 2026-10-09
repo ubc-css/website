@@ -5,23 +5,22 @@ import UpcomingEventCard, {
 } from '../../components/UpcomingEventCard/UpcomingEventCard'
 import './UpcomingEvents.css'
 
-import resumeBuilding1 from '../../assets/events/Graphics/resumeBuilding1.jpg'
-import resumeBuilding2 from '../../assets/events/Graphics/resumeBuilding2.jpg'
-
+import meetProfs from '../../assets/events/Graphics/meetTheProfs.png'
 
 const upcomingEvents: UpcomingEventCardProps[] = [
     {
-        name: 'Resume Building Workshop',
-        date: '2026-09-21',
-        time: '5:30 PM - 7:00 PM',
-        location: 'LIFE 2202',
+        name: 'Meet The Profs',
+        date: '2026-10-09',
+        time: '5:00 PM - 7:00 PM',
+        location: 'Koerner\'s Pub',
         description:
-            'First internship? First resume? First idea of what you’re doing? We’ve got you. 🫡 Join us at our first industry event of the year for a hands-on session with Yulia Gracheva, Certified Resume Strategist at Flourish Career Consulting, covering what’s actually getting people interviews right now and how to tell your COGS story in one page. 💬 Bring your resume, we’ll do the rest. RSVP using the Luma in bio. Membership is required to attend, purchase yours now by clicking on the link below!!',
+            <>
+                It's a fresh semester, which means that Meet the Profs is BACK‼️‼️ Join us for beer 🍺 , snacks 🍟 , live music 🎵 , and quality (and COGsy) time with your favourite profs at Koerner’s Pub! Come for the vibes, the mingling, or just the free food 😉. Please note that this event is <b>19+ and membership-only</b>, so purchase a CSS membership NOW through the link in our linktree! We can’t wait to see you all there 🫵🤖⚙️
+            </>,
         images: [
-            {src: resumeBuilding1, alt: 'Resume Building Workshop graphic'},
-            {src: resumeBuilding2, alt: 'Resume Building Workshop details graphic'},
+            {src: meetProfs, alt: 'Meet The Profs graphic'},
         ],
-        rsvpHref: "https://luma.com/spotnckx",
+        rsvpHref: "https://luma.com/oplk7y6b",
     },
 ]
 
