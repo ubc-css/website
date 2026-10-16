@@ -3,24 +3,29 @@ import { createPortal } from 'react-dom'
 import UpcomingEventCard, {
     type UpcomingEventCardProps,
 } from '../../components/UpcomingEventCard/UpcomingEventCard'
+import { img } from '../../utils/img'
 import './UpcomingEvents.css'
 
-import meetProfs from '../../assets/events/Graphics/meetTheProfs.png'
 
 const upcomingEvents: UpcomingEventCardProps[] = [
     {
-        name: 'Meet The Profs',
-        date: '2026-10-09',
-        time: '5:00 PM - 7:00 PM',
-        location: 'Koerner\'s Pub',
+        name: 'Portfolio Workshop',
+        date: '2026-10-23',
+        time: '6:00 PM - 8:00 PM',
+        location: 'Henry Angus Building, Room 235',
         description:
             <>
-                It's a fresh semester, which means that Meet the Profs is BACK‼️‼️ Join us for beer 🍺 , snacks 🍟 , live music 🎵 , and quality (and COGsy) time with your favourite profs at Koerner’s Pub! Come for the vibes, the mingling, or just the free food 😉. Please note that this event is <b>19+ and membership-only</b>, so purchase a CSS membership NOW through the link in our linktree! We can’t wait to see you all there 🫵🤖⚙️
-            </>,
+Interested in UX design as a career? Have projects you’re proud of but don’t know how to show them off? 🤔 <br /> <br />
+
+The CSS is excited to present our Portfolio Workshop with <b>Designed Forward</b> hosted by founder <b>Matt Karakilic</b>, a UX design leader and Emily Carr instructor. Designed Forward is a UX coaching and career community for designers of all backgrounds. Learn what makes a portfolio stand out, how to show your process, and how to tell the story behind your work. Whether you’re starting from scratch or polishing what you have, this one’s for you! <br /> <br />
+
+<i>Looking for professional feedback on your own portfolio? Submit a link to yours via the Luma by <b>October 20th 11:59PM</b>. Only a limited number of portfolios will be reviewed during the workshop so get yours in today!!</i>
+             </>,
         images: [
-            {src: meetProfs, alt: 'Meet The Profs graphic'},
+            {src: img('events/Graphics/portfolioWorkshop1.png'), alt: 'Portfolio Workshop graphic'},
+            {src: img('events/Graphics/portfolioWorkshop2.png'), alt: 'Portfolio Workshop graphic'}
         ],
-        rsvpHref: "https://luma.com/oplk7y6b",
+        rsvpHref: "https://luma.com/rbs9wz1u?utm_source=cogsubc_linktree",
     },
 ]
 

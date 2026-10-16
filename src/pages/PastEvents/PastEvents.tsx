@@ -9,6 +9,19 @@ import './PastEvents.css'
 
 const pastEvents: PastEventCardProps[] = [
     {
+        name: 'Meet The Profs',
+        year: 2026,
+        description: 'An annual evening of COGSy vibes, great convos, and even better company! Chat with professors and peers across the COGS disciplines in a casual setting and snag some free food and drinks!',
+        photos: [
+            { src: img('events/2026.27/meetTheProfs1.JPG'), alt: 'Students sitting at a table, drinking and playing card games.'},
+            { src: img('events/2026.27/meetTheProfs2.JPG'), alt: 'Students sitting at a table drinking, chatting, and munching on fries.'},
+            { src: img('events/2026.27/meetTheProfs3.JPG'), alt: 'Two COGs professors holding up their advice for COGs students!'},
+            { src: img('events/2026.27/meetTheProfs4.JPG'), alt: 'A group photo of all attendees'},
+            { src: img('events/2026.27/meetTheProfs5.JPG'), alt: 'Students and professors socializing, chatting, and laughing together.'},
+            { src: img('events/2026.27/meetTheProfs6.JPG'), alt: 'Students sitting at a table playing a fun card game together.'},
+        ],
+    },
+    {
         name: 'Tri-Mentorship Kickoff',
         year: 2026,
         description: 'A social to kick off this years tri-mentorship program -- joining new, experienced, and alumni COGs students all together!',
@@ -108,7 +121,7 @@ const pastEvents: PastEventCardProps[] = [
     {
         name: 'Meet The Profs',
         year: 2025,
-        description: 'An annual evening of COGSy vibes, great convos, and even better company! Chat with professors and peers across the COGS disciplines in a casual setting and snag some free food!',
+        description: 'An annual evening of COGSy vibes, great convos, and even better company! Chat with professors and peers across the COGS disciplines in a casual setting and snag some free food and drinks!',
         photos: [
             { src: img('events/2025.26/meettheprofs6.jpg'), alt: 'Students and professors socializing' },
             { src: img('events/2025.26/meettheprofs1.jpg'), alt: 'Student posing for a photo with a fry in her mouth' },

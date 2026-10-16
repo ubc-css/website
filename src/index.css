@@ -6,7 +6,9 @@
   font-family: 'Manrope', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-synthesis: none;
+  /* Manrope has no italic face, so let the browser slant it for <i>/<em>;
+     weights stay real (every one used is loaded above). */
+  font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
